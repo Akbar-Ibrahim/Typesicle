@@ -1,0 +1,35 @@
+input[type=file] {
+
+  display: inline;
+
+}
+
+#image_preview {
+
+  border: 1px solid black;
+
+  padding: 10px;
+
+}
+
+#image_preview img {
+
+  width: 200px;
+
+  padding: 5px;
+
+}
+
+.img_preview {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+
+
+.removeImg {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
