@@ -1,5 +1,6 @@
 <template>
   <div class="my-4">
+    
     <div class="">
       <div class="comments">
         <h1> <span ref="commentCount">{{ numOfComments }}</span> Comments </h1>
@@ -24,8 +25,9 @@
               :comment-id="comment.id"
               :user-id="userId"
               :replies="comment.replies"
-              :user="JSON.parse(user)" 
+              :user="user" 
               :num-of-comments="numOfComments"
+              :bus="bus"
             ></reply-component>
 
 
@@ -59,23 +61,18 @@
 
 <script>
 export default {
-  props: ["postId", "userId", "user", "numOfComments"],
+  props: ["postId", "userId", "user", "numOfComments", "bus", "feedId"],
 
-update() {
-// this.$refs.commentCount.innerHTML = this.numOfComments;
-},
+
 
   mounted() {
-    
-    Echo.private("comment-channel").listen("CommentEvent", (event) => {
-      // this.$emit("commentchannelreceived", event);
-      this.comments.push(event.comment);
-      // if (this.userId !== event.comment.user_id) {
-        this.numOfComments = event.numOfComments;
-      // this.$refs.showMore.style.display = "block";
+
+    this.bus.$on("commentchannelreceived", (data) => {
       
-      // }
-      // console.log("...received event");
+          this.comments.push(data.comment);
+          this.$refs.commentCount.textContent = data.numOfComments;
+        
+      
     });
 
     $(this.$refs.message).summernote({
@@ -97,7 +94,7 @@ update() {
   methods: {
 
     loadMoreComments(){
-let url = `/api/loadMorecomments/post/${this.postId}`;
+let url = `/api/loadMorecomments/post/${this.feedId}`;
       // fetch(url)
       //   .then(response => {
       //     return response.json();
@@ -112,7 +109,7 @@ let url = `/api/loadMorecomments/post/${this.postId}`;
     },
     
     fetchComments() {
-      let url = `/api/comments/post/${this.postId}`;
+      let url = `/api/comments/post/${this.feedId}`;
       fetch(url)
         .then((response) => {
           return response.json();
@@ -128,7 +125,7 @@ let url = `/api/loadMorecomments/post/${this.postId}`;
       this.message = this.message || this.$refs.message.value;
 
       var data = {
-        postId: this.postId,
+        postId: this.feedId,
         userId: this.userId,
         body: this.message,
         // selectedComment: ""

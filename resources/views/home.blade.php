@@ -36,9 +36,9 @@
 
                         <div class="w3-container w3-center" style="margin-top: 50px;">
 
-                            <button class=" " style="padding: 40px 40px; font-size: 30px;"
+                            <!-- <button class=" " style="padding: 40px 40px; font-size: 30px;"
                                 route="{{ route('write.create') }}" onclick="location.href=this.getAttribute('route')">
-                                Publish an article </button>
+                                Publish an article </button> -->
                         </div>
                     </div>
                     @else

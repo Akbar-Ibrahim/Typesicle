@@ -90,17 +90,19 @@ class RepostController extends Controller
 
     public function getShares($id)
     {
-        $feed = Feed::where(["id" => $id])->first();
+        $feed = Feed::where(["id" => $id])->with("post", "shortie")->first();
 
         if ($feed->post){
         $post_likes = Repost::where(['post_id' => $feed->post_id])->get();
-        $post_likes->load('user.profile.photo');
+        $post_likes->load('user.profile');
         return $post_likes;
         } else if ($feed->shortie) {
             $post_likes = Repost::where(['shortie_id' => $feed->shortie_id])->get();
-        $post_likes->load('user.profile.photo');
+        $post_likes->load('user.profile');
         return $post_likes;
         }
+
+    }
 
     public function handleRepost(RepostService $repostService, Request $request)
     {

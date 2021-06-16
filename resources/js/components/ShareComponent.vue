@@ -34,11 +34,12 @@
       </div>
     </div>
 
-<div class="w3-container w3-center">
-  <div class="w3-col l6">
-    <button class="w3-button" ref="buttonToggle" @click="shareFeed()">Share</button>
+<div class="d-flex">
+  <div class="">
+    <button style="display: none;" class="w3-button" ref="buttonToggle">Share</button>
+    <button class="w3-button" @click="shareFeed()" ref="buttonIcon"> <i style="border: none;" class="far fas fa fa-share"></i> </button>
     </div>
-    <div class="w3-col l6">
+    <div class="">
     
       <button
           v-if="myFeed.post !== null"
@@ -141,7 +142,7 @@ if (this.myFeed.post !== null){
       }
 
 
-      let url = "/api/feed-shares/" + id;
+      let url = "/api/feed-shares/" + this.myFeed.id;
       fetch(url)
         .then((response) => {
           return response.json();
@@ -165,10 +166,14 @@ if (this.myFeed.post !== null){
       if (this.myFeed.post !== null) {
         if (this.myFeed.post.is_shared == 1) {
           this.$refs.buttonToggle.textContent = "Shared";
+          this.$refs.buttonIcon.style.innerHTML = '<i style="border: none;" class="far fas fa fa-share"></i>';
+        this.$refs.buttonIcon.style.color = "red";
         }
       } else if (this.myFeed.shortie !== null) {
         if (this.myFeed.shortie.is_shared == 1) {
           this.$refs.buttonToggle.textContent = "Shared";
+          this.$refs.buttonIcon.style.innerHTML = '<i style="border: none;" class="far fas fa fa-share"></i>';
+        this.$refs.buttonIcon.style.color = "red";
         }
       }
     },
@@ -220,8 +225,13 @@ this.$refs.shareCount.style.display = "none";
       
       if (action.toLowerCase() === "share") {  
         this.$refs.buttonToggle.textContent = "Shared";
+        this.$refs.buttonIcon.style.innerHTML = '<i style="border: none;" class="far fas fa fa-share"></i>';
+        this.$refs.buttonIcon.style.color = "red";
       } else {
         this.$refs.buttonToggle.textContent = "Share";
+        this.$refs.buttonIcon.style.innerHTML = '<i style="border: none;" class="far fas fa fa-share"></i>';
+        
+
       }
     },
 

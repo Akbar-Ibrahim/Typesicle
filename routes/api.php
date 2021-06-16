@@ -80,6 +80,7 @@ Route::get('/shortie/feeds/{id}', 'ShortieController@getShortieFeed');
 Route::get('/comments/post/{id}', 'CommentController@getAllComments');
 Route::get('/comments/user/{id}', 'CommentController@getAllUserComments');
 Route::get('/replies/comment/{id}', 'CommentController@getAllReplies');
+Route::get('/replies/comment/more/{id}/{count}/{user_id}', 'CommentController@getMoreReplies');
 
 Route::post('post-comment', 'CommentController@handlePostComment')->name('post.comment');
 Route::post('comment-reply', 'CommentController@handleCommentReply')->name('comment.reply');

@@ -80,7 +80,7 @@ div img:hover {
 
 @section('scripts')
 
-<script src="{{ asset('js/queue.js') }}"></script>
+<!-- <script src="{{ asset('js/queue.js') }}"></script> -->
 <!-- <script src="{{ asset('js/like.js') }}"></script> -->
 <!-- <script src="{{ asset('js/create-shortie.js') }}" defer></script> -->
 <!-- <script src="{{ asset('js/autosize.min.js') }}"></script> -->
@@ -100,10 +100,15 @@ function showModal(element) {
     captionText.innerHTML = element.getAttribute('description');
 }
 
+// $(document).ready(function () {
+//     $(".pumpum").click(function(){
+//         alert("hey")
+//     });
+// });
 
 </script>
 
-<script src="{{ asset('js/shortie.js') }}" defer></script>
-<script src="{{ asset('js/create-shortie.js') }}" defer></script>
+<!-- <script src="{{ asset('js/shortie.js') }}" defer></script>
+<script src="{{ asset('js/create-shortie.js') }}" defer></script> -->
 
 @endsection

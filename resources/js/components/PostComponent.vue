@@ -37,9 +37,9 @@
     </div>
 
     <div class="w3-row">
-      <div class="w3-col m8 pl-2">
+      <div class="w3-col s8 pl-2">
         <div class="w3-container">
-          <h4 class="pl-3" style="margin-bottom: 50px;">
+          <h4 class="pl-3" >
             <a
               :href="`/post/${feed.user.username}/${feed.post.url}/${feed.id}`"
             >
@@ -56,20 +56,17 @@
             </a>
           </div>
         </div>
-        <!-- <div>
-          <a
-            :href="`/edit/${feed.post.id}`"
-            class="w3-button w3-theme-d1 w3-margin-bottom"
-          >
-            Edit
-          </a>
-        </div> -->
+
       </div>
 
-      <div v-if="feed.post.photo" class="w3-col m4 w3-center">
+      <div v-if="feed.post.photo" class="w3-col s4 w3-center">
         <img
           :src="`/images/${feed.post.user_id}/${feed.post.photo.photo}`"
-          style="height: 170px; width: 100%; object-fit: cover"
+          style="height: 170px; width: 100%; object-fit: cover" class="w3-hide-small"
+        />
+        <img
+          :src="`/images/${feed.post.user_id}/${feed.post.photo.photo}`"
+          style="height: 100px; width: 100%; object-fit: cover" class="w3-hide-large"
         />
       </div>
     </div>
@@ -77,7 +74,8 @@
     <!-- <textarea class="form-control " cols="30" rows="10" id="message" ref="message" v-model="message"></textarea>       -->
 
     <div class="w3-container my-4 py-4">
-      <div class="w3-col s3">
+      <div class="w3-row">
+      <div class="w3-col s3 ">
         <feed-controls-component
           :user-id="userId"
           :my-feed="feed"
@@ -86,7 +84,7 @@
         ></feed-controls-component>
       </div>
 
-      <div class="w3-col s3">
+      <div class="w3-col s3 ">
         <share-component
           :user-id="userId"
           :my-feed="feed"
@@ -96,7 +94,7 @@
         ></share-component>
       </div>
 
-      <div class="w3-col s3" v-if="usertype === 'auth' && user.id == userId">
+      <div class="w3-col s3 " v-if="usertype === 'auth' && user.id == userId">
         <options-component
           :feed-id="feed.id"
           :user-id="userId"
@@ -106,6 +104,7 @@
           :type="usertype"
           @delete-post="deletePost"
         ></options-component>
+      </div>
       </div>
     </div>
   </div>
@@ -147,11 +146,13 @@ export default {
 
     removePost(data) {
 
-      // if (this.usertype === "auth") {
-      //   if (this.authUser.id == this.userId) {
-      //     this.$refs.postContainer.remove();
-      //   }
-      // }
+      if (this.usertype === "auth") {
+        if (this.authUser.id == this.userId) {
+          this.$refs.postContainer.remove();
+        }
+      } else {
+        location.href = "/register";
+      }
     },
   },
 };

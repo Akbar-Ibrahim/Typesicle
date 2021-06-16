@@ -38,4 +38,9 @@ class CommentController extends Controller
    public function getAllReplies($id, CommentService $commentService){
     return $commentService->getAllReplies($id);
    }
+
+   public function getMoreReplies($id, $count, $user_id, CommentService $commentService){
+    
+    return $commentService->getMoreReplies($id, $count, $user_id);
+   }
 }

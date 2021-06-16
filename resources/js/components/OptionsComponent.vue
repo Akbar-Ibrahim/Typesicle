@@ -1,7 +1,7 @@
 <template>
   <div class="w3-container">
     <!-- Trigger/Open the Modal -->
-    <!-- <button @click="openOptions" class="w3-button">&#9776;</button> -->
+    <!-- <button @click="openOptions" class="w3-button"> <i style="border: none;" class="far fa-bars"></i> </button> -->
 
     <!-- The Modal -->
     <div ref="optionsModal" class="w3-modal">

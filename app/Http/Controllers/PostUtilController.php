@@ -9,6 +9,7 @@ use App\Notifications\Like;
 use App\Photo;
 use App\Post;
 use App\Repost;
+use App\Services\AccountService;
 use App\Services\HistoryService;
 use App\Services\PostUtilService;
 use App\User;
@@ -99,7 +100,7 @@ class PostUtilController extends Controller
         // return view('posts.published-replies', compact('publishedReplies', 'user', 'timeline'));
     }
 
-    public function post($username, $url, $id, PostUtilService $postUtilService, HistoryService $historyService) {
+    public function post($username, $url, $id, PostUtilService $postUtilService, HistoryService $historyService, AccountService $accountService) {
 
         $user = $postUtilService->getUser($username);
         $post = $postUtilService->getSinglePost($url);
@@ -108,6 +109,7 @@ class PostUtilController extends Controller
         $next = $postUtilService->getNextPost($user, $feed);
         $respondingTo = Post::where(['id' => $feed->post->responding_to])->with('user.profile', 'photo', 'feed')->first();
         $recentPosts = $postUtilService->recentPosts($user->id);
+        $accounts = $accountService->accountsToFollow($user->id);
 
         if(auth()->user()){
             if(auth()->user()->hasRead($feed->id) && $feed->status == 'Post Original') {
@@ -120,7 +122,7 @@ class PostUtilController extends Controller
         
         Feed::where(['id' => $id])->update(['views' => $feed->views + 1]);
 
-        return view('posts.post', compact('user', 'post', 'feed', 'previous', 'next', 'respondingTo', 'recentPosts'));
+        return view('posts.post', compact('user', 'post', 'feed', 'previous', 'next', 'respondingTo', 'recentPosts', 'accounts'));
 
     }
 

@@ -56,7 +56,6 @@ $(document).ready(function () {
     }
 
     $(document).on("keyup", ".shortie", function () {
-
         if ($(this).val().trim() !== "") {
             $("#clickPostButton").attr("disabled", false);
         } else {

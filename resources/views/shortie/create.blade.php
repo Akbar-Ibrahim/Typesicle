@@ -27,7 +27,7 @@
 
 
     <style type="text/css">
-    
+
     </style>
 
 
@@ -108,13 +108,14 @@
                     </div>
 
                 </form>
+                <div class="w3-container w3-center">
+                    <button class="w3-padding send"> Publish </button>
+                </div>
+                <!-- <button class="share"> Without comment </button> -->
 
-                <button class="send"> Send </button>
-                <button class="share"> Without comment </button>
 
-
-                <div class="w3-container">
-                    <div class="w3-container">
+                <div class="w3-container" style="display: none;">
+                    <div class="w3-container w3-border">
                         <button id="clickPostButton" class="w3-button">Post</button>
                     </div>
                 </div>
@@ -123,19 +124,19 @@
 
                 @if($shortie)
                 <div id="app">
-                <header-component username="{{ $shortie->user->username }}" user-id="{{ $shortie->user_id }}"
-                            name="{{ $shortie->user->name }}"
-                            photo="/images/{{ $shortie->user->id }}/profile_pic/{{ $shortie->user->profile->picture }}"
-                            date="{{ $shortie->created_at->toFormattedDateString() }}" size="width: 35px">
-                        </header-component>
+                    <header-component username="{{ $shortie->user->username }}" user-id="{{ $shortie->user_id }}"
+                        name="{{ $shortie->user->name }}"
+                        photo="/images/{{ $shortie->user->id }}/profile_pic/{{ $shortie->user->profile->picture }}"
+                        date="{{ $shortie->created_at->toFormattedDateString() }}" size="width: 35px">
+                    </header-component>
 
-                        <shortie-component shortie-id="{{ $shortie->id }}" user-id="{{ Auth::user()->id }}"
-                            shortie="{{ json_encode($shortie) }}"
-                            route="{{ route('shortie.url', [$shortie->user->username, $shortie->feed->id])  }}"
-                            height="{{ count($shortie->shortiePhoto) == 1 ? '500px' : '250px' }}"
-                            smallscreen-height="{{ count($shortie->shortiePhoto) == 1 ? '300px' : '150px' }}">
-                            {!! $shortie->shortie !!}
-                        </shortie-component>
+                    <shortie-component shortie-id="{{ $shortie->id }}" user-id="{{ Auth::user()->id }}"
+                        shortie="{{ json_encode($shortie) }}"
+                        route="{{ route('shortie.url', [$shortie->user->username, $shortie->feed->id])  }}"
+                        height="{{ count($shortie->shortiePhoto) == 1 ? '500px' : '250px' }}"
+                        smallscreen-height="{{ count($shortie->shortiePhoto) == 1 ? '300px' : '150px' }}">
+                        {!! $shortie->shortie !!}
+                    </shortie-component>
 
                     @if($shortie->quoted > 0)
                     <div class="mb-4 w3-margin-top  w3-border" style="width: 80%; margin: auto;">
@@ -148,7 +149,8 @@
                             size="width: 15px" fontsize="font-size: 11px;">
                         </header-component>
 
-                        <shortie-component shortie-id="{{ $shortie->quoted($shortie->quoted)->id }}" user-id="{{ Auth::user()->id }}"
+                        <shortie-component shortie-id="{{ $shortie->quoted($shortie->quoted)->id }}"
+                            user-id="{{ Auth::user()->id }}"
                             shortie="{{ json_encode($shortie->quoted($shortie->quoted)) }}"
                             route="{{ route('shortie.url', [$shortie->quoted($shortie->quoted)->user->username, $shortie->quoted($shortie->quoted)->feed->id])  }}"
                             height="{{ count( $shortie->quoted($shortie->quoted)->shortiePhoto) == 1 ? '450px' : '200px' }}"
@@ -157,7 +159,7 @@
                         </shortie-component>
                     </div>
                     @endif
-                    
+
                 </div>
                 @endif
 
@@ -192,40 +194,42 @@ $(document).ready(function() {
     $(".send").attr("disabled", true);
     var maxLength = 240;
 
-$('.summernote').summernote({
-    toolbar: [],
-    placeholder: "What's on your mind?",
+    $('.summernote').summernote({
+        toolbar: [],
+        placeholder: "What's on your mind?",
 
-    callbacks: {
-        onInit: function() {
-            $(".note-editable").on('click', function (e) {
-                // alert('clicked');
-                $(this).parents(".shortie-container").find(".shortie-option").css("display", "block")
-                $(this).parents(".shortie-container").siblings().find(".shortie-option").css("display", "none") 
-            });
+        callbacks: {
+            onInit: function() {
+                $(".note-editable").on('click', function(e) {
+                    // alert('clicked');
+                    $(this).parents(".shortie-container").find(".shortie-option").css(
+                        "display", "block")
+                    $(this).parents(".shortie-container").siblings().find(".shortie-option")
+                        .css("display", "none")
+                });
+            },
+            onKeyup: function(e) {
+                // alert('Key is released: ' + e.keyCode);
+
+                var length = $(this)
+                    .summernote("code")
+                    .replace(/<\/p>/gi, "\n")
+                    .replace(/<br\/?>/gi, "\n")
+                    .replace(/<\/?[^>]+(>|$)/g, "")
+                    .trim().length;
+
+                var length = maxLength - length;
+                $(this).parents(".shortie-container").find(".chars").text(length)
+
+                if (length < 240 && length > 0) {
+                    $(".send").attr("disabled", false);
+                } else {
+                    $(".send").attr("disabled", true);
+                }
+
+            },
         },
-        onKeyup: function (e) {
-            // alert('Key is released: ' + e.keyCode);
-
-            var length = $(this)
-                .summernote("code")
-                .replace(/<\/p>/gi, "\n")
-                .replace(/<br\/?>/gi, "\n")
-                .replace(/<\/?[^>]+(>|$)/g, "")
-                .trim().length;
-
-            var length = maxLength - length;
-            $(this).parents(".shortie-container").find(".chars").text(length)
-
-            if (length < 240 && length > 0) {
-                $(".send").attr("disabled", false);
-            } else {
-                $(".send").attr("disabled", true);
-            }
-
-        },
-    },
-});
+    });
 });
 </script>
 <script src="{{ asset('js/app.js') }}" defer></script>

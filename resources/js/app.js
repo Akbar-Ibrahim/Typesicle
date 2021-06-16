@@ -45,6 +45,7 @@ Vue.component('createcategory-component', require('./components/CreatecategoryCo
 Vue.component('category-component', require('./components/categoryComponent.vue').default);
 
 // Comments and replies
+Vue.component('comment-container-component', require('./components/CommentContainerComponent.vue').default);
 Vue.component('comment-component', require('./components/CommentComponent.vue').default);
 Vue.component('comments-component', require('./components/CommentsComponent.vue').default);
 Vue.component('reply-component', require('./components/ReplyComponent.vue').default);

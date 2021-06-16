@@ -4,6 +4,7 @@ use App\Comment;
 use Illuminate\Http\Request;
 use App\CommentReply;
 use App\Events\CommentEvent;
+use App\Events\ReplyEvent;
 
 class CommentService
 {
@@ -50,16 +51,44 @@ class CommentService
             $user_id = request()->userId;
             $body = request()->body;
 
-            
+            $comment = Comment::where(["id" => $comment_id])->first();
+
             $reply = CommentReply::create(['comment_id' => $comment_id, 'user_id' => $user_id, 'body' => $body]);
 
+            $replies = CommentReply::where(["comment_id" => $comment_id])->first();
+            $numOfReplies = $replies->count();
+
+
             $reply->load('user.profile');
+            broadcast(new ReplyEvent($comment, $reply, $numOfReplies))->toOthers();
+
             return $reply;
     }
 
     public function getAllReplies($id) {
 
         return CommentReply::where('comment_id', $id)->with('user.profile')->get();
+
+    }
+
+    public function getMoreReplies($id, $count, $user_id) {
+
+        $replies = CommentReply::where(["comment_id" => $id])->get();
+        $replyCount = $replies->count();
+        $take = $replyCount - $count;
+        // return $replyCount;
+        $newReplies = CommentReply::where('comment_id', $id)->with('user.profile')->skip($count)->take($take)->get();
+        $result = [];
+        $toNum = (int)$user_id;
+
+        // foreach ($newReplies as $n) {
+        //     if ($n->user_id !== $toNum) {
+        //         array_push($result, $n);
+        //     }
+        // }
+        
+        return $newReplies;
+
 
     }
 

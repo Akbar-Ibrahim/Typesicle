@@ -36,8 +36,13 @@
                     </div>
                     <div class="d-flex">
                         <div>
-                            <img src="/images/{{ $user->id }}/profile_pic/{{ $user->profile->picture }}" alt=""
+                        @if ($feed->user->profile->picture !== "avatar.png")
+                            <img src="/images/{{ $feed->post->user->id }}/profile_pic/{{ $feed->post->user->profile->picture }}" alt=""
                                 class="w3-circle" style="width: 105px; height: 105px;">
+                                @else
+                                <img src="/images/avatar.png" alt=""
+                                class="w3-circle" style="width: 105px; height: 105px;">
+                                @endif
                         </div>
 
                         <div class="flex-grow-1 px-4">
@@ -79,10 +84,16 @@
                 
                 @endauth
                 <div class="w3-container my-4 " style="margin-top: 50px;">
-                    <comment-component user-id="{{ auth()->check() ? auth()->user()->id : -1 }}"
+                <comment-container-component user-id="{{ auth()->check() ? auth()->user()->id : -1 }}"
+                        authuser="{{ json_encode(Auth::user()) }}" post-id="{{ $feed->id }}"
+                        comment-count="{{ count($feed->comments) }}">
+                    </comment-container-component>
+
+
+                    <!-- <comment-component user-id="{{ auth()->check() ? auth()->user()->id : -1 }}"
                         user="{{ json_encode(Auth::user()) }}" post-id="{{ $feed->id }}"
                         num-of-comments="{{ count($feed->comments) }}">
-                    </comment-component>
+                    </comment-component> -->
                 </div>
 
                 @endif
@@ -119,7 +130,7 @@
 
             @auth
             <div class="w3-container w3-margin-top">
-                <accounts-component username="{{ Auth::user()->username }}" user-id="{{ Auth::user()->id }}"
+                <accounts-component accounts="{{ json_encode($accounts) }}" username="{{ Auth::user()->username }}" user-id="{{ Auth::user()->id }}"
                     status="{{Auth::user()->isFollowing($user->profile->id) ? 1 : 0}}">
                 </accounts-component>
             </div>
@@ -164,9 +175,6 @@
 
 @section('scripts')
 <script src="{{ asset('js/emailPostOverlay.js') }}" defer></script>
-
-
 <script src="{{ asset('js/modal.js') }}"></script>
-
 
 @endsection

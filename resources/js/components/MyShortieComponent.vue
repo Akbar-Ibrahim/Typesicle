@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="w3-container">
+    <div class="w3-container" style="margin-top: 30px;">
       <div class="w3-col s3">
         <feed-controls-component
           :user-id="userId"
@@ -39,14 +39,19 @@
           :type="usertype"
         ></share-component>
       </div>
-    </div>
 
-    <shortie-options-component
+      <div class="w3-col s3">
+        
+        <shortie-options-component
       :shortie="feed.shortie"
       :numOfReplies="replyCount"
       @write-reply="writeReply"
       :bus="bus"
     ></shortie-options-component>
+      </div>
+    </div>
+
+    
     <!-- <shortie-controls-component
       :shortie-id="feed.shortie_id"
     ></shortie-controls-component> -->
@@ -116,10 +121,13 @@ export default {
   },
   methods: {
     removePost(data) {
-      
-      // if (this.authUser.id == this.userId) {
-      // this.$refs.postContainer.remove();
-      // }
+      if (this.usertype === "auth") {
+      if (this.authUser.id == this.userId) {
+      this.$refs.postContainer.remove();
+      }
+      } else {
+        location.href = "/register";
+      }
     },
 
     writeReply() {
