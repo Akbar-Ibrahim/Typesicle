@@ -63,7 +63,7 @@
 
 {{-- -------------------- Search Item -------------------- --}}
 @if($get == 'search_item')
-@if($user->id != Auth::user()->id)
+@if($user->id !== Auth::user()->id)
 <table class="messenger-list-item" data-contact="{{ $user->id }}">
     <tr data-action="0">
         {{-- Avatar side --}}
