@@ -94,6 +94,14 @@
         ></share-component>
       </div>
 
+      <div class="w3-col s3 ">
+        <queue-component
+          :user-id="userId"
+          :my-feed="feed"
+          :type="usertype"
+        ></queue-component>
+      </div>
+
       <div class="w3-col s3 " v-if="usertype === 'auth' && user.id == userId">
         <options-component
           :feed-id="feed.id"

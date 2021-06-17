@@ -23,7 +23,7 @@
     </div>
 
     <div class="w3-row-padding w3-margin-bottom">
-        @if(count($queues) !== 0)
+        @if(count($user->queues) !== 0)
         <div class="w3-col l9">
 
 
@@ -42,23 +42,15 @@
             </div>
 
             
-            @if(count($queues) > 0)
-            @foreach(Auth::user()->queues as $queue)
-
-            <div style="margin-top: 50px;">
-                <header-component user="{{ jsone_encode($queue->feed->user) }}"
-                    date="{{ $queue->feed->created_at->toFormattedDateString() }}" size="width: 35px">
-                </header-component>
-                <post-component feed-Id="{{ $queue->feed->id}}" user-id="{{ Auth::user()->id }}" post="{{ json_encode($queue->feed) }}">
-                        </post-component>
-            </div>
-
-            @endforeach
+            <div style="margin-top: 50px;">                    
+                    <parent-component history="{{ json_encode($history) }}" user-id="{{ Auth::user()->id }}"
+                    user="{{ json_encode($user) }}" user-type="auth">
+                        </parent-component>
+                </div>
 
         </div>
-        @else
-        
-        
+
+        @if(count($user->queues) < 1)
         <div class="w3-container w3-center" style="margin-top: 120px;">
         <div class="w3-container" style="width: 70%; margin: auto;">
             <h1> You have not queued any posts. When you do, they'll show up here! </h1>

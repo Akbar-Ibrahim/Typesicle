@@ -20,6 +20,6 @@ class History extends Model
     }
 
     public function feed() {
-        return $this->belongsTo('App\Feed')->with('user', 'shortie', 'post.photo');
+        return $this->belongsTo('App\Feed')->with('user', 'shortie', 'post.photo', 'post.user');
     }
 }

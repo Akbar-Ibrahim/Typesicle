@@ -20,6 +20,8 @@ class LikeController extends Controller
 
         $feed = Feed::where(["id" => $id])->with("post", "shortie")->first();
 
+        
+
         if ($feed->post) {
             $action = $request->get('action');
             switch ($action) {

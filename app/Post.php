@@ -95,6 +95,8 @@ class Post extends Model
         return $this->hasMany('App\Repost')->with('user.profile');
     }
 
+    
+
     public function is_liked()
     {
         return "";

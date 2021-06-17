@@ -176,7 +176,7 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        \Chatify\ChatifyServiceProvider::class,
+        // \Chatify\ChatifyServiceProvider::class,
 
     ],
 
@@ -228,7 +228,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Chatify' => Chatify\Facades\ChatifyMessenger::class,
+        // 'Chatify' => Chatify\Facades\ChatifyMessenger::classhttps://xd.adobe.com/view/07678de3-f5c3-4ddb-4f34-375d0d8b8a8b-7156/.,
         'Pusher' => Pusher\Pusher::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Image' => Intervention\Image\Facades\Image::class,

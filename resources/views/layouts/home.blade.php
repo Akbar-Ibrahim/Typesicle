@@ -9,9 +9,9 @@
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-</script>
+</script> -->
 
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
@@ -79,7 +79,7 @@ h5 {
                         @endif
                 </div>
                 <div class="flex-grow-1">
-                    <a href="{{ route('profile.show', Auth::user()->username) }}"> {{ $user->name }} </a>
+                    <a href="{{ route('profile.show', Auth::user()->username) }}"> {{ Auth::user()->name }} </a>
                 </div>
             </div>
         </div>
@@ -118,7 +118,7 @@ h5 {
             Drafts</a>
         <!-- <a href="{{ route('photos.index', Auth::user()->username) }}" class="w3-bar-item w3-button w3-padding"><i class="fa fas fa-image"></i> My Photos</a> -->
 
-        <a href="{{ route('history.index', $user->username) }}" class="w3-bar-item w3-button w3-padding"><i
+        <a href="{{ route('history.index', Auth::user()->username) }}" class="w3-bar-item w3-button w3-padding"><i
                 class="fa fa-history fa-fw"></i> History</a>
         <a href="{{ route('queue.index') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-list fa-fw"></i>
             Queued Posts</a>
@@ -239,8 +239,7 @@ h5 {
     }
 
 
-    var openInbox = document.getElementById("myBtn");
-    openInbox.click();
+    
 
     function w3_open() {
         document.getElementById("mySidebar").style.display = "block";
@@ -264,27 +263,10 @@ h5 {
         }
     }
 
-    openMail("Borge")
-
-    function openMail(personName) {
-        var i;
-        var x = document.getElementsByClassName("person");
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-        }
-        x = document.getElementsByClassName("test");
-        for (i = 0; i < x.length; i++) {
-            x[i].className = x[i].className.replace(" w3-light-grey", "");
-        }
-        document.getElementById(personName).style.display = "block";
-        event.currentTarget.className += " w3-light-grey";
-    }
+    
     </script>
 
-    <script>
-    var openTab = document.getElementById("firstTab");
-    openTab.click();
-    </script>
+    
 
 <script src="{{ asset('js/summernote-bs4.js') }}" defer></script>
 </body>
@@ -296,57 +278,50 @@ h5 {
 
 
 <script>
-$(document).ready(function() {
-    $('#summernote').summernote({
-        height: 400,
-        // toolbar: []
-    })
+// $(document).ready(function() {
+//     $('#summernote').summernote({
+//         height: 400,
+//         // toolbar: []
+//     })
     
-});
+// });
 
-$(document).ready(function() {
-    $('.summernote').summernote({
-        height: 150
-    });
-});
+// $(document).ready(function() {
+//     $('.summernote').summernote({
+//         height: 150
+//     });
+// });
 
 $(document).keydown(function(event) {
     if (event.keyCode == 27) {
         // $('#modal01').hide();
-        $('.sendDraftModal').hide();
         $('.w3-modal').hide();
-        // $(".useername").load(location.href + ".username");
-        $('.optionsDropdown').hide();
         // $('#mySidebar').hide();
         $('#navDemo').hide();
-        $('#shortieModal').hide();
+        // $('#shortieModal').hide();
 
         $("#closeMenu").click();
-
-        // $(".username").siblings().css("display", "block");
-        // $(".username").next(".draftOptions").css("display", "none");
-        // $(".draftOptions").find(".draftComment").css("display", "none");
-        $("#quotedShortieImages").remove();
+        // $("#quotedShortieImages").remove();
 
     }
 
-    $("#closeSearchModal").click(function() {
-        $("#searchAuthor").val("");
-        $("#searchAuthorDropdown").hide();
-    });
+    // $("#closeSearchModal").click(function() {
+    //     $("#searchAuthor").val("");
+    //     $("#searchAuthorDropdown").hide();
+    // });
 
     
 });
 
 
 
-Echo.private("group-channel").listen("GroupEvent", (event) => {
+// Echo.private("group-channel").listen("GroupEvent", (event) => {
       
-      document.getElementById("grp").innerHTML = "new";
+    //   document.getElementById("grp").innerHTML = "new";
     //   alert(event.groupId)
 
     //   console.log("...received event");
-  });
+//   });
 
 
 </script>

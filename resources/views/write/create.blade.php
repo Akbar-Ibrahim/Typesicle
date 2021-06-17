@@ -161,13 +161,13 @@
 <script src="{{ asset('js/preview-image.js') }}"></script>
 
 <script>
-// $(document).ready(function() {
-//     $('#summernote').summernote({
-//         height: 300,
+$(document).ready(function() {
+    $('#summernote').summernote({
+        height: 300,
         
 
-//     });
-// });
+    });
+});
 
 
 function photosOverlay(element) {

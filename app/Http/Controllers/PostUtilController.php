@@ -8,6 +8,7 @@ use App\Follow;
 use App\Notifications\Like;
 use App\Photo;
 use App\Post;
+use App\Queue;
 use App\Repost;
 use App\Services\AccountService;
 use App\Services\HistoryService;
@@ -192,5 +193,24 @@ class PostUtilController extends Controller
         Repost::where(["post_id" => $feed->post_id])->delete();
         $post = Post::where(["id" => $feed->post_id])->delete();
         $feed->delete();
+    }
+
+    public function queueAction(Request $request, $id, $user_id) {
+
+        $feed = Feed::where(["id" => $id])->with("post")->first();
+        
+        $action = $request->get('action');
+            switch ($action) {
+                case 'Queue':
+                    Queue::create(['feed_id' => $id, 'post_id' => $feed->post_id, 'user_id' => $user_id]);
+
+                    break;
+                case 'Queued':
+                    Queue::where(['feed_id' => $id, 'post_id' => $feed->post_id, 'user_id' => $user_id])->delete();
+                    break;
+            
+                }
+
+        return "";
     }
 }

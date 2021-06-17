@@ -35,6 +35,7 @@ Broadcast::channel('group-channel', function($user) {
 
 Broadcast::channel('comment-channel', function($user) {
     return  true;
+    
 });
 
 

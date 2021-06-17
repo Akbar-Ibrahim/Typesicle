@@ -41,7 +41,7 @@ class CategoryUtilController extends Controller
 
         $user = User::where('username', $username)->first();
         $user_categories = $categoryService->getUserCategories($user);
-        $category = Category::where(["url" => $categoryURL])->with('feeds', 'posts')->first();
+        $category = Category::where(["user_id" => $user->id, "url" => $categoryURL])->with('feeds', 'posts')->first();
 
         $feeds = [];
         

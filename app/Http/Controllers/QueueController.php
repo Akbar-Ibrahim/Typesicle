@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Queue;
+use App\Services\PostUtilService;
 use App\Services\QueueService;
 use App\User;
 use Illuminate\Http\Request;
@@ -14,13 +15,15 @@ class QueueController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(QueueService $queueService, PostUtilService $postUtilService)
     {
         //
         $user = auth()->user();
-        $queues = Queue::where(['user_id' => auth()->user()->id])->with('user.profile', 'feed.post')->get();
+        // $user = $postUtilService->getUser($username);
+        $history = $queueService->getQueues($user);
+        // $queues = Queue::where(['user_id' => auth()->user()->id])->with('user.profile', 'feed.post')->get();
 
-        return view("queue.index", compact("queues", "user"));
+        return view("queue.index", compact("history", "user"));
 
     }
 

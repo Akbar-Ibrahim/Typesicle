@@ -8,7 +8,7 @@ class Queue extends Model
 {
     //
 
-    protected $fillable = ['user_id', 'feed_id'];
+    protected $fillable = ['user_id', 'feed_id', 'post_id'];
 
     
     public function user(){
@@ -16,6 +16,6 @@ class Queue extends Model
     }
 
     public function feed(){
-        return $this->belongsTo('App\Feed');
+        return $this->belongsTo('App\Feed')->with('user', 'shortie', 'post.photo', 'post.user');
     }
 }

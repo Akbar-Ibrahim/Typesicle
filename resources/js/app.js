@@ -97,6 +97,8 @@ Vue.component('photos-component', require('./components/PhotosComponent.vue').de
 Vue.component('quiz-component', require('./components/QuizComponent.vue').default);
 Vue.component('poll-component', require('./components/PollComponent.vue').default);
 
+// Queue
+Vue.component('queue-component', require('./components/QueueComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -174,7 +174,7 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/emailPostOverlay.js') }}" defer></script>
-<script src="{{ asset('js/modal.js') }}"></script>
+<!-- <script src="{{ asset('js/emailPostOverlay.js') }}" defer></script> -->
+<!-- <script src="{{ asset('js/modal.js') }}"></script> -->
 
 @endsection

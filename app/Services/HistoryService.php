@@ -65,22 +65,7 @@ class HistoryService
                     $h->feed->post->is_shared = 0;
                 }
                 array_push($histories, $h);
-            } else if ($feed->shortie) {
-                if (auth()->user()->isLikedShortie($h->feed->shortie_id)) {
-                    $h->feed->shortie->is_liked = 1;
-                } else {
-                    $h->feed->shortie->is_liked = 0;
-                }
-
-                if (auth()->user()->isSharedShortie($h->feed->shortie_id)) {
-                    $h->feed->shortie->is_shared = 1;
-                } else {
-                    $h->feed->shortie->is_shared = 0;
-                }
-
-                array_push($addToGroup, $feed);
-            }
-
+            } 
             }
 
 

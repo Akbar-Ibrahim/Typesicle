@@ -114,6 +114,8 @@ Route::get('/{username}/liked/posts', 'LikeController@likedPosts')->name('liked:
 Route::get('/post-likes/{id}', 'LikeController@getPostLikes')->name('post.likes');
 Route::post('/posts/{id}/{user_id}/action', 'LikeController@LikeAction');
 Route::post('/share/{id}/{user_id}/action', 'RepostController@share');
+Route::post('/queue/post/{id}/{user_id}/action', 'PostUtilController@queueAction');
+
 
 // Category
 Route::resource('/category', 'CategoryController');

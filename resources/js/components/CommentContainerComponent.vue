@@ -16,6 +16,7 @@ export default {
   props: ["postId", "userId", "authuser", "commentCount"],
 
   created() {
+    
     //var instance= this;
     Echo.private("comment-channel").listen("CommentEvent", (event) => {
       this.$emit("commentchannelreceived", event);
