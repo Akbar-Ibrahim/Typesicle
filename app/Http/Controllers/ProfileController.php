@@ -30,6 +30,7 @@ class ProfileController extends Controller
         $photos = Photo::where(['user_id' => $user->id])->with("user")->orderBy('created_at', 'desc')->limit(9)->get();
         $recentPosts = $postUtilService->recentPosts($user->id);
         $accounts = $accountService->accountsToFollow($user->id);
+        // $userRandomPost = $postUtilService->getUserRandomPost($user->id);
 
 
 

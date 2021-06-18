@@ -6,7 +6,7 @@
           <read-post-component
             :user="feed.user"
             :post="feed"
-            :date="feed.created_at"
+            :date="feed.date"
             size="width: 35px"
             :user-id="userId"
             :bus="bus"

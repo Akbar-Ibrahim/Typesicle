@@ -19,7 +19,15 @@ use App\Post;
 use App\Shortie;
 use App\User;
 use Carbon\Carbon;
-use GuzzleHttp\Psr7\Request;
+// use GuzzleHttp\Psr7\Request;
+use Illuminate\Mail\Mailable;
+use Illuminate\Support\Facades\Mail;
+
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,7 +44,15 @@ Route::get("/date", function(){
         // if ($post->publish_at == $currentDateTime){
         //     return "true";
         // }
-GroupMember::create(["user_id" => 4, "group_id" => 1, "type" => "member", "status" => "pending"]);
+        // GroupMember::create(["user_id" => 4, "group_id" => 1, "type" => "member", "status" => "pending"]);
+
+
+        Mail::raw('Sending emails with Mailgun and Laravel is easy!', function($message)
+        {
+            $message->subject('Mailgun and Laravel are awesome!');
+            $message->from('no-reply@website_name.com', 'Website Name');
+            $message->to('akbaribrahimafolabi@gmail.com');
+        });
 
         return "done";
     });
@@ -63,7 +79,10 @@ GroupMember::create(["user_id" => 4, "group_id" => 1, "type" => "member", "statu
 
 
 
-Auth::routes();
+// Auth::routes();
+Auth::routes(['verify' => true]);
+
+
 
 Route::get('google', function () {
     return view('google');
@@ -72,7 +91,67 @@ Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified', 'auth');;
+// Route::get('/forgot-password', function () {
+//     return view('auth.forgot-password');
+// })->middleware('guest')->name('password.request');
+
+Route::post('/forgot-password', function (Request $request) {
+    $request->validate(['email' => 'required|email']);
+
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+
+    return $status === Password::RESET_LINK_SENT
+                ? back()->with(['status' => __($status)])
+                : back()->withErrors(['email' => __($status)]);
+})->middleware('guest')->name('password.email');
+
+// Route::get('/reset-password/{token}', function ($token) {
+//     return view('auth.reset-password', ['token' => $token]);
+// })->middleware('guest')->name('password.reset');
+
+
+Route::post('/reset-password', function (Request $request) {
+    $request->validate([
+        'token' => 'required',
+        'email' => 'required|email',
+        'password' => 'required|min:8|confirmed',
+    ]);
+
+    $status = Password::reset(
+        $request->only('email', 'password', 'password_confirmation', 'token'),
+        function ($user, $password) {
+            $user->forceFill([
+                'password' => Hash::make($password)
+            ])->setRememberToken(Str::random(60));
+
+            $user->save();
+
+            event(new PasswordReset($user));
+        }
+    );
+
+    return $status === Password::PASSWORD_RESET
+                ? redirect()->route('login')->with('status', __($status))
+                : back()->withErrors(['email' => [__($status)]]);
+})->middleware('guest')->name('password.update');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Post
 Route::resource('post', 'PostController')->middleware(['auth']);

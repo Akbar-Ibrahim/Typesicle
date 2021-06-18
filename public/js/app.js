@@ -6423,31 +6423,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["postId", "userId", "route"],
-  mounted: function mounted() {// this.fetchRandomPost();
+  props: ["userId"],
+  mounted: function mounted() {
+    this.fetchRandomPost();
   },
   data: function data() {
     return {
-      post: []
+      feed: []
     };
   },
   methods: {
     goToRoute: function goToRoute() {
-      location.href = "".concat(this.route);
-    } // fetchRandomPost() {
-    //   let url = `/api/random-post/user/${this.userId}`;
-    //   fetch(url)
-    //     .then((response) => {
-    //       return response.json();
-    //     })
-    //     .then((result) => {
-    //       this.post = result;
-    //       this.route = `/post/${this.post.post.user.username}/${this.post.post.url}/${this.post.id}`
-    //       console.log(result);
-    //     });
-    // },
+      location.href = "/post/".concat(this.feed.post.user.username, "/").concat(this.feed.post.url, "/").concat(this.feed.id);
+    },
+    fetchRandomPost: function fetchRandomPost() {
+      var _this = this;
 
+      var url = "/api/random-post/user/".concat(this.userId);
+      this.feed = [];
+      fetch(url).then(function (response) {
+        return response.json();
+      }).then(function (result) {
+        _this.feed = result;
+        console.log(result);
+      });
+    }
   }
 });
 
@@ -60618,7 +60620,7 @@ var render = function() {
                   _c("header-component", {
                     attrs: {
                       user: comment.user,
-                      date: comment.created_at,
+                      date: comment.date,
                       size: "width: 25px",
                       fontsize: "font-size: 12px;"
                     }
@@ -61138,7 +61140,7 @@ var render = function() {
                     attrs: {
                       user: feed.user,
                       post: feed,
-                      date: feed.created_at,
+                      date: feed.date,
                       size: "width: 35px",
                       "user-id": _vm.userId,
                       "auth-user": JSON.parse(_vm.user),
@@ -61898,7 +61900,7 @@ var render = function() {
     [
       _c("shortie-component", {
         attrs: {
-          date: _vm.feed.created_at,
+          date: _vm.feed.date,
           shortie: _vm.feed.shortie,
           feed: _vm.feed
         }
@@ -61915,7 +61917,7 @@ var render = function() {
               [
                 _c("shortie-component", {
                   attrs: {
-                    date: _vm.feed.created_at,
+                    date: _vm.feed.date,
                     shortie: _vm.feed.shortie.quoted_shortie,
                     feed: _vm.feed
                   }
@@ -63853,7 +63855,7 @@ var render = function() {
                 _c("header-component", {
                   attrs: {
                     user: reply.user,
-                    date: reply.created_at,
+                    date: reply.date,
                     size: "width: 20px",
                     fontsize: "font-size: 12px;"
                   }
@@ -64990,7 +64992,7 @@ var render = function() {
                 attrs: {
                   user: _vm.feed.user,
                   post: _vm.feed,
-                  date: _vm.feed.created_at,
+                  date: _vm.feed.date,
                   size: "width: 35px",
                   "user-id": _vm.userId,
                   bus: _vm.bus,

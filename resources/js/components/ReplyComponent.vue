@@ -31,7 +31,7 @@
         
         <header-component
           :user="reply.user"
-          :date="reply.created_at"
+          :date="reply.date"
           size="width: 20px"
           fontsize="font-size: 12px;"
         >

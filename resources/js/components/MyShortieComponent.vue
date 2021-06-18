@@ -3,7 +3,7 @@
 
     
     <shortie-component
-      :date="feed.created_at"
+      :date="feed.date"
       :shortie="feed.shortie"
       :feed="feed"
     >
@@ -12,7 +12,7 @@
     <div v-if="feed.shortie.quoted > 0">
       <div class="w3-container w3-border" style="width: 80%; margin: auto">
         <shortie-component
-          :date="feed.created_at"
+          :date="feed.date"
           :shortie="feed.shortie.quoted_shortie"
           :feed="feed"
         >

@@ -1,5 +1,6 @@
 <template>
   <div class="">
+    
 <button :route="route"
         class="w3-button" @click="goToRoute"
         style="font-size: 17px">
@@ -10,35 +11,36 @@
 
 <script>
 export default {
-  props: ["postId", "userId", "route"],
+  props: ["userId"],
 
   mounted() {
-    // this.fetchRandomPost();
+    this.fetchRandomPost();
   },
   data() {
     return {
-      post: [],
+      feed: [],
       
     };
   },
   methods: {
     goToRoute(){
-      location.href = `${this.route}`;
+      location.href = `/post/${this.feed.post.user.username}/${this.feed.post.url}/${this.feed.id}`
     },
 
-    // fetchRandomPost() {
-    //   let url = `/api/random-post/user/${this.userId}`;
-    //   fetch(url)
-    //     .then((response) => {
-    //       return response.json();
-    //     })
-    //     .then((result) => {
-    //       this.post = result;
-    //       this.route = `/post/${this.post.post.user.username}/${this.post.post.url}/${this.post.id}`
+    fetchRandomPost() {
+      let url = `/api/random-post/user/${this.userId}`;
+      this.feed = [];
+      fetch(url)
+        .then((response) => {
+          return response.json();
+        })
+        .then((result) => {
+          this.feed = result;
+          
 
-    //       console.log(result);
-    //     });
-    // },
+          console.log(result);
+        });
+    },
   },
 };
 </script>

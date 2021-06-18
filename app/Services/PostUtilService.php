@@ -78,8 +78,7 @@ class PostUtilService
     public function getUserRandomPost($id)
     {
 
-
-        return Feed::where(['user_id' => $id, 'status' => 'Post Original'])->with('post.user', 'user.profile')->inRandomOrder()->first();
+        return Feed::where(['user_id' => $id, 'status' => 'Post Original'])->with('post.user')->inRandomOrder()->first();
     }
 
     public function getUserRandomPostExcept($user_id, $post_id)

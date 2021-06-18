@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Photo;
 use App\Hashtag;
 use App\User;
-use App\Notifications\NewPost;
+use App\Mail\NewPost;
 use App\PostHashtag;
 use App\PostPhoto;
 use App\PostReply;
@@ -141,6 +141,10 @@ class PostService
         // $url = route('home:post', [$user->username, $feed->post->url, $feed->id]);
 
         // $recipient_address->notify(new NewPost($author, $post, $url));
+
+        $recipient = User::where(["id" => 3])->first();
+
+        Mail::to($recipient)->send(new NewPost($post, $recipient));
     }
 
     public function updatePost($id)

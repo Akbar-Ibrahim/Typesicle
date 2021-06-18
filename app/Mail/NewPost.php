@@ -2,18 +2,18 @@
 
 namespace App\Mail;
 
+use App\Post;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Post;
-use App\User;
 
 class NewPost extends Mailable
 {
     use Queueable, SerializesModels;
 
-
+    protected $post;
     public $user;
 
     /**
@@ -21,9 +21,12 @@ class NewPost extends Mailable
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(Post $post, User $user)
     {
         //
+        $this->post = $post;
+        $this->user = $user;
+        
     }
 
     /**
@@ -33,9 +36,10 @@ class NewPost extends Mailable
      */
     public function build()
     {
-        // return $this->view('view.name');
-
-        return $this->from('akbaribrahimafolabi@gmail.com')
-                ->view('emails.newpost');
+        return $this->markdown('emails.posts.new', [
+            'author' => $this->post->user->name,
+            'title' => $this->post->title,
+            'url' => $this->post->url,
+        ]);
     }
 }

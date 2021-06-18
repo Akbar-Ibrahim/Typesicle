@@ -24,7 +24,7 @@ class CommentService
 
         $comment->load('user.profile', 'replies');
 
-        broadcast(new CommentEvent($comment, $numOfComments))->toOthers();
+        broadcast(new CommentEvent($comment, $numOfComments));
                 return $comment;
     
 

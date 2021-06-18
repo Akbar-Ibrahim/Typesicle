@@ -71,7 +71,7 @@
                     {{ old('title') ?? $post->title }}
                     @endslot
 
-                    <div id="image-preview-container" class="mb-4" style="position: relative; ">
+                    <div id="image-preview-container" photo="{{ $post->photo }}" class="mb-4" style="position: relative; display: none;">
                         <img id="img_preview"
                             src="{{ $post->photo ? '/images/' . $post->user_id.'/' . $post->photo->photo : '' }}" alt=""
                             class="postImage " width="100%" height="300px" style="object-fit: cover; ">
@@ -106,15 +106,15 @@
         <div class="w3-col l4">
 
             <div class="w3-container" style="margin-top: 100px;">
-                <div class="w3-half w3-center">
+                <div class="w3-center">
                     <button id="preClickPublish" style="width: 100%" type="submit" class="w3-padding">
-                        {{ __('Publish') }}
+                        {{ __('Update') }}
                     </button>
                 </div>
-                <div class="w3-half w3-center">
+                <!-- <div class="w3-half w3-center">
                     <button id="preClickSave" style="width: 100%" type="submit" class="w3-padding">
                         {{ __('Save') }}
-                    </button>
+                    </button> -->
                 </div>
             </div>
 
@@ -194,6 +194,18 @@ function publishPost() {
 
 }
 
+
+function showCoverImage() {
+    if (document.getElementById("image-preview-container").getAttribute("photo") == "") {
+        document.getElementById("image-preview-container").style.display = "none"
+    } else {
+        document.getElementById("image-preview-container").style.display = "block"
+    }
+
+
+}
+
+setTimeout(showCoverImage, 2000);
 
 $(document).ready(function() {
 

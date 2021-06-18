@@ -10,11 +10,14 @@ function readImg(input,img){
               img.src=ev.target.result;
                            
               img.classList.remove('d-none');
+              $("#image-preview-container").css("display", "block")
           };
 
           reader.readAsDataURL(input.files[0]);
 
 
+      } else {
+        $("#image-preview-container").css("display", "none")
       }
   }
 
@@ -28,6 +31,7 @@ function checkImage(input){
 
       // openNotify({color:'red', message:'File type not supported', type:'closed'});
       $("#errorModal").css("display", "block");
+      
       
       input.value="";
       return false;
@@ -43,9 +47,11 @@ $(document).ready(function(){
 
     var img_preview = document.getElementById("img_preview");
     var input=$(this);
+
     readImg(input[0], img_preview);
     // $("#img_preview").css("display", "block");
-    $("#image-preview-container").css("display", "block")
+    // $("#image-preview-container").css("display", "block")
+
     
     var picture = $(this).val();
     

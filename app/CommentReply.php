@@ -15,6 +15,10 @@ class CommentReply extends Model
         'is_active',
     ];
 
+    protected $appends = [
+        'date'
+    ];
+    
     public function comment()
     {
         return $this->belongsTo('App\Comment');
@@ -22,6 +26,10 @@ class CommentReply extends Model
 
     public function user(){
         return $this->belongsTo('App\User');
+    }
+
+    public function getDateAttribute() {
+        return $this->created_at->toFormattedDateString();
     }
 
 }

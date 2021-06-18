@@ -29,9 +29,9 @@ class Feed extends Model
 ];
 
 
-// protected $appends = [
-//     'quoted_feed'
-// ];
+protected $appends = [
+    'date'
+];
     
     // protected static function boot(){
     //     parent::boot();
@@ -124,6 +124,9 @@ class Feed extends Model
     //     return Feed::where(["id" => $this->quoted])->with("post.user.profile", "post.photo", "feedLikes', 'reposts")->first();
     // }
 
-    
+
+    public function getDateAttribute() {
+        return $this->created_at->toFormattedDateString();
+    }
 
 }

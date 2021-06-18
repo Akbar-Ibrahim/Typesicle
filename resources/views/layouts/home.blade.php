@@ -111,7 +111,7 @@ h5 {
             Home</a>
         <a href="{{ route('write.create') }}" class="w3-bar-item w3-button w3-padding"><i
                 class="fa fa-pencil fa-fw"></i> Write</a>
-        <a class="w3-bar-item w3-button w3-padding" href="/chatify"> <i class="fa fas fa-envelope"></i> message</a>
+        <!-- <a class="w3-bar-item w3-button w3-padding" href="/chatify"> <i class="fa fas fa-envelope"></i> message</a> -->
         <a href="{{ route('shortie-create') }}" class="w3-bar-item w3-button w3-padding"><i
                 class="fa fa-pencil fa-fw"></i> Shortie</a>
         <a href="{{ route('draft.index') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-pencil fa-fw"></i>

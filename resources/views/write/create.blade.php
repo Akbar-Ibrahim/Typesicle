@@ -24,11 +24,13 @@
 
             <div class="w3-container">
                 @if($feed)
+                @if($feed->post)
                 <h6 class="px-4"> You're writing a response to: <a
                         href="{{ route('post.url', [$feed->user->username, $feed->post->url, $feed->id]) }}">
                         {{ $feed->post->title }} </a> by <a
                         href="{{ route('profile.show', $feed->user->username) }}">
                         {{ $feed->post->user->name }} </a> </h6>
+                        @endif
                 @endif
             </div>
 
@@ -52,7 +54,9 @@
                         <input id="cover_photo" type="hidden" name="cover_photo" value="">
 
                         @if($feed)
+                        @if($feed->post)
                         <input type="hidden" name="responding_to" value="{{ $feed->post->id }}">
+                        @endif
                         @endif
                         <input id="url" type="hidden" class="py-4 form-control @error('url') is-invalid @enderror"
                             name="url" value="{{ old('url') }}" autocomplete="url">

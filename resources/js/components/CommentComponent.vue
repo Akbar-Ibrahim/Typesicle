@@ -12,7 +12,7 @@
           <div class="w3-row my-4 w w3-border">
             <header-component
               :user="comment.user"
-              :date="comment.created_at"
+              :date="comment.date"
               size="width: 25px"
               fontsize="font-size: 12px;"
             >

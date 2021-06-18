@@ -49,17 +49,18 @@
                 </profile-component>
             </div>
 
-            @if(count($user->posts) > 2)
-            <div class="w3-container w3-margin-top">
-                <userrandompost-component user-id="{{ $user->id }}"></userrandompost-component>
-            </div>
-            @endif
-
             
 
             <div class="w3-container w3-margin-top">
             <photos-component user="{{ $user }}" photos="{{ json_encode($photos) }}"></photos-component>
             </div>
+
+            @if(count($user->posts) > 2)
+            <div class="w3-container w3-margin-top">
+                <userrandompost-component user-id="{{ $user->id }}"></userrandompost-component>
+            </div>
+            @endif
+            
             <div class="w3-container w3-margin-top">
 
                 <recentposts-component posts="{{ json_encode($recentPosts) }}">

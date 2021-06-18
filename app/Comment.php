@@ -14,6 +14,11 @@ class Comment extends Model
         'is_active',
     ];
 
+    protected $appends = [
+        'date'
+    ];
+
+    
     public function user(){
         return $this->belongsTo('App\User');
     }
@@ -28,5 +33,9 @@ class Comment extends Model
     {
         return $this->hasMany('App\CommentReply');
 
+    }
+
+    public function getDateAttribute() {
+        return $this->created_at->toFormattedDateString();
     }
 }
