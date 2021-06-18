@@ -43,10 +43,11 @@
             "database/seeds",
             "database/factories"
         ],
-        "files": ["App/Helpers/codegram_functions.php"]
+        "files": ["app/Helpers/codegram_functions.php"]
     },
     "autoload-dev": {
         "psr-4": {
+            
             "Tests\\": "tests/"
         }
     },
