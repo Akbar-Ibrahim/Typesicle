@@ -8,7 +8,7 @@ class PostPhoto extends Model
 {
     //
 
-    protected $fillable = ['user_id', 'feed_id', 'photo_id'];
+    protected $fillable = ['user_id', 'post_id', 'photo_id'];
 
     
 

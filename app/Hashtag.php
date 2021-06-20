@@ -9,6 +9,8 @@ class Hashtag extends Model
 {
     //
     protected $fillable = ['hashtag'];
+    protected $appends = ['stripped_hashtag'];
+
 
     public function feed()
     {
@@ -31,4 +33,7 @@ class Hashtag extends Model
         return $this->attributes['hashtag'] = str_replace(".", "", $value);
     }
 
+    public function getStrippedHashtagAttribute(){
+        return str_replace("#", "", $this->hashtag);
+    }
 }

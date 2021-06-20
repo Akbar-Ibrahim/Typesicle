@@ -46,6 +46,11 @@ Vue.component('userrandompostexcept-component', require('./components/Userrandom
 Vue.component('random-post-component', require('./components/RandompostComponent.vue').default);
 Vue.component('repost-component', require('./components/RepostComponent.vue').default);
 
+
+// Hashtags
+Vue.component('hashtags-component', require('./components/HashtagsComponent.vue').default);
+
+
 // Categories
 Vue.component('createcategory-component', require('./components/CreatecategoryComponent.vue').default);
 Vue.component('category-component', require('./components/categoryComponent.vue').default);

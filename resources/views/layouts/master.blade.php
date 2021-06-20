@@ -41,7 +41,7 @@ h5 {
 
     <!-- Top menu on small screens -->
     <header class="w3-container w3-top w3-white w3-xlarge w3-padding-16">
-        <span class="w3-left w3-padding">Typesicle</span>
+        <span class="w3-left w3-padding">typesicle</span>
         <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
 
         @guest

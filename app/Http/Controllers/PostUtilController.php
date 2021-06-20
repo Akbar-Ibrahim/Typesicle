@@ -243,6 +243,10 @@ class PostUtilController extends Controller
         return "";
     }
 
+    public function getTopHashtags (PostUtilService $postUtilService) {
+        $top_hashtags = $postUtilService->getTopHashtags();
+        return $top_hashtags;
+    }
 
 
 }

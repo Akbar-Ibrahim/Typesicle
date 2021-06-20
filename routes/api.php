@@ -64,6 +64,12 @@ Route::get('count-followings', 'FollowController@countFollowings')->name('count:
 Route::get('following/{user}', 'FollowController@handleFollowing')->name('following')->middleware('auth');
 Route::get('followers/{user}', 'FollowController@handleFollowers')->name('followers')->middleware('auth');
 
+
+// Hashtags
+Route::get('/top/hashtags', 'PostUtilController@getTopHashtags');
+
+
+
 // Like Posts
 Route::get('/post-like', 'LikeController@like')->name('like:post');
 

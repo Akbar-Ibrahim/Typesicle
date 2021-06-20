@@ -24,6 +24,7 @@ class CreateLikesTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('feed_id')->references('id')->on('feeds');
+            $table->foreign('feed_id')->references('id')->on('feeds');
         });
     }
 

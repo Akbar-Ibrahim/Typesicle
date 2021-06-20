@@ -8,7 +8,7 @@ class GroupMessage extends Model
 {
     //
 
-    protected $fillable = [
+    protected $f    illable = [
         'group_id', 'sender', 'message', 'attachment'
     ];
 

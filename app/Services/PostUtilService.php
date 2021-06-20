@@ -181,7 +181,15 @@ class PostUtilService
 
     public function getTopHashTags()
     {
-        return Hashtag::getTopHashtags()->with('feed')->get();
+        $result = Hashtag::getTopHashtags()->with('feed')->get();
+        $hashtags = [];
+
+        foreach ($result as $r) {
+            str_replace('#', '', $r->hashtag);
+            array_push($hashtags, $r);
+        }
+
+        return $hashtags;
     }
 
 

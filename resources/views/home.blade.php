@@ -74,7 +74,7 @@
             <div class="w3-container">
                 <div class="w3-container" id="hashtags">
                     @if(count($top_hashtags) > 0)
-                    <div class="w3-container" style="margin-top: 20px;">
+                    <div class="w3-container" style="margin-top: 80px;">
                         <h4> Trending Now </h4>
 
                         @foreach($top_hashtags as $hashtag)

@@ -26,6 +26,17 @@ h5 {
     opacity: 0.6;
     transition: 0.3s
 }
+
+
+#hashtags {
+    overflow: hidden;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
 </style>
 
 <body class="w3-light-grey">
@@ -41,7 +52,7 @@ h5 {
 
     <!-- Top menu on small screens -->
     <header class="w3-container w3-top w3-white w3-xlarge w3-padding-16">
-        <span class="w3-left w3-padding">Typesicle</span>
+        <span class="w3-left w3-padding">typesicle</span>
         <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
 
         @guest
@@ -63,8 +74,14 @@ h5 {
         <div class="w3-row w3-grayscale-min" id="app">
             <div class="w3-col l6">
                 <div class="w3-container" style="margin-top: 50px;">
+                    @if($feeds)
                     <home-component posts="{{ $feeds }}" user-id="0" user="{{ json_encode($user) }}" user-type="guest">
                     </home-component>
+                    @else
+                    <div class="w3-container w3-center">
+                        <h2> Nothing to see here :) </h2>
+                    </div>
+                    @endif
                 </div>
             </div>
 
@@ -79,7 +96,17 @@ h5 {
             </div>
 
             <div class="w3-col l3">
-                <random-post-component></random-post-component>
+                <div class="w3-container">
+                    <random-post-component></random-post-component>
+                </div>
+
+                <div class="w3-container">
+                    <div class="w3-container" id="hashtags">
+                        <div class="w3-container" style="margin-top: 100px;">
+                            <hashtags-component></hashtags-component>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -100,6 +127,22 @@ h5 {
     </div>
 
     <script>
+
+window.onscroll = function() {
+        stickySide()
+    };
+
+    var hashtags = document.getElementById("hashtags");
+    var sticky = hashtags.offsetTop;
+
+    function stickySide() {
+        if (window.pageYOffset >= sticky) {
+            hashtags.classList.add("sticky")
+        } else {
+            hashtags.classList.remove("sticky");
+        }
+    }
+
     // Script to open and close sidebar
     function w3_open() {
         document.getElementById("mySidebar").style.display = "block";
@@ -118,6 +161,11 @@ h5 {
         var captionText = document.getElementById("caption");
         captionText.innerHTML = element.alt;
     }
+
+
+
+
+    
     </script>
 
 
