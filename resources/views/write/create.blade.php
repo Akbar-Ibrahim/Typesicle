@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('layouts.write')
 
 @section('styles')
 
@@ -27,11 +27,18 @@
                 @if($feed->post)
                 <h6 class="px-4"> You're writing a response to: <a
                         href="{{ route('post.url', [$feed->user->username, $feed->post->url, $feed->id]) }}">
-                        {{ $feed->post->title }} </a> by <a
-                        href="{{ route('profile.show', $feed->user->username) }}">
+                        {{ $feed->post->title }} </a> by <a href="{{ route('profile.show', $feed->user->username) }}">
                         {{ $feed->post->user->name }} </a> </h6>
-                        @endif
                 @endif
+                @endif
+            </div>
+
+            <div class="w3-hide-large w3-center">
+            @include('includes.selectCategory')
+                <button onclick="document.getElementById('coverPhotoModal').style.display='block'" class="w3-button">Add
+                    A Cover
+                    Picture</button>
+
             </div>
 
             <!-- Publish form -->
@@ -109,25 +116,28 @@
         </div>
 
         <div class="w3-col l4">
-        <div class="w3-container" style="margin-top: 100px;">
-                        <div class="w3-half w3-center">
-                            <button id="preClickPublish" style="width: 100%" type="submit" class="w3-padding">
-                                {{ __('Publish') }}
-                            </button>
-                            </div>
-                            <div class="w3-half w3-center">
-                            <button id="preClickSave" style="width: 100%" type="submit" class="w3-padding">
-                                {{ __('Save') }}
-                            </button>
-                        </div>
-                    </div>
+            <div style="margin-top: 100px;" class="w3-hide-small"></div>
+            <div class="w3-container">
+                <div class="w3-half w3-center">
+                    <button id="preClickPublish" style="width: 100%" type="submit" class="w3-padding">
+                        {{ __('Publish') }}
+                    </button>
+                </div>
+                <div class="w3-half w3-center">
+                    <button id="preClickSave" style="width: 100%" type="submit" class="w3-padding">
+                        {{ __('Save') }}
+                    </button>
+                </div>
+            </div>
 
-            <div class="w3-containere w3-border w3-center w3-margin">
-                        @include('includes.addMedia')
+            <div class="w3-containere w3-border w3-center w3-margin w3-hide-small">
+                <button onclick="document.getElementById('coverPhotoModal').style.display='block'" class="w3-button">Add
+                    A Cover
+                    Picture</button>
 
             </div>
 
-            <div class="w3-container w3-margin w3-center w3-border writing-options-item">
+            <div class="w3-container w3-margin w3-center w3-border writing-options-item w3-hide-small">
                 <button class="w3-button my-categories-button">Select Category</button>
             </div>
 
@@ -157,111 +167,11 @@
 @endcomponent
 
 @include('includes.coverPhoto')
+@include('includes.addMedia')
 
 @endsection
 
 @section('scripts')
 
-<script src="{{ asset('js/preview-image.js') }}"></script>
-
-<script>
-$(document).ready(function() {
-    $('#summernote').summernote({
-        height: 300,
-        
-
-    });
-});
-
-
-function photosOverlay(element) {
-
-    document.getElementById("photosOverlay").style.display = "block";
-    document.getElementById("coverPhotoModal").style.display = "none";
-}
-
-
-function saveToDrafts() {
-    var myForm = document.getElementById("postCreateForm");
-    document.getElementById('title').removeAttribute('required');
-    // document.getElementsByTagName('select')[0].removeAttribute('required');
-    document.getElementsByTagName('textarea')[0].removeAttribute('required');
-    myForm.action = "/draft";
-
-}
-
-
-function publishPost() {
-    var myForm = document.getElementById("draftForm");
-    var hiddenMethod = document.getElementById("method");
-    hiddenMethod.value = "";
-    myForm.action = "{{ route('write.store') }}";
-
-}
-
-// function showCoverImage() {
-//     if (document.getElementById("image-preview-container").getAttribute("photo") == "") {
-//         document.getElementById("image-preview-container").style.display = "none"
-//     } else {
-//         document.getElementById("image-preview-container").style.display = "block"
-//     }
-    
-
-// }
-
-// setTimeout(showCoverImage, 2000);
-
-
-$(document).ready(function() {
-
-    $('#preClickPublish').click(function() {
-        $("#publish").click();
-    });
-
-    $('#preClickSave').click(function() {
-        $("#save").click();
-});
-
-    $('#addCoverImage').click(function() {
-        $("#coverPhotoModal").hide();
-        $('#upload_pic').click();
-    });
-
-    $('.photo').click(function() {
-        let pic = $(this).attr('file');
-        $('#img_preview').attr('src', pic);
-        $('#image-preview-container').css('display', 'block')
-
-        $("#cover_photo").val(pic);
-
-
-    });
-
-    $('#removeCoverImage').click(function() {
-
-        $('.postImage').attr('src', '');
-        $("#image-preview-container").css("display", "none");
-        $("#upload_pic").val("");
-        $('#cover_photo').val("");
-
-    });
-
-    $('.my-categories-button').click(function() {
-        $(".my-categories").css("display", "block");
-        $(".writing-options-item").css("display", "none");
-
-    });
-
-    $('.my-categories-close-button').click(function() {
-        $(".my-categories").css("display", "none");
-        $(".writing-options-item").css("display", "block");
-
-    });
-
-
-
-
-});
-</script>
 
 @endsection

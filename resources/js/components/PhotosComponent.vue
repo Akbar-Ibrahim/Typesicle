@@ -34,6 +34,7 @@
           v-for="(p, i) in pictures"
           :key="i"
           class="horizontal-image-gallery"
+          style="width: 100px;"
         >
           <img
             class="photo"

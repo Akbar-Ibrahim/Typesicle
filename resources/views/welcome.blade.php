@@ -1,100 +1,127 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+<title>Typesicle Home</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link href="{{ asset('css/w3-css.css') }}" rel="stylesheet">
+<style>
+body,
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: "Raleway", sans-serif
+}
 
-        <title>Typesicle</title>
+.w3-quarter img {
+    margin-bottom: -6px;
+    cursor: pointer
+}
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+.w3-quarter img:hover {
+    opacity: 0.6;
+    transition: 0.3s
+}
+</style>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+<body class="w3-light-grey">
 
-            .full-height {
-                height: 100vh;
-            }
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large"
+        style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="mySidebar">
+        <a href="javascript:void()" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-32">CLOSE</a>
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">PORTFOLIO</a>
+        <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">ABOUT ME</a>
+        <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">CONTACT</a>
+    </nav>
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-white w3-xlarge w3-padding-16">
+        <span class="w3-left w3-padding">Typesicle</span>
+        <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
 
-            .position-ref {
-                position: relative;
-            }
+        @guest
+        <a class="w3-right w3-button w3-white" href="{{ route('login') }}">{{ __('Login') }}</a>
+        @if (Route::has('register'))
+        <a class="w3-right w3-button w3-white" href="{{ route('register') }}">{{ __('Register') }}</a>
+        @endif
+        @endguest
+    </header>
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu"
+        id="myOverlay"></div>
 
-            .content {
-                text-align: center;
-            }
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main w3-content " style="max-width:1400px;margin-top:83px">
 
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Typesicle
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+        <!-- Photo grid -->
+        <div class="w3-row w3-grayscale-min" id="app">
+            <div class="w3-col l6">
+                <div class="w3-container" style="margin-top: 50px;">
+                    <home-component posts="{{ $feeds }}" user-id="0" user="{{ json_encode($user) }}" user-type="guest">
+                    </home-component>
                 </div>
             </div>
+
+            <div class="w3-col l3 w3-hide-small">
+                <div class="w3-container" style="margin-top: 50px;">
+                    <most-viewed-posts-component></most-viewed-posts-component>
+                </div>
+
+                <div class="w3-container" style="margin-top: 50px;">
+                    <top-categories-component></top-categories-component>
+                </div>
+            </div>
+
+            <div class="w3-col l3">
+                <random-post-component></random-post-component>
+            </div>
         </div>
-    </body>
+
+
+
+
+
+
+        <!-- Footer -->
+        <footer class="w3-container w3-padding-32 w3-grey">
+
+
+        </footer>
+
+
+
+        <!-- End page content -->
+    </div>
+
+    <script>
+    // Script to open and close sidebar
+    function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+        document.getElementById("myOverlay").style.display = "block";
+    }
+
+    function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+        document.getElementById("myOverlay").style.display = "none";
+    }
+
+    // Modal Image Gallery
+    function onClick(element) {
+        document.getElementById("img01").src = element.src;
+        document.getElementById("modal01").style.display = "block";
+        var captionText = document.getElementById("caption");
+        captionText.innerHTML = element.alt;
+    }
+    </script>
+
+
+</body>
+
 </html>
+<script src="{{ asset('js/app.js') }}"></script>

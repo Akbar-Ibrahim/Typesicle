@@ -72,7 +72,8 @@ class PostUtilService
     public function getRandomPost()
     {
 
-        return Feed::where(['status' => 'Original'])->with('post.user', 'user.profile')->inRandomOrder()->first();
+        // return Feed::where(['status' => 'Original'])->with('post.user', 'user.profile')->inRandomOrder()->first();
+        return Post::with('user', 'feed')->inRandomOrder()->first();
     }
 
     public function getUserRandomPost($id)
@@ -374,6 +375,22 @@ class PostUtilService
         }
     }
 
+    public function getHomeFeeds() {
+        $feeds = Feed::with('user.profile', 'post.user', 'post.photo', 'shortie.user', 'shortie.shortiePhoto.photo')->orderBy('created_at', 'desc')->paginate(4);
+        return response()->json($feeds);
+    }
+
+    public function getHomePosts () {
+        $posts = Feed::with('user.profile', 'post.user', 'post.photo', 'shortie')->orderBy('created_at', 'desc')->paginate(2);
+        return response()->json($posts);
+    }
+
+    public function getHomeShorties() {
+
+        $shorties = Feed::with('user.profile', 'post', 'shortie.user', 'shortie.shortiePhoto.photo')->orderBy('created_at', 'desc')->paginate(2);
+        return response()->json($shorties);
+    }
+
 
     public function getFollowersFeeds()
     {
@@ -432,11 +449,16 @@ class PostUtilService
         return Post::where('user_id', $id)->where('views', '>', 10)->with('user.profile.photo', 'feed')->orderBy('created_at', 'desc')->limit(5)->get();
     }
 
+    public function mostViewed(){
+        // return Feed::where("views", ">", 4)->where("status", "Post Original")->with("post.user")->get();
+        return Post::where("views", ">", 4)->with("feed", "user", "category")->get();
+    }
+
     public function recentPosts($id)
     {
         // return Feed::where(['user_id' => $id, 'status' => 'Original'])->with('user.profile.photo', 'post.user')->orderBy('created_at', 'desc')->limit(5)->get();
         // return Post::where(['user_id' => $id])->with('user.profile.photo', 'feed')->orderBy('created_at', 'desc')->limit(5)->get();
-        $posts = Post::where(['user_id' => $id])->get();
+        $posts = Post::where(['user_id' => $id])->limit(5)->get();
 
         $feeds = [];
 

@@ -23,10 +23,15 @@
 
             @foreach($drafts as $draft)
             <div class="w3-container w3-padding w3-margin">
-                <div class="w3-col l10">
-                    <div route="{{ route('draft.show', $draft->id) }}" style="cursor: pointer"
+                <div class="w3-col s10">
+                    <div route="{{ route('draft.show', $draft->id) }}" style="cursor: pointer" class="w3-hide-small"
                         onclick="location.href=this.getAttribute('route')">
                         <h1> {{ $draft->title ?? 'Untitled' }} </h1>
+                    </div>
+
+                    <div route="{{ route('draft.show', $draft->id) }}" style="cursor: pointer" class="w3-hide-large"
+                        onclick="location.href=this.getAttribute('route')">
+                        <h5> {{ $draft->title ?? 'Untitled' }} </h5>
                     </div>
 
                     <div class="w3-container">
@@ -35,10 +40,13 @@
                 </div>
 
                 @if($draft->photo)
-                <div class="w3-col l2">
+                <div class="w3-col s2">
                     <img src="{{ '/images/' . $draft->photo->user_id . '/'. $draft->photo->photo }}"
-                        onclick="showImage(this)"
+                        onclick="showImage(this)" class="w3-hide-small"
                         style="height: 100px; width: 100%; object-fit: cover; cursor: pointer;">
+                        <img src="{{ '/images/' . $draft->photo->user_id . '/'. $draft->photo->photo }}"
+                        onclick="showImage(this)" class="w3-hide-large"
+                        style="height: 60px; width: 100%; object-fit: cover; cursor: pointer;">
                 </div>
                 @endif
             </div>

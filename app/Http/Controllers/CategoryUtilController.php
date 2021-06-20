@@ -6,6 +6,7 @@ use App\Category;
 use App\Feed;
 use App\Services\AccountService;
 use App\Services\CategoryService;
+use App\Services\PostUtilService;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,7 @@ class CategoryUtilController extends Controller
     {
         //
 
+        // $user = User::where('username', $username)->first();
         $user = User::where('username', $username)->first();
         $user_categories = $categoryService->getUserCategories($user);
 
@@ -107,4 +109,10 @@ class CategoryUtilController extends Controller
     }
         return view("category.posts", compact("user",  "user_categories", "category", "feeds"));
     }
+
+    public function getTopCategories(CategoryService $categoryService){
+        $top_categories = $categoryService->getTopCategories();
+        return $top_categories;
+    }
+    
 }

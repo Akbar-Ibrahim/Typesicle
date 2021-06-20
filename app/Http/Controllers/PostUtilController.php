@@ -46,6 +46,30 @@ class PostUtilController extends Controller
         return $shorties;
     }
 
+    public function getHomeFeeds(PostUtilService $postUtilService) {
+
+
+        $feeds = $postUtilService->getHomeFeeds();
+
+        return $feeds;
+    }
+
+    public function getHomePosts(PostUtilService $postUtilService) {
+
+        $posts = $postUtilService->getHomePosts();
+
+        return $posts;
+    }
+
+    public function getHomeShorties(PostUtilService $postUtilService) {
+
+        $shorties = $postUtilService->getHomeShorties();
+
+        return $shorties;
+    }
+
+
+
     public function response(Request $request)
     {
         //
@@ -68,6 +92,10 @@ class PostUtilController extends Controller
 
     public function popularPosts($id, PostUtilService $postUtilService) {
         return $postUtilService->popularPosts($id);
+    }
+
+    public function mostViewed(PostUtilService $postUtilService) {
+        return $postUtilService->mostViewed();
     }
 
     public function recentPosts($id, PostUtilService $postUtilService) {
@@ -122,6 +150,7 @@ class PostUtilController extends Controller
         }
         
         Feed::where(['id' => $id])->update(['views' => $feed->views + 1]);
+        Post::where(['id' => $feed->post_id])->update(['views' => $feed->post->views + 1]);
 
         return view('posts.post', compact('user', 'post', 'feed', 'previous', 'next', 'respondingTo', 'recentPosts', 'accounts'));
 
@@ -213,4 +242,7 @@ class PostUtilController extends Controller
 
         return "";
     }
+
+
+
 }

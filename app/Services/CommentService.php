@@ -4,27 +4,41 @@ use App\Comment;
 use Illuminate\Http\Request;
 use App\CommentReply;
 use App\Events\CommentEvent;
+use App\Events\NewPostEvent;
 use App\Events\ReplyEvent;
+use App\Feed;
+use App\Notification;
 
 class CommentService
 {
     
     public function handlePostComment() {
 
+        $feed = Feed::where(["id" => request()->postId])->with("post")->first();
         $post_id = request()->postId;
         $user_id = request()->userId;
         $body = request()->body;
 
         // Comment::create($data);
-        $comment = Comment::create(['feed_id' => $post_id, 'user_id' => $user_id, 'body' => $body]);
+        $comment = Comment::create(['feed_id' => $post_id, 'post_id' => $feed->post->id, 'user_id' => $user_id, 'body' => $body]);
 
         // $request->session()->flash('comment_post', 'Your comment has been posted and is awaiting moderation');
         $comments = Comment::where(["feed_id" => $post_id])->get();
         $numOfComments = $comments->count();
 
-        $comment->load('user.profile', 'replies');
+        $comment->load('user.profile', 'replies', 'post');
 
         broadcast(new CommentEvent($comment, $numOfComments));
+
+
+
+        Notification::create(["user_id" => $comment->post->user_id, "type" => "comment", "notifier" => $comment->user_id, "message" => "commented on your post", "read" => "no", "post_id" => $feed->post->id, "comment_id" => $comment->id]);
+        $myNotifications = Notification::where(["user_id" => $comment->post->user_id, "read" => "no"])->get();
+        
+        $count = $myNotifications->count();
+        broadcast(new NewPostEvent($count, $comment->post->user_id))->toOthers();
+
+
                 return $comment;
     
 

@@ -27,6 +27,7 @@ class CreatePostsTable extends Migration
             // $table->string('is_shared')->nullable();
             $table->string('is_published')->default("yes");
             $table->integer('responding_to')->nullable()->default(0);
+            $table->integer('views')->nullable()->default(0);
             $table->softDeletes();
             $table->timestamps();
 

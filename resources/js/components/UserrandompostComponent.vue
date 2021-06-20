@@ -1,7 +1,7 @@
 <template>
   <div class="">
     
-<button :route="route"
+<button 
         class="w3-button" @click="goToRoute"
         style="font-size: 17px">
         Read a random post by this author!

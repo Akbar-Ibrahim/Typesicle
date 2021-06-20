@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="w3-container" style="margin-top: 30px;">
+    <div class="w3-container" style="margin-top: 30px;" v-if="usertype === 'auth'">
       <div class="w3-col s3">
         <feed-controls-component
           :user-id="userId"

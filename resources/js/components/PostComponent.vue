@@ -37,7 +37,7 @@
     </div>
 
     <div class="w3-row">
-      <div class="w3-col s8 pl-2">
+      <div class="w3-col s9 pl-2">
         <div class="w3-container">
           <h4 class="pl-3" >
             <a
@@ -59,10 +59,10 @@
 
       </div>
 
-      <div v-if="feed.post.photo" class="w3-col s4 w3-center">
+      <div v-if="feed.post.photo" class="w3-col s3 w3-center">
         <img
           :src="`/images/${feed.post.user_id}/${feed.post.photo.photo}`"
-          style="height: 170px; width: 100%; object-fit: cover" class="w3-hide-small"
+          style="height: 130px; width: 100%; object-fit: cover" class="w3-hide-small"
         />
         <img
           :src="`/images/${feed.post.user_id}/${feed.post.photo.photo}`"
@@ -73,7 +73,8 @@
 
     <!-- <textarea class="form-control " cols="30" rows="10" id="message" ref="message" v-model="message"></textarea>       -->
 
-    <div class="w3-container my-4 py-4">
+
+    <div class="w3-container my-4 py-4" v-if="usertype === 'auth'">
       <div class="w3-row">
       <div class="w3-col s3 ">
         <feed-controls-component

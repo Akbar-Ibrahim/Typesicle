@@ -42,3 +42,7 @@ Broadcast::channel('comment-channel', function($user) {
 Broadcast::channel('reply-channel', function($user) {
     return  true;
 });
+
+Broadcast::channel('newpost-channel', function($user) {
+    return  true;
+});

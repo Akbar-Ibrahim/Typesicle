@@ -277,4 +277,15 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function stupid() {
         return "";
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class)->orderBy('created_at', 'DESC');
+    }
+
+    public function myNotifications(){
+        return $this->notifications()->where(['user_id' => $this->id])->get();
+    }
+
+    
 }

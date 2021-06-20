@@ -29,9 +29,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WelcomeController@welcome');
 
 
 
@@ -91,7 +89,7 @@ Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
 
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified', 'auth');;
+Route::get('/home', 'HomeController@index')->name('home')->middleware("verified", "auth");
 // Route::get('/forgot-password', function () {
 //     return view('auth.forgot-password');
 // })->middleware('guest')->name('password.request');
@@ -146,6 +144,10 @@ Route::post('/reset-password', function (Request $request) {
 
 
 
+// Notifications
+
+Route::get("/notifications", "NotificationController@index")->name("notification.index");
+// Route::post("/notification/store", "NotificationController@store")->name("notification.store");
 
 
 
@@ -280,6 +282,3 @@ Route::post('image-cropper/upload','ProfileController@upload');
 
 
 
-// Notifications
-
-Route::get('notifications', ['as'=>'notifications.index','uses'=>'NotificationController@index']);

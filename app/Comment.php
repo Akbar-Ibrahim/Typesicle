@@ -9,6 +9,7 @@ class Comment extends Model
     //
     protected $fillable = [
         'feed_id', 
+        'post_id',
         'user_id',
         'body', 
         'is_active',
@@ -26,6 +27,12 @@ class Comment extends Model
     public function feed()
      {
          return $this->belongsTo('App\Feed');
+
+     }
+
+     public function post()
+     {
+         return $this->belongsTo('App\Post');
 
      }
 

@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('layouts.write')
 
 @section('styles')
 
@@ -28,6 +28,14 @@
                         {{ $post->title }} </a> by <a href="{{ route('profile.show', $post->user->username) }}">
                         {{ $post->user->name }} </a> </h6>
                 @endif
+            </div>
+
+            <div class="w3-hide-large w3-center">
+            @include('includes.selectCategory')
+                <button onclick="document.getElementById('coverPhotoModal').style.display='block'" class="w3-button">Add
+                    A Cover
+                    Picture</button>
+
             </div>
 
 
@@ -115,8 +123,10 @@
             </div>
 
 
-            <div class="w3-containere w3-border w3-center w3-margin">
-                @include('includes.addMedia')
+            <div class="w3-containere w3-border w3-center w3-margin w3-hide-small">
+            <button onclick="document.getElementById('coverPhotoModal').style.display='block'" class="w3-button">Add
+                    A Cover
+                    Picture</button>
 
             </div>
 
@@ -125,12 +135,12 @@
             </div>
 
 
-            <div class="w3-container w3-margin w3-center w3-border writing-options-item">
+            <div class="w3-container w3-margin w3-center w3-border writing-options-item w3-hide-small">
                 <button class="w3-button my-categories-button">Select Category</button>
             </div>
 
 
-            <div class="my-categories mb-4" style="display: none;">
+            <div class="my-categories mb-4" style="display: none; w3-hide-small">
                 <div class="w3-right my-2">
                     <button class="my-categories-close-button w3-button">Close
                     </button>
@@ -159,25 +169,10 @@
 
 @section('scripts')
 
-<!-- <script src="{{ asset('js/app.js') }}"></script> -->
-<!-- <script src="{{ asset('js/summernote-bs4.js') }}" defer></script> -->
-<script src="{{ asset('js/preview-image.js') }}"></script>
+
 
 <script>
-$(document).ready(function() {
-    $('#summernote').summernote({
-        height: 300,
-    });
 
-});
-
-
-function photosOverlay(element) {
-
-    document.getElementById("photosOverlay").style.display = "block";
-    document.getElementById("coverPhotoModal").style.display = "none";
-
-}
 
 
 function saveToDrafts() {
@@ -198,68 +193,7 @@ function publishPost() {
 
 }
 
-function showCoverImage() {
-    if (document.getElementById("image-preview-container").getAttribute("photo") == "") {
-        document.getElementById("image-preview-container").style.display = "none"
-    } else {
-        document.getElementById("image-preview-container").style.display = "block"
-    }
 
-
-}
-
-setTimeout(showCoverImage, 2000);
-
-
-$(document).ready(function() {
-
-    $('#preClickPublish').click(function() {
-        $("#publish").click();
-    });
-
-    $('#preClickSave').click(function() {
-        $("#save").click();
-});
-
-    $('#addCoverImage').click(function() {
-        $("#coverPhotoModal").hide();
-        $('#upload_pic').click();
-
-    });
-
-
-    $('.photo').click(function() {
-        let pic = $(this).attr('file');
-        $('#img_preview').attr('src', pic);
-        $('#image-preview-container').css('display', 'block')
-
-        $("#cover_photo").val(pic);
-
-
-    });
-
-    $('#removeCoverImage').click(function() {
-
-        $('.postImage').attr('src', '');
-        $("#image-preview-container").css("display", "none");
-        $("#upload_pic").val("");
-        $('#cover_photo').val("");
-
-    });
-
-    $('.my-categories-button').click(function() {
-        $(".my-categories").css("display", "block");
-        $(".writing-options-item").css("display", "none");
-
-    });
-
-    $('.my-categories-close-button').click(function() {
-        $(".my-categories").css("display", "none");
-        $(".writing-options-item").css("display", "block");
-
-    });
-
-});
 </script>
 
 @endsection

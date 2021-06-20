@@ -56,8 +56,37 @@ h5 {
 
 
 <body>
+<span id="authid">{{ Auth::user()->id }}</span>
+
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large"
+        style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="myRightSidebar">
+        <a href="javascript:void()" onclick="w3_close_right_menu()" class="w3-bar-item w3-button w3-center w3-padding-32">CLOSE</a>
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">PORTFOLIO</a>
+        <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">ABOUT ME</a>
+        <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">CONTACT</a>
+    </nav>
+
+
+<header class="w3-container w3-top w3-white w3-xlarge w3-padding-16 ">
+        <span class="w3-left w3-padding">typesicle</span>
+        <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open_right_menu()">☰</a>
+
+        @guest
+        <a class="w3-right w3-button w3-white" href="{{ route('login') }}">{{ __('Login') }}</a>
+        @if (Route::has('register'))
+        <a class="w3-right w3-button w3-white" href="{{ route('register') }}">{{ __('Register') }}</a>
+        @endif
+        @endguest
+    </header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu"
+        id="myRightOverlay"></div>
+
     <!-- Side Navigation -->
-    <nav class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card" style="z-index:3;width:300px;"
+    <nav class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card" style="z-index:3;width:300px; margin-top: 62px;"
         id="mySidebar">
         @guest
 
@@ -109,6 +138,11 @@ h5 {
 
         <a href="{{ route('home') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i>
             Home</a>
+
+            <a href="{{ route('notification.index') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i>
+            Notifications <span id="newNotification"></span> </a>
+
+
         <a href="{{ route('write.create') }}" class="w3-bar-item w3-button w3-padding"><i
                 class="fa fa-pencil fa-fw"></i> Write</a>
         <!-- <a class="w3-bar-item w3-button w3-padding" href="/chatify"> <i class="fa fas fa-envelope"></i> message</a> -->
@@ -139,7 +173,7 @@ h5 {
         title="Close Sidemenu" id="myOverlay"></div>
 
     <main>
-        <div id="app">
+        <div id="app" style="margin-top: 105px;">
             <!-- Modal that pops up when you click on "New Message" -->
             <div id="id01" class="w3-modal" style="z-index:4">
                 <div class="w3-modal-content w3-animate-zoom">
@@ -239,7 +273,15 @@ h5 {
     }
 
 
+    function w3_open_right_menu() {
+        document.getElementById("myRightSidebar").style.display = "block";
+        document.getElementById("myRightOverlay").style.display = "block";
+    }
     
+    function w3_close_right_menu() {
+        document.getElementById("myRightSidebar").style.display = "none";
+        document.getElementById("myRightOverlay").style.display = "none";
+    }
 
     function w3_open() {
         document.getElementById("mySidebar").style.display = "block";
@@ -278,20 +320,6 @@ h5 {
 
 
 <script>
-// $(document).ready(function() {
-//     $('#summernote').summernote({
-//         height: 400,
-//         // toolbar: []
-//     })
-    
-// });
-
-// $(document).ready(function() {
-//     $('.summernote').summernote({
-//         height: 150
-//     });
-// });
-
 $(document).keydown(function(event) {
     if (event.keyCode == 27) {
         // $('#modal01').hide();
@@ -305,24 +333,22 @@ $(document).keydown(function(event) {
 
     }
 
-    // $("#closeSearchModal").click(function() {
-    //     $("#searchAuthor").val("");
-    //     $("#searchAuthorDropdown").hide();
-    // });
+    
 
     
 });
 
+var authid = document.getElementById("authid").textContent;
 
+Echo.private("newpost-channel").listen("NewPostEvent", (event) => {
 
-// Echo.private("group-channel").listen("GroupEvent", (event) => {
+ if (event.user_id == authid) {
       
-    //   document.getElementById("grp").innerHTML = "new";
-    //   alert(event.groupId)
+      document.getElementById("newNotification").innerHTML = event.count;
+        }
 
-    //   console.log("...received event");
-//   });
 
+  });
 
 </script>
 @yield('scripts')

@@ -56,6 +56,7 @@ div img:hover {
     opacity: 0.6;
     transition: 0.3s
 }
+
 </style>
 
 @endsection
@@ -64,6 +65,8 @@ div img:hover {
 @include('includes.urls')
 @include('includes.imageModal')
 <div id="main-content">
+
+
 @auth
 
 @include('profiles.auth')

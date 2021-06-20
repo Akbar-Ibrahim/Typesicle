@@ -27,10 +27,10 @@
               v-on:click="selectCategory(i)"
               class="w3-button myCategory "
             >{{ c.name }}</button>
-            <a href=""
+            <!-- <a href=""
               v-on:click="selectCategory(i)"
               class="w3-button myCategory w3-hide-large"
-            >{{ c.name }}</a>
+            >{{ c.name }}</a> -->
           </div>
           <div class="flex-grow-1 py-1">
             <div class="w3-right ">

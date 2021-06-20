@@ -1,8 +1,8 @@
 <template>
-  <div class="">
-<button :route="route"
-        class="py-4 px-4" @click="goToRoute"
-        style="border: 2px solid black; font-size: 17px">
+  <div class="" style="margin-top: 50px;">
+<button 
+        class="w3-margin w3-padding w3-button" @click="goToRoute"
+        style=" font-size: 17px">
         Pick a random post for me!
     </button>    
   </div>
@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  props: ["postId"],
+  props: [],
 
   mounted() {
     this.fetchRandomPost();
@@ -35,7 +35,7 @@ export default {
         })
         .then((result) => {
           this.post = result;
-          this.route = `/post/${this.post.post.user.username}/${this.post.post.url}/${this.post.id}`
+          this.route = `/post/${this.post.user.username}/${this.post.url}/${this.post.feed.id}`
 
           console.log(result);
         });

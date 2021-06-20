@@ -38,6 +38,12 @@ class CategoryService{
         return Category::where(["user_id" => $user_id])->with("user", "feeds", "posts")->get();
     }
 
+    public function getTopCategories(){
+
+        return Category::postCountTen()->with('posts', 'user')->get();
+    
+    }
+    
 
 
 }

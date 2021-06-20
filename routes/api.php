@@ -22,8 +22,15 @@ Route::get('/feeds/{id}', 'PostUtilController@getAllFeeds');
 Route::get('/allposts/{id}', 'PostUtilController@getAllPosts');
 Route::get('/allshorties/{id}', 'PostUtilController@getAllShorties');
 
+Route::get('/home-feeds/', 'PostUtilController@getHomeFeeds');
+Route::get('/home-posts/', 'PostUtilController@getHomePosts');
+Route::get('/home-shorties/', 'PostUtilController@getHomeShorties');
+
+
 Route::get('/user-likes', 'PostUtilController@getUserLikes');
 
+
+Route::get('/most-viewed', 'PostUtilController@mostViewed');
 
 Route::get('/popular-posts/user/{id}', 'PostUtilController@popularPosts');
 Route::get('/recent-posts/user/{id}', 'PostUtilController@RecentPosts');
@@ -47,8 +54,8 @@ Route::get('quiz/play-status', 'QuizUtilController@playStatus');
 //Category
 Route::get('/user-categories', 'CategoryUtilController@getMyCategories');
 Route::post('/category-create', 'CategoryUtilController@createCategory');
-Route::get('/{username}/categories', 'CategoryUtilController@getUserCategories');
-
+// Route::get('/{username}/categories', 'CategoryUtilController@getUserCategories');
+Route::get('/top/categories', 'CategoryUtilController@getTopCategories');
 
 //Follow
 Route::get('profile-follow', 'FollowController@followProfile')->name('follow:profile')->middleware('auth');

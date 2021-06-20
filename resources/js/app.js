@@ -9,6 +9,8 @@ require('summernote');
 
 window.Vue = require('vue');
 
+import VueResource from 'vue-resource';
+Vue.use(VueResource);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -21,6 +23,9 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+// infinite
+Vue.component('InfiniteLoading', require('vue-infinite-loading'));
 
 // Header
 Vue.component('header-component', require('./components/HeaderComponent.vue').default);
@@ -35,14 +40,16 @@ Vue.component('options-component', require('./components/OptionsComponent.vue').
 Vue.component('post-component', require('./components/PostComponent.vue').default);
 Vue.component('recentposts-component', require('./components/RecentpostsComponent.vue').default);
 Vue.component('popular-component', require('./components/PopularComponent.vue').default);
+Vue.component('most-viewed-posts-component', require('./components/MostViewedPostsComponent.vue').default);
 Vue.component('userrandompost-component', require('./components/UserrandompostComponent.vue').default);
 Vue.component('userrandompostexcept-component', require('./components/UserrandompostexceptComponent.vue').default);
-Vue.component('randompost-component', require('./components/RandompostComponent.vue').default);
+Vue.component('random-post-component', require('./components/RandompostComponent.vue').default);
 Vue.component('repost-component', require('./components/RepostComponent.vue').default);
 
 // Categories
 Vue.component('createcategory-component', require('./components/CreatecategoryComponent.vue').default);
 Vue.component('category-component', require('./components/categoryComponent.vue').default);
+Vue.component('top-categories-component', require('./components/TopCategoriesComponent.vue').default);
 
 // Comments and replies
 Vue.component('comment-container-component', require('./components/CommentContainerComponent.vue').default);
@@ -64,6 +71,8 @@ Vue.component('my-shortie-component', require('./components/MyShortieComponent.v
 
 Vue.component('view-thread-component', require('./components/ViewThreadComponent.vue').default);
 Vue.component('view-shortie-component', require('./components/ViewShortieComponent.vue').default);
+
+Vue.component('home-component', require('./components/HomeComponent.vue').default);
 
 Vue.component('feed-component', require('./components/FeedComponent.vue').default);
 Vue.component('f-component', require('./components/FComponent.vue').default);

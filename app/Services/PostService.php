@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Draft;
 use App\Category;
+use App\Events\NewPostEvent;
 use App\Feed;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Mail;
@@ -13,6 +14,7 @@ use App\Photo;
 use App\Hashtag;
 use App\User;
 use App\Mail\NewPost;
+use App\Notification;
 use App\PostHashtag;
 use App\PostPhoto;
 use App\PostReply;
@@ -142,9 +144,15 @@ class PostService
 
         // $recipient_address->notify(new NewPost($author, $post, $url));
 
-        $recipient = User::where(["id" => 3])->first();
+        $recipient = User::where(["id" => 8])->first();
 
         Mail::to($recipient)->send(new NewPost($post, $recipient));
+        
+        Notification::create(["user_id" => $recipient->id, "type" => "post", "notifier" => auth()->user()->id, "message" => "has published a new post", "read" => "no", "post_id" => $post->id]);
+        $myNotifications = Notification::where(["user_id" => $recipient->id, "read" => "no"])->get();
+        
+        $count = $myNotifications->count();
+        broadcast(new NewPostEvent($count, $recipient->id))->toOthers();
     }
 
     public function updatePost($id)
@@ -193,7 +201,7 @@ class PostService
         $postWithHashtags = Post::where(['id' => $post->id])->first();
 
         $tags = getHashTags($body);
-
+        
         if (count($tags) > 0) {
             foreach ($tags as $tag) {
                 $tag = str_replace('.', '', $tag);

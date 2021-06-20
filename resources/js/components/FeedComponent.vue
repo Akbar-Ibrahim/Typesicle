@@ -1,9 +1,18 @@
 <template>
   <div class="">
-    <button class="tabs w3-button" @click="getFeeds">All</button>
-    <button class="tabs w3-button" @click="getPosts">Posts</button>
-    <button class="tabs w3-button" @click="getShorties">Shorties</button>
-
+    <div class="w3-container w3-center">
+      <div class="w3-row-padding">
+        <div class="w3-col s4">
+    <button style="width: 100%;" class="tabs w3-button" @click="getFeeds">All</button>
+    </div>
+    <div class="w3-col s4">
+    <button style="width: 100%;" class="tabs w3-button" @click="getPosts">Posts</button>
+    </div>
+    <div class="w3-col s4">
+    <button style="width: 100%;" class="tabs w3-button" @click="getShorties">Shorties</button>
+    </div>
+    </div>
+</div>
 
     <div ref="allContainer">
       <div v-for="(feed, i) in feeds" :key="i">

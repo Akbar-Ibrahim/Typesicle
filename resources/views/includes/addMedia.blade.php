@@ -1,7 +1,5 @@
  <!-- Trigger/Open the Modal -->
- <button onclick="document.getElementById('coverPhotoModal').style.display='block'" class="w3-button">Add A Cover
-     Picture</button>
-
+ 
  <!-- The Modal -->
  <div id="coverPhotoModal" class="w3-modal">
      <div class="w3-modal-content">

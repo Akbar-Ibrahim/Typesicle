@@ -22,6 +22,7 @@ class Post extends Model
         'is_published',
         'publish_at',
         'responding_to',
+        'views',
     ];
 
     protected $appends = [
@@ -109,5 +110,12 @@ class Post extends Model
 
     public function is_queued(){
         return "";
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+        
+
     }
 }

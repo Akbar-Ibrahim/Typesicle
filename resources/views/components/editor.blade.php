@@ -47,7 +47,7 @@
         {{ $slot }}
     </div>
 
-    <div class="">
+    <div class="" id="editorComponent" style="display: none;">
         <textarea style="" id="summernote" class="body form-control @error('body') is-invalid @enderror"
             name="body" autocomplete="body" required autofocus>{{ $body }}</textarea>
             

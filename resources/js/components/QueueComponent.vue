@@ -45,11 +45,11 @@ if (this.type === "auth") {
 
       if (action.toLowerCase() === "queue") {
         this.$refs.buttonToggle.textContent = "Queued";
-        this.$refs.buttonIcon.innerHTML = '<i style="border: none;" class="fas fa fa-minus-hexagon"></i>';
+        this.$refs.buttonIcon.innerHTML = '<i style="border: none;" class="far fas fa fa-minus-hexagon"></i>';
         
       } else {
         this.$refs.buttonToggle.textContent = "Queue";
-        this.$refs.buttonIcon.innerHTML = '<i style="border: none;" class="fas fa-plus"></i>';
+        this.$refs.buttonIcon.innerHTML = '<i style="border: none;" class="fas fa fa-plus"></i>';
         
       }
     },
