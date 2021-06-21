@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Feed;
 use App\Like;
+use App\Notification;
 use App\Photo;
 use App\Profile;
 use App\Services\AccountService;
@@ -32,7 +33,8 @@ class ProfileController extends Controller
         $accounts = $accountService->accountsToFollow($user->id);
         // $userRandomPost = $postUtilService->getUserRandomPost($user->id);
 
-
+        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+        
 
         $addToGroup = [];
         if (auth()->user()) {
@@ -77,7 +79,7 @@ class ProfileController extends Controller
         }
 
 
-        return view('profiles.index', compact('feeds', 'user', 'photos', 'recentPosts', 'accounts', 'addToGroup'));
+        return view('profiles.index', compact('feeds', 'user', 'photos', 'recentPosts', 'accounts', 'addToGroup', 'n'));
     }
 
     public function edit($username, $id, PostUtilService $postUtilService)

@@ -17,16 +17,6 @@ h5 {
     font-family: "Raleway", sans-serif
 }
 
-.w3-quarter img {
-    margin-bottom: -6px;
-    cursor: pointer
-}
-
-.w3-quarter img:hover {
-    opacity: 0.6;
-    transition: 0.3s
-}
-
 
 #hashtags {
     overflow: hidden;
@@ -101,8 +91,8 @@ h5 {
                 </div>
 
                 <div class="w3-container">
-                    <div class="w3-container" id="hashtags">
-                        <div class="w3-container" style="margin-top: 100px;">
+                    <div class="" id="hashtags">
+                        <div class="w3-container" style="margin-top: 80px;">
                             <hashtags-component></hashtags-component>
                         </div>
                     </div>

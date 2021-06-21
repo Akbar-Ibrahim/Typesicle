@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notification;
 use App\Queue;
 use App\Services\PostUtilService;
 use App\Services\QueueService;
@@ -22,8 +23,9 @@ class QueueController extends Controller
         // $user = $postUtilService->getUser($username);
         $history = $queueService->getQueues($user);
         // $queues = Queue::where(['user_id' => auth()->user()->id])->with('user.profile', 'feed.post')->get();
-
-        return view("queue.index", compact("history", "user"));
+        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+        
+        return view("queue.index", compact("history", "user", "n"));
 
     }
 

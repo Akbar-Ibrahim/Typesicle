@@ -6814,7 +6814,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchCategories: function fetchCategories() {
       var _this = this;
 
-      var url = "/api/top/categories";
+      var url = "/api/top-categories";
       fetch(url).then(function (response) {
         return response.json();
       }).then(function (result) {

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Events\NewPostEvent;
+use App\Notification;
 use App\Services\CategoryService;
 use App\Services\PostUtilService;
 use Illuminate\Http\Request;
@@ -20,8 +22,10 @@ class CategoryController extends Controller
         $categories = $postUtilService->getAllCategories();
 
         $user = request()->user();
+        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
         
-        return view("category.index", compact('categories', 'user'));
+        
+        return view("category.index", compact('categories', 'user', 'n'));
     }
 
     /**

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Events\NewPostEvent;
 use App\Feed;
 use App\Follow;
+use App\Notification;
 use App\Notifications\Like;
 use App\Photo;
 use App\Post;
@@ -140,6 +142,8 @@ class PostUtilController extends Controller
         $recentPosts = $postUtilService->recentPosts($user->id);
         $accounts = $accountService->accountsToFollow($user->id);
 
+        $n = Notification::where(["id" => auth()->user()->id, "read" => "no"])->get();
+
         if(auth()->user()){
             if(auth()->user()->hasRead($feed->id) && $feed->status == 'Post Original') {
 
@@ -152,7 +156,7 @@ class PostUtilController extends Controller
         Feed::where(['id' => $id])->update(['views' => $feed->views + 1]);
         Post::where(['id' => $feed->post_id])->update(['views' => $feed->post->views + 1]);
 
-        return view('posts.post', compact('user', 'post', 'feed', 'previous', 'next', 'respondingTo', 'recentPosts', 'accounts'));
+        return view('posts.post', compact('user', 'post', 'feed', 'previous', 'next', 'respondingTo', 'recentPosts', 'accounts', 'n'));
 
     }
 
@@ -199,8 +203,10 @@ class PostUtilController extends Controller
         $random_post = $postUtilService->getRandomPost();
         // $most_read = $postUtilService->mostRead();
         $top_hashtags = $postUtilService->getTopHashtags();
-            
-        return view('hashtags.index', compact('hashtagPosts', 'hashtag', 'user', 'top_authors', 'top_categories', 'random_post', 'top_hashtags'));
+        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+
+
+        return view('hashtags.index', compact('hashtagPosts', 'hashtag', 'user', 'top_authors', 'top_categories', 'random_post', 'top_hashtags', 'n'));
     }
 
     public function getUserLikes(PostUtilService $postUtilService, Request $request){

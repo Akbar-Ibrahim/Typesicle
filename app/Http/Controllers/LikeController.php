@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Events\LikeFeed;
+use App\Events\NewPostEvent;
 use App\Feed;
 use App\Like;
+use App\Notification;
 use App\Post;
 use App\Services\LikeService;
 use App\Services\PostUtilService;
@@ -31,12 +33,19 @@ class LikeController extends Controller
                     $data = Like::create(["user_id" => $user_id, "post_id" => $feed->post_id]);
                     $data->load('user.profile.photo', 'feed');
 
+                    Notification::create(["user_id" => $feed->post->user_id, "type" => "like", "notifier" => $data->user_id, "message" => "liked your post", "read" => "no", "feed_id" => $feed->id]);
+                    $myNotifications = Notification::where(["user_id" => $feed->post->user_id, "read" => "no"])->get();
+    
+                    $count = $myNotifications->count();
+                    broadcast(new NewPostEvent($count, $feed->post->user_id))->toOthers();
+
                     break;
                 case 'Unlike':
                     // Feed::where('id', $id)->decrement('likes');
                     Post::where('id', $feed->post_id)->decrement('likes');
                     $record = Like::where(["user_id" => $user_id, "post_id" => $feed->post_id])->first();
                     $record->delete();
+
 
                     break;
             }
@@ -51,6 +60,14 @@ class LikeController extends Controller
                     Shortie::where('id', $feed->shortie_id)->increment('likes');
                     $data = Like::create(["user_id" => $user_id, "shortie_id" => $feed->shortie_id]);
                     $data->load('user.profile.photo', 'feed');
+
+
+                    Notification::create(["user_id" => $feed->shortie->user_id, "type" => "like", "notifier" => $data->user_id, "message" => "liked your shortie", "read" => "no", "feed_id" => $feed->id]);
+                    $myNotifications = Notification::where(["user_id" => $feed->shortie->user_id, "read" => "no"])->get();
+    
+                    $count = $myNotifications->count();
+                    broadcast(new NewPostEvent($count, $feed->shortie->user_id))->toOthers();
+
 
                     break;
                 case 'Unlike':

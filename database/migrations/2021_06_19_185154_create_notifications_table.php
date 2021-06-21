@@ -19,7 +19,7 @@ class CreateNotificationsTable extends Migration
             $table->string('type')->nullable();
             $table->integer('notifier')->index()->unsigned();
             $table->string('message');
-            $table->text('post_id')->nullable();
+            $table->text('feed_id')->nullable();
             $table->text('comment_id')->nullable();
             $table->text('comment_reply_id')->nullable();
             $table->string('read')->default();

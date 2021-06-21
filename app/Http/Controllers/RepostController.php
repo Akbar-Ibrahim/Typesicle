@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewPostEvent;
 use App\Events\ShareFeed;
 use App\Feed;
+use App\Notification;
 use App\Post;
 use App\Repost;
 use App\Services\RepostService;
@@ -42,7 +44,14 @@ class RepostController extends Controller
                 Feed::create(['user_id' => $user_id, 'post_id' => $post->id, 'status' => 'Reposted']);
                 $data = Repost::create(["user_id" => $user_id, "post_id" => $feed->post_id, "status" => 1]);
                 $data->load('user.profile.photo', 'feed');
+
                 
+                Notification::create(["user_id" => $feed->post->user_id, "type" => "share", "notifier" => $data->user_id, "message" => "shared your post", "read" => "no", "feed_id" => $feed->id]);
+                $myNotifications = Notification::where(["user_id" => $feed->post->user_id, "read" => "no"])->get();
+
+                $count = $myNotifications->count();
+                broadcast(new NewPostEvent($count, $feed->post->user_id))->toOthers();
+
                 break;
             case 'Shared':
                 Post::where('id', $feed->post_id)->decrement('shares');
@@ -68,6 +77,12 @@ class RepostController extends Controller
                 $shortie = Shortie::where('id', $feed->shortie_id)->first();
                 Feed::create(['user_id' => $user_id, 'shortie_id' => $shortie->id, 'status' => 'Shortie']);
                 $data = Repost::create(["user_id" => $user_id, "feed_id" => $id, "shortie_id" => $feed->shortie_id, "status" => 1]);
+
+                Notification::create(["user_id" => $feed->shortie->user_id, "type" => "share", "notifier" => $data->user_id, "message" => "shared your shortie", "read" => "no", "feed_id" => $feed->id]);
+                    $myNotifications = Notification::where(["user_id" => $feed->shortie->user_id, "read" => "no"])->get();
+    
+                    $count = $myNotifications->count();
+                    broadcast(new NewPostEvent($count, $feed->shortie->user_id))->toOthers();
 
                 break;
             case 'Shared':

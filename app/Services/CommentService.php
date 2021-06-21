@@ -32,7 +32,7 @@ class CommentService
 
 
 
-        Notification::create(["user_id" => $comment->post->user_id, "type" => "comment", "notifier" => $comment->user_id, "message" => "commented on your post", "read" => "no", "post_id" => $feed->post->id, "comment_id" => $comment->id]);
+        Notification::create(["user_id" => $comment->post->user_id, "type" => "comment", "notifier" => $comment->user_id, "message" => "commented on your post", "read" => "no", "feed_id" => $comment->feed_id, "comment_id" => $comment->id]);
         $myNotifications = Notification::where(["user_id" => $comment->post->user_id, "read" => "no"])->get();
         
         $count = $myNotifications->count();

@@ -51,6 +51,7 @@ export default {
 
   mounted() {
     this.getCategories();
+    
 
     var categoryInput = document.getElementById("category");
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Draft;
+use App\Notification;
 use App\Photo;
 use App\Post;
 use Illuminate\Http\Request;
@@ -21,7 +22,9 @@ class DraftController extends Controller
         $user = auth()->user();
         $drafts = Draft::where(['user_id' => $user->id])->get();
 
-        return view("drafts.index", compact("drafts", "user"));
+        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+
+        return view("drafts.index", compact("drafts", "user", "n"));
     }
 
     /**
@@ -77,8 +80,8 @@ class DraftController extends Controller
         //
         $user = auth()->user();
         $draft = Draft::where(["id" => $id])->first();
-
-        return view("drafts.show", compact("draft", "user"));
+        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+        return view("drafts.show", compact("draft", "user", "n"));
     }
 
     /**

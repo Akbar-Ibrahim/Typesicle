@@ -28,7 +28,7 @@
             <span id="create_post" post_route="{{ route('write.store') }}" class="d-none"></span>
 
             <div class="w3-hide-large w3-center">
-            @include('includes.selectCategory')
+            
                 <button onclick="document.getElementById('coverPhotoModal').style.display='block'" class="w3-button">Add
                     A Cover
                     Picture</button>

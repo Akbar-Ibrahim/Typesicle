@@ -8,9 +8,9 @@ use App\User;
 class Notification extends Model
 {
     //
-    protected $fillable = ['user_id', 'type', 'notifier', 'message', 'read', 'post_id', 'comment_id', 'comment_reply_id'];
+    protected $fillable = ['user_id', 'type', 'notifier', 'message', 'read', 'feed_id', 'comment_id', 'comment_reply_id'];
 
-    protected $appends = ['date'];
+    protected $appends = ['date', 'is_notifier'];
 
     public function user()
     {
@@ -18,10 +18,7 @@ class Notification extends Model
 
     }
 
-    public function notifications($user_id) {
-        return Notification::where(["user_id" => $useer->id])->get();
-    }
-
+    
     public function unreadNotifications() {
         return $this->notifications()->where([])->get();
     }
@@ -44,8 +41,8 @@ class Notification extends Model
     //     return CommentReply::where(["id" => $this->comment_reply_id])->with("feed")->get();
     // }
 
-    public function post(){
-        return $this->belongsTo('App\Post');
+    public function feed(){
+        return $this->belongsTo('App\Feed')->with('post.user', 'shortie.user');
     }
 
     public function comment() {
@@ -60,4 +57,6 @@ class Notification extends Model
 public function getDateAttribute() {
     return $this->created_at->diffForHumans();
 }
+
+
 }

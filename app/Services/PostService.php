@@ -148,7 +148,7 @@ class PostService
 
         Mail::to($recipient)->send(new NewPost($post, $recipient));
         
-        Notification::create(["user_id" => $recipient->id, "type" => "post", "notifier" => auth()->user()->id, "message" => "has published a new post", "read" => "no", "post_id" => $post->id]);
+        Notification::create(["user_id" => $recipient->id, "type" => "post", "notifier" => auth()->user()->id, "message" => "has published a new post", "read" => "no", "feed_id" => $feed->id]);
         $myNotifications = Notification::where(["user_id" => $recipient->id, "read" => "no"])->get();
         
         $count = $myNotifications->count();

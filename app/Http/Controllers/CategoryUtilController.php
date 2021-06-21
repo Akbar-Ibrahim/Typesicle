@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Feed;
+use App\Notification;
 use App\Services\AccountService;
 use App\Services\CategoryService;
-use App\Services\PostUtilService;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,9 +31,8 @@ class CategoryUtilController extends Controller
     {
         //
 
-        // $user = User::where('username', $username)->first();
         $user = User::where('username', $username)->first();
-        $user_categories = $categoryService->getUserCategories($user);
+        $user_categories = $categoryService->getUserCategories($user->id);
 
         return $user_categories;
     }
@@ -107,12 +106,16 @@ class CategoryUtilController extends Controller
         }
         // return $feeds;
     }
-        return view("category.posts", compact("user",  "user_categories", "category", "feeds"));
+
+    $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+    
+
+        return view("category.posts", compact("user",  "user_categories", "category", "feeds", "n"));
     }
 
     public function getTopCategories(CategoryService $categoryService){
-        $top_categories = $categoryService->getTopCategories();
-        return $top_categories;
-    }
+
+        return $categoryService->getTopCategories();
     
+    }
 }

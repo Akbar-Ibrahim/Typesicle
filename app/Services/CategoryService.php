@@ -27,9 +27,9 @@ class CategoryService{
     }
 
 
-    public function getUserCategories($user){
+    public function getUserCategories($id){
 
-        return Category::where(['user_id' => $user->id])->with('user.profile', 'feeds', 'posts')->get();        
+        return Category::where(['user_id' => $id])->with('user.profile', 'feeds', 'posts')->get();        
     }  
 
     public function getMyCategories() {
@@ -43,7 +43,6 @@ class CategoryService{
         return Category::postCountTen()->with('posts', 'user')->get();
     
     }
-    
 
 
 }

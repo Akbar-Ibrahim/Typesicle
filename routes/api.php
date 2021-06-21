@@ -54,8 +54,8 @@ Route::get('quiz/play-status', 'QuizUtilController@playStatus');
 //Category
 Route::get('/user-categories', 'CategoryUtilController@getMyCategories');
 Route::post('/category-create', 'CategoryUtilController@createCategory');
-// Route::get('/{username}/categories', 'CategoryUtilController@getUserCategories');
-Route::get('/top/categories', 'CategoryUtilController@getTopCategories');
+Route::get('/{username}/categories', 'CategoryUtilController@getUserCategories');
+Route::get('/top-categories', 'CategoryUtilController@getTopCategories');
 
 //Follow
 Route::get('profile-follow', 'FollowController@followProfile')->name('follow:profile')->middleware('auth');

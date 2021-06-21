@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\ShortieReplyEvent;
 use App\Feed;
 use App\Hashtag;
+use App\Notification;
 use App\Photo;
 use App\PostHashtag;
 use App\Services\PostUtilService;
@@ -245,7 +246,10 @@ class ShortieController extends Controller
         $feed = $postUtilService->getFeed($id);
         $recentShorties = $shortieService->recentShorties($user->id);
 
-        return view('shortie.shortie', compact('user', 'feed', 'recentShorties'));
+        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+        
+
+        return view('shortie.shortie', compact('user', 'feed', 'recentShorties', 'n'));
     }
 
     public function storeShortieComment(Request $request)

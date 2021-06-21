@@ -16,11 +16,13 @@ class NotificationController extends Controller
         
         Notification::where(["user_id" => $user->id])->update(["read" => "yes"]);
         
-        $notifications = Notification::where(["user_id" => $user->id])->orderBy("created_at", "desc")->get();
+        $notifications = Notification::where(["user_id" => $user->id])->with('feed', 'comment')->orderBy("created_at", "desc")->get();
+
+        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
         
 
         // return $notifications;
         
-        return view("notifications.index", compact("notifications", "user"));
+        return view("notifications.index", compact("notifications", "user", "n"));
     }
 }

@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     fetchCategories() {
-      let url = "/api/top/categories";
+      let url = "/api/top-categories";
       fetch(url)
         .then((response) => {
           return response.json();

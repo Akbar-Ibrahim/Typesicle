@@ -34,7 +34,7 @@
             </div>
 
             <div class="w3-hide-large w3-center">
-            @include('includes.selectCategory')
+            
                 <button onclick="document.getElementById('coverPhotoModal').style.display='block'" class="w3-button">Add
                     A Cover
                     Picture</button>
@@ -43,6 +43,7 @@
 
             <!-- Publish form -->
             <div class="">
+            
                 <form id="postCreateForm" method="POST" action="/write" enctype="multipart/form-data">
                     @csrf
 

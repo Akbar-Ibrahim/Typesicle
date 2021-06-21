@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\History;
+use App\Notification;
 use App\Services\HistoryService;
 use App\Services\PostUtilService;
 use App\User;
@@ -17,8 +18,10 @@ class HistoryController extends Controller
         // $user = User::where('id', auth()->user()->id)->first();
         $user = $postUtilService->getUser($username);
         $history = $historyService->getHistory($user);
+        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+        
 
-        return view('history.index', compact('history', 'user'));
+        return view('history.index', compact('history', 'user', 'n'));
     }
 
     public function delete(Request $request){
