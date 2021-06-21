@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Feed;
+use App\Notification;
 use Illuminate\Http\Request;
 use App\User;
 use App\Post;
@@ -29,7 +30,14 @@ class SearchController extends Controller
 
         $user = auth()->user();
         $guest = ["id" => 0, "name" => "guest", "username" => "@guest"];
-        return view('searchauthor', compact('users', 'searchterm', 'page_name', 'user', 'guest'));
+
+        
+        if(auth()->user()) {
+            $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+        return view('searchauthor', compact('users', 'searchterm', 'page_name', 'user', 'guest', 'n'));
+        } else {
+            return view('searchauthor', compact('users', 'searchterm', 'page_name', 'user', 'guest'));
+        }
 
     }
 
@@ -112,6 +120,11 @@ class SearchController extends Controller
         $user = auth()->user();
         $guest = ["id" => 0, "name" => "guest", "username" => "@guest"];
 
-        return view('searchpost', compact('posts', 'searchterm', 'page_name', 'user', 'feeds', 'searchResult', 'guest'));
+        if(auth()->user()) {
+            $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+        return view('searchpost', compact('posts', 'searchterm', 'page_name', 'user', 'feeds', 'searchResult', 'guest', 'n'));
+        } else {
+            return view('searchpost', compact('posts', 'searchterm', 'page_name', 'user', 'feeds', 'searchResult', 'guest'));
+        }
     }
 }

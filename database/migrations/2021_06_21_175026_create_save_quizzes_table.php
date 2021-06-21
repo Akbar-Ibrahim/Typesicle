@@ -24,6 +24,9 @@ class CreateSaveQuizzesTable extends Migration
             $table->string('correct_answer');
             $table->text('image')->nullable();
             $table->timestamps();
+
+            $table->foreign('quiz_id')->references('id')->on('quizzes');
+            // $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

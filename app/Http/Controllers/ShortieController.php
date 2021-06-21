@@ -246,10 +246,14 @@ class ShortieController extends Controller
         $feed = $postUtilService->getFeed($id);
         $recentShorties = $shortieService->recentShorties($user->id);
 
-        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
         
-
+        
+        if(auth()->user()) {
+            $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
         return view('shortie.shortie', compact('user', 'feed', 'recentShorties', 'n'));
+        } else {
+            return view('shortie.shortie', compact('user', 'feed', 'recentShorties'));
+        }
     }
 
     public function storeShortieComment(Request $request)

@@ -18,6 +18,9 @@ class CreateProfilesTable extends Migration
             $table->unsignedBigInteger('user_id')->index();
             $table->string('bio')->nullable();
             $table->string('picture')->nullable()->default("avatar.png");
+            $table->string('facebook')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('twitter')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

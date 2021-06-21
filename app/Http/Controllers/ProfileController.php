@@ -33,7 +33,7 @@ class ProfileController extends Controller
         $accounts = $accountService->accountsToFollow($user->id);
         // $userRandomPost = $postUtilService->getUserRandomPost($user->id);
 
-        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+        
         
 
         $addToGroup = [];
@@ -78,8 +78,14 @@ class ProfileController extends Controller
             }
         }
 
+        if(auth()->user()) {
+            $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+            return view('profiles.index', compact('feeds', 'user', 'photos', 'recentPosts', 'accounts', 'addToGroup', 'n'));
+        } else {
+            return view('profiles.index', compact('feeds', 'user', 'photos', 'recentPosts', 'accounts', 'addToGroup'));
+        }
 
-        return view('profiles.index', compact('feeds', 'user', 'photos', 'recentPosts', 'accounts', 'addToGroup', 'n'));
+        
     }
 
     public function edit($username, $id, PostUtilService $postUtilService)

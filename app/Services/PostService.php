@@ -144,9 +144,11 @@ class PostService
 
         // $recipient_address->notify(new NewPost($author, $post, $url));
 
-        $recipient = User::where(["id" => 8])->first();
+        $recipient = User::where(["id" => 1])->first();
 
-        Mail::to($recipient)->send(new NewPost($post, $recipient));
+        $url = route('post.url', [$post->user->username, $post->url, $post->feed->id]);
+
+        Mail::to($recipient)->send(new NewPost($post, $recipient, $url));
         
         Notification::create(["user_id" => $recipient->id, "type" => "post", "notifier" => auth()->user()->id, "message" => "has published a new post", "read" => "no", "feed_id" => $feed->id]);
         $myNotifications = Notification::where(["user_id" => $recipient->id, "read" => "no"])->get();

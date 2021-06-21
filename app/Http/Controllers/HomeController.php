@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notification;
 use App\Photo;
 use App\Services\AccountService;
 use App\Services\PhotoService;
@@ -41,8 +42,14 @@ class HomeController extends Controller
         $accounts = $accountService->accountsToFollow($user->id);
         $top_categories = $postUtilService->getTopCategories();
         $top_hashtags = $postUtilService->getTopHashtags();
+        
 
+if(auth()->user()) {
+    $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+    return view('home', compact('feeds', 'user', 'photos', 'recentPosts', 'accounts', 'top_categories', 'top_hashtags', 'n'));
+} else {
         return view('home', compact('feeds', 'user', 'photos', 'recentPosts', 'accounts', 'top_categories', 'top_hashtags'));
+}
     }
 
     public function imagesUploadPost(Request $request)

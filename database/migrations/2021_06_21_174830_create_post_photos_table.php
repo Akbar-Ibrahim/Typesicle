@@ -15,13 +15,7 @@ class CreatePostPhotosTable extends Migration
     {
         Schema::create('post_photos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
-            $table->integer('post_id');
-            $table->integer('photo_id');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('post_id')->references('id')->on('posts');
         });
     }
 

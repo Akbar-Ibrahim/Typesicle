@@ -21,10 +21,9 @@
         </div>
       </div>
       <div style="margin: 12px 0">
-        <a href="#"><i class="fa fa-dribbble"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-linkedin"></i></a>
-        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a v-if="JSON.parse(user).profile.twitter !== null" :href="JSON.parse(user).profile.twitter"><i class="fa fa-twitter"></i></a>
+        <a v-if="JSON.parse(user).profile.instagram !== null" :href="JSON.parse(user).profile.instagram"><i class="fa fa-instagram"></i></a>
+        <a v-if="JSON.parse(user).profile.facebook" :href="JSON.parse(user).profile.facebook"><i class="fa fa-facebook"></i></a>
       </div>
     </div>
   </div>

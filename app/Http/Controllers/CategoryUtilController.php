@@ -107,10 +107,12 @@ class CategoryUtilController extends Controller
         // return $feeds;
     }
 
+    if (auth()->user()) {
     $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
-    
-
-        return view("category.posts", compact("user",  "user_categories", "category", "feeds", "n"));
+    return view("category.posts", compact("user",  "user_categories", "category", "feeds", "n"));
+    } else {
+        return view("category.posts", compact("user",  "user_categories", "category", "feeds"));
+    }
     }
 
     public function getTopCategories(CategoryService $categoryService){

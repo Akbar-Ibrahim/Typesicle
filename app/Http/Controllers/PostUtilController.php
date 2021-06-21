@@ -142,21 +142,26 @@ class PostUtilController extends Controller
         $recentPosts = $postUtilService->recentPosts($user->id);
         $accounts = $accountService->accountsToFollow($user->id);
 
-        $n = Notification::where(["id" => auth()->user()->id, "read" => "no"])->get();
+        Feed::where(['id' => $id])->update(['views' => $feed->views + 1]);
+        Post::where(['id' => $feed->post_id])->update(['views' => $feed->post->views + 1]);
 
+        
+        
         if(auth()->user()){
+            $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();    
             if(auth()->user()->hasRead($feed->id) && $feed->status == 'Post Original') {
 
             } else {
                 $historyService->addToHistory($feed);
             
             }
+            return view('posts.post', compact('user', 'post', 'feed', 'previous', 'next', 'respondingTo', 'recentPosts', 'accounts', 'n'));
+        } else {
+            return view('posts.post', compact('user', 'post', 'feed', 'previous', 'next', 'respondingTo', 'recentPosts', 'accounts'));
         }
         
-        Feed::where(['id' => $id])->update(['views' => $feed->views + 1]);
-        Post::where(['id' => $feed->post_id])->update(['views' => $feed->post->views + 1]);
-
-        return view('posts.post', compact('user', 'post', 'feed', 'previous', 'next', 'respondingTo', 'recentPosts', 'accounts', 'n'));
+        
+        
 
     }
 
@@ -203,10 +208,15 @@ class PostUtilController extends Controller
         $random_post = $postUtilService->getRandomPost();
         // $most_read = $postUtilService->mostRead();
         $top_hashtags = $postUtilService->getTopHashtags();
-        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+        
 
-
-        return view('hashtags.index', compact('hashtagPosts', 'hashtag', 'user', 'top_authors', 'top_categories', 'random_post', 'top_hashtags', 'n'));
+if(auth()->user()) {
+    $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+    return view('hashtags.index', compact('hashtagPosts', 'hashtag', 'user', 'top_authors', 'top_categories', 'random_post', 'top_hashtags', 'n'));
+} else {
+    return view('hashtags.index', compact('hashtagPosts', 'hashtag', 'user', 'top_authors', 'top_categories', 'random_post', 'top_hashtags'));
+}
+        
     }
 
     public function getUserLikes(PostUtilService $postUtilService, Request $request){

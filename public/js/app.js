@@ -4967,7 +4967,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["userId", "currentUser", "status", "user", "usertype"],
   mounted: function mounted() {
@@ -64005,36 +64004,37 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticStyle: { margin: "12px 0" } }, [
+          JSON.parse(_vm.user).profile.twitter !== null
+            ? _c(
+                "a",
+                { attrs: { href: JSON.parse(_vm.user).profile.twitter } },
+                [_c("i", { staticClass: "fa fa-twitter" })]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          JSON.parse(_vm.user).profile.instagram !== null
+            ? _c(
+                "a",
+                { attrs: { href: JSON.parse(_vm.user).profile.instagram } },
+                [_c("i", { staticClass: "fa fa-instagram" })]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          JSON.parse(_vm.user).profile.facebook
+            ? _c(
+                "a",
+                { attrs: { href: JSON.parse(_vm.user).profile.facebook } },
+                [_c("i", { staticClass: "fa fa-facebook" })]
+              )
+            : _vm._e()
+        ])
       ],
       1
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticStyle: { margin: "12px 0" } }, [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fa fa-dribbble" })
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fa fa-twitter" })
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fa fa-linkedin" })
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fa fa-facebook" })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

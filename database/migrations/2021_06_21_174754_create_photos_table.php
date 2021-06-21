@@ -19,6 +19,8 @@ class CreatePhotosTable extends Migration
             $table->string("photo");
             $table->string("description")->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

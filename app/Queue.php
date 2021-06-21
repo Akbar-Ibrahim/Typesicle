@@ -8,7 +8,7 @@ class Queue extends Model
 {
     //
 
-    protected $fillable = ['user_id', 'feed_id', 'post_id'];
+    protected $fillable = ['user_id', 'feed_id'];
 
     
     public function user(){

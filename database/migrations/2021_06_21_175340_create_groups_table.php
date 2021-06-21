@@ -23,7 +23,6 @@ class CreateGroupsTable extends Migration
             $table->timestamps();
 
             $table->foreign('creator')->references('id')->on('users')->onDelete('cascade');
-            
         });
     }
 

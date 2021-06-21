@@ -57,8 +57,9 @@
 
 
 <body>
+@auth
     <span id="authid">{{ Auth::user()->id }}</span>
-
+@endauth
 
     <!-- Sidebar/menu -->
     <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large"
@@ -74,7 +75,9 @@
     <header class="w3-container w3-top w3-white w3-xlarge w3-padding-16 ">
         <span class="w3-left w3-padding">typesicle</span>
         <a class="w3-right w3-hide-large"  href="javascript:void(0)" ><i class="fas fa fa-angle-down" aria-hidden="true" onclick="w3_open()"></i></a>
+        @auth
         <button route="{{ route('notification.index') }}" onclick="location.href=this.getAttribute('route')" class="w3-button w3-padding-large w3-right" title="Notifications"><i class="fa fa-bell"></i><span style="display: none;" id="newNotification" class="w3-badge w3-right w3-small w3-green"> {{ count($n) }} </span></button>     
+        @endauth
         <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open_right_menu()">☰</a>
 
         @guest

@@ -15,17 +15,19 @@ class NewPost extends Mailable
 
     protected $post;
     public $user;
+    public $url;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Post $post, User $user)
+    public function __construct(Post $post, User $user, $url)
     {
         //
         $this->post = $post;
         $this->user = $user;
+        $this->url = $url;
         
     }
 
@@ -39,7 +41,7 @@ class NewPost extends Mailable
         return $this->markdown('emails.posts.new', [
             'author' => $this->post->user->name,
             'title' => $this->post->title,
-            'url' => $this->post->url,
+            // 'url' => $this->post->url,
         ]);
     }
 }

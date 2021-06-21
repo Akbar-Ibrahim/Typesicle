@@ -1,7 +1,5 @@
 @component('mail::message')
-# Introduction
 
-The body of your message.
 <h1>
 Hey {{ $user->name }}, 
 </h1>
@@ -11,7 +9,7 @@ Hey {{ $user->name }},
 </h3>
 
 <h1> {{ $title }} </h1>
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => $url])
 Button Text
 @endcomponent
 

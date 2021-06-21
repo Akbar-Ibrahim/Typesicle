@@ -53,7 +53,7 @@ Route::get("/date", function(){
         });
 
         return "done";
-    });
+    })->middleware('auth');
 
 
     Route::get('pusher', function(){
@@ -73,7 +73,7 @@ Route::get("/date", function(){
 
         return view('includes.shortie', compact('feeds'));
 
-    });
+    })->middleware('auth');
 
 
 
@@ -85,11 +85,11 @@ Auth::routes(['verify' => true]);
 Route::get('google', function () {
     return view('google');
 });
-Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
-Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
+// Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
+// Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
 
 // Route::get('/home', 'HomeController@index')->name('home')->middleware("verified", "auth");
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware("verified", "auth");
 // Route::get('/forgot-password', function () {
 //     return view('auth.forgot-password');
 // })->middleware('guest')->name('password.request');
@@ -146,7 +146,7 @@ Route::post('/reset-password', function (Request $request) {
 
 // Notifications
 
-Route::get("/notifications", "NotificationController@index")->name("notification.index");
+Route::get("/notifications", "NotificationController@index")->name("notification.index")->middleware('auth');
 // Route::post("/notification/store", "NotificationController@store")->name("notification.store");
 
 
@@ -159,35 +159,35 @@ Route::get("/notifications", "NotificationController@index")->name("notification
 Route::resource('post', 'PostController')->middleware(['auth']);
 Route::get('post/{username}/{url}/{id}', ['as' => 'post.url', 'uses' => 'PostUtilController@post' ]);
 
-Route::get('/repost/{id}', 'RepostController@repost')->name('post.repost');
-Route::post('/post-repost/{id}', 'RepostController@handleRepost')->name('post.repost');
+Route::get('/repost/{id}', 'RepostController@repost')->name('post.repost')->middleware('auth');
+Route::post('/post-repost/{id}', 'RepostController@handleRepost')->name('post.repost')->middleware('auth');
 
 
 
 // WRITE
-Route::resource('write', 'PostController')->middleware(['auth']);
-Route::get('response', 'PostUtilController@response')->middleware(['auth'])->name("response.write");
-Route::post('post-preview', 'PostUtilController@preview')->middleware(['auth'])->name("post.preview");
+Route::resource('write', 'PostController')->middleware(['auth'])->middleware('auth');
+Route::get('response', 'PostUtilController@response')->middleware(['auth'])->name("response.write")->middleware('auth');
+Route::post('post-preview', 'PostUtilController@preview')->middleware(['auth'])->name("post.preview")->middleware('auth');
 
-Route::get('delete-post/{id}', 'PostUtilController@deletePost')->middleware(['auth'])->name("delete.post");
+Route::get('delete-post/{id}', 'PostUtilController@deletePost')->middleware(['auth'])->name("delete.post")->middleware('auth');
 
 // Draft
-Route::resource('draft', 'DraftController')->middleware('auth');
+Route::resource('draft', 'DraftController')->middleware('auth')->middleware('auth');
 
 
 // Quiz
 Route::resource('quiz', 'QuizController')->middleware(['auth']);
-Route::get('/{user}/quizzes', 'QuizController@index')->name('quizzes');
-Route::get('/quiz/stats', 'QuizUtilController@quizStats')->name('quiz:stats');
-Route::get('/quiz/player-answer', 'QuizUtilController@playerAnswer')->name('player:answer');
-Route::get('/quiz/play-status', 'QuizUtilController@playStatus')->name('play:status');
-Route::get('/quiz/play/{id}', 'QuizUtilController@play')->name('quiz.play');
+Route::get('/{user}/quizzes', 'QuizController@index')->name('quizzes')->middleware('auth');
+Route::get('/quiz/stats', 'QuizUtilController@quizStats')->name('quiz:stats')->middleware('auth');
+Route::get('/quiz/player-answer', 'QuizUtilController@playerAnswer')->name('player:answer')->middleware('auth');
+Route::get('/quiz/play-status', 'QuizUtilController@playStatus')->name('play:status')->middleware('auth');
+Route::get('/quiz/play/{id}', 'QuizUtilController@play')->name('quiz.play')->middleware('auth');
 Route::get('quiz/new', 'QuizUtilController@newQuiz')->name('quiz:new')->middleware("auth");
 
 // Poll
 Route::resource('poll', 'PollController')->middleware(['auth']);
-Route::post('vote', 'PollUtilController@vote');
-Route::get('myvote/{poll_id}', 'PollUtilController@myVote');
+Route::post('vote', 'PollUtilController@vote')->middleware('auth');
+Route::get('myvote/{poll_id}', 'PollUtilController@myVote')->middleware('auth');
 
 
 // Like
@@ -201,7 +201,7 @@ Route::post('/queue/post/{id}/{user_id}/action', 'PostUtilController@queueAction
 // Category
 Route::resource('/category', 'CategoryController');
 // Route::get('/category/{id}/{url}', 'CategoryController@category')->name('category.name'); 
-Route::post('/category-create', 'CategoryUtilController@createCategory')->name('categories-create');
+Route::post('/category-create', 'CategoryUtilController@createCategory')->name('categories-create')->middleware('auth');
 Route::get('/{username}/category/{categoryURL}', 'CategoryUtilController@getCategory')->name('category-name');
 
 
@@ -209,13 +209,13 @@ Route::get('/{username}/category/{categoryURL}', 'CategoryUtilController@getCate
 Route::post('/email-user', 'PostUtilController@emailPost')->middleware('auth')->name('email-post');
 
 // Hashtags
-Route::get('hashtag/{hashtag}', 'PostUtilController@getHashtagPosts')->name('hashtag')->middleware('auth');
+Route::get('hashtag/{hashtag}', 'PostUtilController@getHashtagPosts')->name('hashtag');
 
 // Shorties
 Route::get('shortie/create', 'ShortieController@create')->name('shortie-create')->middleware('auth');
 Route::post('shortie/store', 'ShortieController@storeShortie')->name('store:shortie')->middleware('auth');
 Route::get("/shortie/{username}/{id}", "ShortieController@shortie")->name("shortie.url");
-Route::get('/{username}/shorties', 'PostController@shorties')->name('shorties')->middleware(['auth']);
+Route::get('/{username}/shorties', 'PostController@shorties')->name('shorties');
 Route::post('/w/o/shortie', 'ShortieController@withoutShortie')->name('wo.shortie')->middleware(['auth']);
 
 
@@ -244,36 +244,36 @@ Route::get('/{username}/photos', 'PhotoController@photos')->name('photos.index')
 
 //History
 Route::get('/{username}/history',  'HistoryController@index')->name('history.index');
-Route::delete('/history/delete',  'HistoryController@delete')->name('history.delete');
+Route::delete('/history/delete',  'HistoryController@delete')->name('history.delete')->middleware('auth');
 
 
 // Queues
 Route::resource('queue', 'QueueController')->middleware('auth');
-Route::post('add/queue', 'QueueController@saveToQueue')->name('add.queue');
+Route::post('add/queue', 'QueueController@saveToQueue')->name('add.queue')->middleware('auth');
 Route::get('all/queue', 'QueueController@index')->name('get.queue')->middleware('auth');
-Route::delete('queue/delete', 'QueueController@deleteFromQueue')->name('delete.queue');
+Route::delete('queue/delete', 'QueueController@deleteFromQueue')->name('delete.queue')->middleware('auth');
 
 //Follow
 Route::get('profile-follow', 'FollowController@followProfile')->name('follow:profile')->middleware('auth');
 
 
 // Group
-Route::get("/group/index", "GroupController@index")->name("group.index");
-Route::get("/group/create", "GroupController@create")->name("group.create");
-Route::post("/group-create", "GroupController@createGroup");
-Route::get("/group/{id}", "GroupController@group")->name("group.name");
-Route::post("/group/send-chat", "GroupController@sendChat");
-Route::post("/group/{id}/add", "GroupController@addToGroup")->name("group.add");
+Route::get("/group/index", "GroupController@index")->name("group.index")->middleware('auth');
+Route::get("/group/create", "GroupController@create")->name("group.create")->middleware('auth');
+Route::post("/group-create", "GroupController@createGroup")->middleware('auth');
+Route::get("/group/{id}", "GroupController@group")->name("group.name")->middleware('auth');
+Route::post("/group/send-chat", "GroupController@sendChat")->middleware('auth');
+Route::post("/group/{id}/add", "GroupController@addToGroup")->name("group.add")->middleware('auth');
 
 
 // Profiles
 Route::resource('profiles', 'ProfileController')->middleware('auth');
 Route::get('/{user}', 'ProfileController@index')->name('profile.show');
 Route::get('/{user}/{id}/edit', 'ProfileController@edit')->name('profile.edit')->middleware('auth');
-Route::post('update/profile', ['as'=>'upload.image','uses'=>'ProfileController@updateProfile']);
-Route::post('profile-edit', ['as'=>'profile-edit','uses'=>'ProfileController@editProfile']);
-Route::get('{user}/profile-picture', ['as'=>'profile-image','uses'=>'ProfileController@profileImage']);
-Route::post('image-cropper/upload','ProfileController@upload');
+Route::post('update/profile', ['as'=>'upload.image','uses'=>'ProfileController@updateProfile'])->middleware('auth');
+Route::post('profile-edit', ['as'=>'profile-edit','uses'=>'ProfileController@editProfile'])->middleware('auth');
+Route::get('{user}/profile-picture', ['as'=>'profile-image','uses'=>'ProfileController@profileImage'])->middleware('auth');
+
 
 
 

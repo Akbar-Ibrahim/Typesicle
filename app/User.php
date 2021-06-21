@@ -191,9 +191,9 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->hasMany('App\Queue')->with('feed.post.user.profile', 'feed.post.photo');
     }
 
-    public function isQueued($post_id)
+    public function isQueued($feed_id)
     {
-        return $this->queues()->where(['post_id' => $post_id, 'user_id' => $this->id])->first();
+        return $this->queues()->where(['feed_id' => $feed_id, 'user_id' => $this->id])->first();
     }
 
     public function history()
