@@ -21,7 +21,7 @@
         </div>
         <!-- Toggle show start -->
         <div class="w3-container w3-margin w3-center">
-          <button class="kong" ref="buttonToggle" @click="showRest()">
+          <button class="w3-button w3-border" ref="buttonToggle" @click="showRest()">
             Show thread
           </button>
         </div>
@@ -65,11 +65,11 @@ this.feeds = [];
       if (this.$refs.threadId.style.display == "none") {
         this.$refs.threadId.style.display = "block";
 
-        text = "Hide thread";
+        var text = "Hide thread";
         this.$refs.buttonToggle.innerHTML = text;
       } else {
         this.$refs.threadId.style.display = "none";
-        text = "Show thread";
+        var text = "Show thread";
         this.$refs.buttonToggle.innerHTML = text;
       }
 

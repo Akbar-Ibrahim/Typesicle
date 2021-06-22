@@ -6,6 +6,7 @@ use App\Category;
 use App\Feed;
 use App\Hashtag;
 use App\Http\Requests\PostRequest;
+use App\Notification;
 use App\Photo;
 use App\Post;
 use App\Services\PhotoService;
@@ -21,9 +22,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($username, $url, $id, PostUtilService $postUtilService)
+    public function index(PostUtilService $postUtilService)
     {
         //
+        $photos = Photo::where(['user_id' => auth()->user()->id])->get();
+        $user = auth()->user();
+        return view("write.index", compact('photos', 'user'));
     }
 
     /**

@@ -41,7 +41,12 @@ class CategoryController extends Controller
         //
         $user = auth()->user();
 
-        return view("category.create", compact('user'));
+        if (auth()->user()) {
+        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+        return view("category.create", compact('user', 'n'));
+        } else {
+            return view("category.create", compact('user'));
+        }
     }
 
     /**

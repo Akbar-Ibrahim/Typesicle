@@ -11,6 +11,7 @@ function readImg(input,img){
                            
               img.classList.remove('d-none');
               $("#image-preview-container").css("display", "block")
+              $("#image-preview-container-small").css("display", "block")
           };
 
           reader.readAsDataURL(input.files[0]);
@@ -18,6 +19,7 @@ function readImg(input,img){
 
       } else {
         $("#image-preview-container").css("display", "none")
+        $("#image-preview-container-small").css("display", "none")
       }
   }
 
@@ -47,8 +49,12 @@ $(document).ready(function(){
 
     var img_preview = document.getElementById("img_preview");
     var input=$(this);
-
     readImg(input[0], img_preview);
+
+    var img_preview_small = document.getElementById("img_preview_small");
+    var input=$(this);
+    readImg(input[0], img_preview_small);
+
     // $("#img_preview").css("display", "block");
     // $("#image-preview-container").css("display", "block")
 

@@ -15,6 +15,7 @@
 </script> -->
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/search-user.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
@@ -75,10 +76,11 @@
     <header class="w3-container w3-top w3-white w3-xlarge w3-padding-16 ">
         <span class="w3-left w3-padding">typesicle</span>
         <a class="w3-right w3-hide-large"  href="javascript:void(0)" ><i class="fas fa fa-angle-down" aria-hidden="true" onclick="w3_open()"></i></a>
-        @auth
-        <button route="{{ route('notification.index') }}" onclick="location.href=this.getAttribute('route')" class="w3-button w3-padding-large w3-right" title="Notifications"><i class="fa fa-bell"></i><span style="display: none;" id="newNotification" class="w3-badge w3-right w3-small w3-green"> {{ count($n) }} </span></button>     
-        @endauth
         <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open_right_menu()">☰</a>
+        @auth
+        <button route="{{ route('notification.index') }}" onclick="location.href=this.getAttribute('route')" class="w3-button w3-padding-large w3-right " title="Notifications"><i class="fa fa-bell w3-white"></i><span style="display: none;" id="newNotification" class="w3-badge w3-right w3-small w3-green"> {{ count($n) }} </span></button>     
+        @endauth
+        
 
         @guest
         <a class="w3-right w3-button w3-white" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -125,11 +127,13 @@
                 class="w3-button">Edit Profile</button>
 
 
-            <a href="javascript:void(0)" class="w3-button w3-dark-grey w3-button w3-hover-black w3-left-align"
+            <!-- <a href="javascript:void(0)" class="w3-button w3-dark-grey w3-button w3-hover-black w3-left-align"
                 onclick="document.getElementById('id01').style.display='block'">
                 <span class="glyphicon glyphicon-search"></span>
                 <sean>
-            </a>
+            </a> -->
+
+            <button class="w3-button openSearchBtn" onclick="openSearch()"><span class="glyphicon glyphicon-search"></span></button>
 
             <a href="#" class="3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -152,11 +156,11 @@
             Notifications <span id="newNotification"></span> </a> -->
 
 
-        <a href="{{ route('write.create') }}" class="w3-bar-item w3-button w3-padding"><i
+        <a href="{{ route('write.index') }}" class="w3-bar-item w3-button w3-padding"><i
                 class="fa fa-pencil fa-fw"></i> Write</a>
         <!-- <a class="w3-bar-item w3-button w3-padding" href="/chatify"> <i class="fa fas fa-envelope"></i> message</a> -->
-        <a href="{{ route('shortie-create') }}" class="w3-bar-item w3-button w3-padding"><i
-                class="fa fa-pencil fa-fw"></i> Shortie</a>
+        <!-- <a href="{{ route('shortie-create') }}" class="w3-bar-item w3-button w3-padding"><i
+                class="fa fa-pencil fa-fw"></i> Shortie</a> -->
         <a href="{{ route('draft.index') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-pencil fa-fw"></i>
             Drafts</a>
         <!-- <a href="{{ route('photos.index', Auth::user()->username) }}" class="w3-bar-item w3-button w3-padding"><i class="fa fas fa-image"></i> My Photos</a> -->
@@ -166,7 +170,7 @@
         <a href="{{ route('queue.index') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-list fa-fw"></i>
             Queued Posts</a>
         <a href="{{ route('category.index') }}" class="w3-bar-item w3-button w3-padding"><i
-                class="fa fa-list fa-fw"></i> See Categories</a>
+                class="fa fa-list fa-fw"></i> Categories</a>
         <!-- <a href="{{ route('quizzes', $user->username) }}" class="w3-bar-item w3-button w3-padding"><i
                 class="fa fa-list fa-fw"></i> My Quizzes</a> -->
         <a href="{{ route('profile.show', Auth::user()->username) }}" class="w3-bar-item w3-button w3-padding"><i
@@ -272,18 +276,24 @@
 
 
 <script>
+
+function openSearch() {
+  document.getElementById("searchUserOverlay").style.display = "block";
+}
+
+function closeSearch() {
+  document.getElementById("searchUserOverlay").style.display = "none";
+}
+
 $(document).keydown(function(event) {
     if (event.keyCode == 27) {
         $('.w3-modal').hide();
         // $('#mySidebar').hide();
         $('#navDemo').hide();
         $("#closeMenu").click();
+        $("#searchUserOverlay").hide();
 
     }
-
-
-
-
 });
 
 var authid = document.getElementById("authid").textContent;

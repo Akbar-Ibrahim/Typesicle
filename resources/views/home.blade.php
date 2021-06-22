@@ -19,7 +19,7 @@
     <div class="w3-row ">
         <div class="w3-col l8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <!-- <div class="card-header">Dashboard</div> -->
 
                 <div class="card-body">
                     @if (session('status'))

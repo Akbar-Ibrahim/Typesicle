@@ -89,7 +89,7 @@ Route::get('google', function () {
 // Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
 
 // Route::get('/home', 'HomeController@index')->name('home')->middleware("verified", "auth");
-Route::get('/home', 'HomeController@index')->name('home')->middleware("verified", "auth");
+Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('/forgot-password', function () {
 //     return view('auth.forgot-password');
 // })->middleware('guest')->name('password.request');

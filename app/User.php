@@ -48,8 +48,11 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
         static::created(function ($user) {
             $user->profile()->create([
-                'bio' => "Hey, " . $user->username . " update your bio and tell your followers something about you!",
-                'profile_pic' => 'avatar.png',
+                "bio" => "",
+                "picture" => "avatar.png",
+                "facebook" => "",
+                "instagram" => "",
+                "twitter" => ""
             ]);
         });
     }

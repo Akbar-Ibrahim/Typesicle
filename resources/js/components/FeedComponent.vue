@@ -72,7 +72,8 @@
         </div>
         <!--  -->
         <div v-else>
-          <my-thread-component :feed="feed"></my-thread-component>
+          <my-thread-component :thread="feed.thread" :usertype="userType" :auth-user="JSON.parse(user)" :user-id="userId" :feed="feed" :bus="bus"></my-thread-component>
+          <!-- <my-thread-component :feed="feed"></my-thread-component> -->
         </div>
         <!--  -->
       </div>

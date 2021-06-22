@@ -34,7 +34,15 @@
                         </parent-component>
                 </div>
 
-
+                @if(count($history) < 1)
+        <div class="w3-container w3-center" style="margin-top: 120px;">
+        <div class="w3-container" style="width: 70%; margin: auto;">
+            <h2> You haven't read any posts yet </h2>
+            <h4>Start below</h4>
+                    <random-post-component></random-post-component>
+            </div>
+        </div>
+        @endif
                 
 
             </div>
@@ -43,7 +51,7 @@
         <!-- Right side -->
 
         <div class="w3-col m3">
-            <h1> Right Side </h1>
+            
         </div>
 
     </div>

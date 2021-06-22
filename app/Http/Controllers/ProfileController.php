@@ -98,7 +98,9 @@ class ProfileController extends Controller
         // $this->authorize('update', $user->profile);
         $profile = Profile::findOrFail($id);
         $user = $postUtilService->getUser($username);
-        return view('profiles.edit', compact('user'));
+        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+        
+        return view('profiles.edit', compact('user', 'n'));
     }
 
     public function profileImage($username, PostUtilService $postUtilService)

@@ -1,7 +1,11 @@
 @extends('layouts.home')
 
 @section('styles')
-<link href="{{ asset('css/search-dropdown.css') }}" rel="stylesheet">
+<style>
+.emailPost input[type=text] {
+    /* width: 100%; */
+}
+</style>
 @endsection
 
 
@@ -20,7 +24,7 @@
 
             <!-- Main Post/Article -->
             <div class="my-4 ">
-            
+
                 @if($feed)
                 <div style="margin-bottom: 70px;">
                     <view-component post="{{ json_encode($feed) }}"
@@ -30,19 +34,34 @@
                 </div>
                 <hr>
 
+                <div class="w3-container" style="max-width: 600px; margin: auto; margin-top: 50px; margin-bottom: 50px;">
+                <div> Know someone who might enjoy reading this? Mail the post to them </div>
+                <form method="POST" action="{{ route('email-post') }}" class="emailPost">
+                                @csrf
+                                <input type="hidden" name="title" value="{{ $feed->post->title }}">
+                                <input type="hidden" name="id" value="{{ $feed->id }}">
+                                <input type="hidden" name="url" value="{{ $feed->post->url }}">
+                                <input type="hidden" name="author" value="{{ $feed->user->username }}">
+                                <input type="hidden" name="body" value="{{ $feed->post->body }}">
+
+                                <input class="py-1" type="email" name="recipient" placeholder="Enter email"
+                                    style="width: 80%; border: none; ">
+                                <button class="emailPost w3-button">Send</button>
+                            </form>
+                </div>
+
                 <div class="w3-container" style="margin-top: 50px; margin-bottom: 70px">
                     <div class="w3-container w3-padding">
                         <h4>Author</h4>
                     </div>
                     <div class="d-flex">
                         <div>
-                        @if ($feed->user->profile->picture !== "avatar.png")
-                            <img src="/images/{{ $feed->post->user->id }}/profile_pic/{{ $feed->post->user->profile->picture }}" alt=""
-                                class="w3-circle" style="width: 105px; height: 105px;">
-                                @else
-                                <img src="/images/avatar.png" alt=""
-                                class="w3-circle" style="width: 105px; height: 105px;">
-                                @endif
+                            @if ($feed->user->profile->picture !== "avatar.png")
+                            <img src="/images/{{ $feed->post->user->id }}/profile_pic/{{ $feed->post->user->profile->picture }}"
+                                alt="" class="w3-circle" style="width: 105px; height: 105px;">
+                            @else
+                            <img src="/images/avatar.png" alt="" class="w3-circle" style="width: 105px; height: 105px;">
+                            @endif
                         </div>
 
                         <div class="flex-grow-1 px-4">
@@ -66,25 +85,30 @@
                     </div>
                 </div>
                 @auth
-                <div class="w3-container" style="margin-top: 100px;">
-                    <form method="GET" action="{{ route('write.create') }}">
-                        <input type="hidden" name="responding_to" value="{{ $feed->post->id }}">
-                        <button style="font-size: 21px;" class="w3-button w3-padding"> Reply this post with one of
-                            yours</button>
-                    </form>
+                <div class="w3-container" style="max-width: 800px; margin: auto; margin-top: 100px;">
+                    <div class="w3-row">
+                        <div class="">
+                            <form method="GET" action="{{ route('write.create') }}">
+                                <input type="hidden" name="responding_to" value="{{ $feed->post->id }}">
+                                <button style="font-size: 21px;" class="w3-button w3-padding"> Reply this post with one
+                                    of
+                                    yours</button>
+                            </form>
+                        </div>
+
+                    </div>
                 </div>
-                @else
+                @endauth
+                @guest
                 <div class="w3-containerw3-padding w3-center">
                     <a style="font-size: 23px;" href="/register" class="w3-button w3-padding w3-border">Sign up to
                         drop
                         a comment</a>
                 </div>
 
-                
-                
                 @endauth
                 <div class="w3-container my-4 " style="margin-top: 50px;">
-                <comment-container-component user-id="{{ auth()->check() ? auth()->user()->id : -1 }}"
+                    <comment-container-component user-id="{{ auth()->check() ? auth()->user()->id : -1 }}"
                         authuser="{{ json_encode(Auth::user()) }}" post-id="{{ $feed->id }}"
                         comment-count="{{ count($feed->comments) }}">
                     </comment-container-component>
@@ -130,8 +154,8 @@
 
             @auth
             <div class="w3-container w3-margin-top">
-                <accounts-component accounts="{{ json_encode($accounts) }}" username="{{ Auth::user()->username }}" user-id="{{ Auth::user()->id }}"
-                    status="{{Auth::user()->isFollowing($user->profile->id) ? 1 : 0}}">
+                <accounts-component accounts="{{ json_encode($accounts) }}" username="{{ Auth::user()->username }}"
+                    user-id="{{ Auth::user()->id }}" status="{{Auth::user()->isFollowing($user->profile->id) ? 1 : 0}}">
                 </accounts-component>
             </div>
             @endauth

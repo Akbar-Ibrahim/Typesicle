@@ -3,18 +3,29 @@
 
 @section('styles')
 
-<link href="{{ asset('css/search-dropdown.css') }}" rel="stylesheet">
+<style>
+.content {
+    max-width: 600px;
+    margin: auto;
+}
+</style>
+
 
 @endsection
 
 @section('content')
 
-<div class="w3-container w3-margin">
+<div class="w3-container content ">
+<div class="w3-row">
 
-<div style="width: 60%; margin: auto;">
+
+<div class="">
 <createcategory-component username="{{ Auth::user()->username }}"></createcategory-component>
 </div>
 
+
+
+</div>
 </div>
 
 @endsection

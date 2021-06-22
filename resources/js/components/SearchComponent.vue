@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown" style="width: 100%;">
-    <form method="GET" :action="`/search-author?q=${this.key}`" role="search">
+    <form method="GET" :action="`/search-author?q=${this.key}`" role="search" class="searchAuthor">
     <div class="input-group">
       <input
         id="searchAuthor"
@@ -10,7 +10,7 @@
         name="q"
         value
         style="width: 100%; border: none;"
-        class="form-control"
+        class=""
         placeholder="Search for authors"
       />
       <span class="input-group-btn" style="border: none;">
@@ -84,3 +84,20 @@ export default {
   }
 };
 </script>
+
+<style>
+.searchAuthor input[type=text] {
+  padding: 15px;
+  font-size: 17px;
+  border: none;
+  /* float: left; */
+  width: 80%;
+  background: white;
+  
+}
+
+.searchAuthor input[type=text]:hover {
+  background: #f1f1f1;
+}
+
+</style>
