@@ -68,13 +68,9 @@ div img:hover {
 
 
 @auth
-
 @include('profiles.auth')
-
 @else 
-
 @include('profiles.guest')
-
 @endauth
 </div>
 

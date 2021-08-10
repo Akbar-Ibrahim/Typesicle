@@ -1,5 +1,6 @@
 <template>
   <div class="w3-dropdown-hover" style="width: 100%">
+    
     <form method="GET" :action="`/search-post?q=${this.key}`" role="search">
       <div class="input-group">
         <input
@@ -65,7 +66,7 @@ export default {
       result: [],
     };
   },
-
+created(){this.flask()},
   mounted() {},
 
   methods: {
@@ -81,6 +82,8 @@ export default {
       }
       // this.clickOnEnter(event);
     },
+
+    
 
     clickOnEnter(event) {
       var x = event.which || event.keyCode;

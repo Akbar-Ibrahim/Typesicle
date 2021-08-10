@@ -9,6 +9,7 @@ use App\Http\Requests\PostRequest;
 use App\Notification;
 use App\Photo;
 use App\Post;
+use App\Repost;
 use App\Services\PhotoService;
 use App\Services\PostService;
 use App\Services\PostUtilService;
@@ -27,7 +28,8 @@ class PostController extends Controller
         //
         $photos = Photo::where(['user_id' => auth()->user()->id])->get();
         $user = auth()->user();
-        return view("write.index", compact('photos', 'user'));
+        $route = "route";
+        return view("write.index", compact('photos', 'user', 'route'));
     }
 
     /**
@@ -40,12 +42,13 @@ class PostController extends Controller
         //
         $photos = Photo::where(['user_id' => auth()->user()->id])->get();
         $user = auth()->user();
+        $route = "";
 
         $responding_to = $request->responding_to;
 
         $feed = Feed::where(['post_id' => $responding_to])->first();
 
-        return view('write.create', compact('photos', 'user', 'feed'));
+        return view('write.create', compact('photos', 'user', 'feed', 'route'));
         
     }
 
@@ -89,6 +92,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $categories = Category::all();
         $user = auth()->user();
+        $route = "";
 
         $body = $post->body;
         $body = str_replace("#", " #", $body);
@@ -111,7 +115,7 @@ class PostController extends Controller
         $photos = Photo::where(['user_id' => auth()->user()->id])->orderBy('created_at', 'desc')->get();
 
         
-        return view('write.edit', compact('post', 'categories', 'user', 'photos'));
+        return view('write.edit', compact('post', 'categories', 'user', 'photos', 'route'));
     }
 
     /**
@@ -144,9 +148,13 @@ class PostController extends Controller
     {
         //
 
-        $feed = Feed::findOrFail($id);
-        $post = Post::where(["id" => $feed->post_id])->delete();
+        $feed = Feed::where(["id" => $id])->first();
+        $post = Post::where(["id" => $feed->post_id])->first();
+
+        Repost::where(["post_id" => $post->id])->delete();
+        $post->delete();
         $feed->delete();
+        
     }
 
 

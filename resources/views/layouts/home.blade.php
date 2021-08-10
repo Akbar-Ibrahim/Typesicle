@@ -58,9 +58,9 @@
 
 
 <body>
-@auth
+    @auth
     <span id="authid">{{ Auth::user()->id }}</span>
-@endauth
+    @endauth
 
     <!-- Sidebar/menu -->
     <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large"
@@ -73,14 +73,18 @@
     </nav>
 
 
-    <header class="w3-container w3-top w3-white w3-xlarge w3-padding-16 ">
-        <span class="w3-left w3-padding">typesicle</span>
-        <a class="w3-right w3-hide-large"  href="javascript:void(0)" ><i class="fas fa fa-angle-down" aria-hidden="true" onclick="w3_open()"></i></a>
-        <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open_right_menu()">☰</a>
-        @auth
-        <button route="{{ route('notification.index') }}" onclick="location.href=this.getAttribute('route')" class="w3-button w3-padding-large w3-right " title="Notifications"><i class="fa fa-bell w3-white"></i><span style="display: none;" id="newNotification" class="w3-badge w3-right w3-small w3-green"> {{ count($n) }} </span></button>     
-        @endauth
+    <header class="w3-container w3-top w3-xlarge " style="background-color: #212121">
+        <span class="w3-left w3-padding w3-text-white"><b>typesicle</b></span>
         
+        <a href="javascript:void(0)" class="w3-hide-large w3-hide-medium w3-right w3-button w3-white" onclick="w3_open()">☰</a>
+        <!-- <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open_right_menu()">☰</a> -->
+        @auth
+        <button route="{{ route('notification.index') }}" onclick="location.href=this.getAttribute('route')"
+            class="w3-button w3-padding-large w3-right " title="Notifications"><i class="fa fa-bell w3-green"></i><span
+                style="display: none;" id="newNotification" class="w3-badge w3-right w3-small w3-red"> {{ count($n) }}
+            </span></button>
+        @endauth
+
 
         @guest
         <a class="w3-right w3-button w3-white" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -96,8 +100,10 @@
 
     <!-- Side Navigation -->
     <nav class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card"
-        style="z-index:3;width:300px; margin-top: 62px;" id="mySidebar">
+        style="z-index:3;width:300px; margin-top: 46px;" id="mySidebar">
         @guest
+        <a href="/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i>
+            Home</a>
         <a href="" class="w3-bar-item w3-button w3-padding"><i class="fa fa-map fa-fw"></i> Top
             Pages</a>
         <a href="" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cc-discover fa-fw"></i> Discover</a>
@@ -118,6 +124,9 @@
                 <div class="flex-grow-1">
                     <a href="{{ route('profile.show', Auth::user()->username) }}"> {{ Auth::user()->name }} </a>
                 </div>
+                <div class="w3-hide-large">
+                    <a href="javascript:void(0)"  style="font-size: 30px;" onclick="w3_close()">X</a>
+                </div>
             </div>
         </div>
         <div class="w3-container">
@@ -133,7 +142,8 @@
                 <sean>
             </a> -->
 
-            <button class="w3-button openSearchBtn" onclick="openSearch()"><span class="glyphicon glyphicon-search"></span></button>
+            <button class="w3-button openSearchBtn" onclick="openSearch()"><span
+                    class="glyphicon glyphicon-search"></span></button>
 
             <a href="#" class="3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -150,14 +160,15 @@
 
         <a href="{{ route('home') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i>
             Home</a>
-<!-- 
-        <a href="{{ route('notification.index') }}" class="w3-bar-item w3-button w3-padding"><i
-                class="fa fa-home fa-fw"></i>
-            Notifications <span id="newNotification"></span> </a> -->
+
+        
+        <a href="{{ route('chat.with', Auth::user()->username) }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i> Messages
+        </a>
+        
 
 
-        <a href="{{ route('write.index') }}" class="w3-bar-item w3-button w3-padding"><i
-                class="fa fa-pencil fa-fw"></i> Write</a>
+        <a href="{{ route('write.index') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-pencil fa-fw"></i>
+            Write</a>
         <!-- <a class="w3-bar-item w3-button w3-padding" href="/chatify"> <i class="fa fas fa-envelope"></i> message</a> -->
         <!-- <a href="{{ route('shortie-create') }}" class="w3-bar-item w3-button w3-padding"><i
                 class="fa fa-pencil fa-fw"></i> Shortie</a> -->
@@ -183,7 +194,7 @@
 
 
     <!-- Overlay effect when opening the side navigation on small screens -->
-    
+
     <main>
         <div id="app" style="margin-top: 105px;">
             @include('includes.searchUser')
@@ -260,8 +271,6 @@
         document.getElementById("mySidebar").style.display = "none";
         document.getElementById("myOverlay").style.display = "none";
     }
-
-    
     </script>
 
 
@@ -276,13 +285,12 @@
 
 
 <script>
-
 function openSearch() {
-  document.getElementById("searchUserOverlay").style.display = "block";
+    document.getElementById("searchUserOverlay").style.display = "block";
 }
 
 function closeSearch() {
-  document.getElementById("searchUserOverlay").style.display = "none";
+    document.getElementById("searchUserOverlay").style.display = "none";
 }
 
 $(document).keydown(function(event) {
@@ -300,7 +308,7 @@ var authid = document.getElementById("authid").textContent;
 var noti = document.getElementById("newNotification").textContent;
 
 if (document.getElementById("newNotification").textContent > 0) {
-    
+
     document.getElementById("newNotification").style.display = "inline-block";
 }
 

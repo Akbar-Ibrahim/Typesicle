@@ -42,6 +42,11 @@
         margin-bottom: 20px;
 
     }
+
+    .quizContainer {
+        max-width: 700px;
+        margin: auto;
+    }
     </style>
 
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -56,18 +61,18 @@
 
 
     <div class="quizContainer w3-container">
-        <div class="w3-row-padding">
-            <div class="w3-col l6">
+        <div class="w3-row">
+            <div class="w3-col l12">
                 <form method="POST" action="/quiz/">
                     @csrf
                     <input class="questionCount" type="hidden" name="questionCount">
                     <input class="status" type="hidden" name="status">
-                    <div class="w3-container w3-margin">
+                    <div class="w3-margin">
                         <input style="width: 100%; font-size: 40px; padding: 10px 0px 10px 10px" type="text"
                             class="dynamicQuizTitle" name="title" value="Quiz Title">
                     </div>
 
-                    <div class="w3-container w3-margin ">
+                    <div class="w3-margin ">
                         <textarea style="border: none;" class="dynamicQuizDescription summernote" name="description" 
                             placeholder="Enter a short message or set of instructions for the quiz" cols="50"
                             rows="5"></textarea>
@@ -212,7 +217,7 @@
                 </div>
             </div>
 
-            <div class="w3-col l6 w3-hide">
+            <div class=" w3-hide">
                 <div class="link"></div>
 
                 <form method="post" action="/quiz/build">
@@ -249,9 +254,12 @@
 $(document).ready(function() {
 $('.summernote').summernote({
     toolbar: [],
+    disableResizeEditor: true,
+    border: 0,
     placeholder: "Enter a short description for the quiz",
     
 });
+
 
 
 $(".clickFileUpload").click(function() {

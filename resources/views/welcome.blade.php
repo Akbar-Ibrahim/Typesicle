@@ -7,6 +7,13 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/w3-css.css') }}" rel="stylesheet">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
 body,
 h1,
@@ -32,18 +39,18 @@ h5 {
 <body class="w3-light-grey">
 
     <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large"
+    <!-- <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large"
         style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="mySidebar">
         <a href="javascript:void()" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-32">CLOSE</a>
         <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">PORTFOLIO</a>
         <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">ABOUT ME</a>
         <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">CONTACT</a>
-    </nav>
+    </nav> -->
 
     <!-- Top menu on small screens -->
     <header class="w3-container w3-top w3-white w3-xlarge w3-padding-16">
         <span class="w3-left w3-padding">typesicle</span>
-        <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
+        <!-- <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a> -->
 
         @guest
         <a class="w3-right w3-button w3-white" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -60,10 +67,20 @@ h5 {
     <!-- !PAGE CONTENT! -->
     <div class="w3-main w3-content " style="max-width:1400px;margin-top:83px">
 
+
+
+@include('includes.about')
+
+
         <!-- Photo grid -->
         <div class="w3-row w3-grayscale-min" id="app">
-            <div class="w3-col l6">
-                <div class="w3-container" style="margin-top: 50px;">
+
+            <div class="w3-container w3-padding" style="max-width: 700px; margin: auto;">
+                <postsearch-component></postsearch-component>
+            </div>
+
+            <div class="" style="max-width: 800px; margin: auto; ">
+                <div class="w3-container " style="margin-top: 50px;">
                     @if($feeds)
                     <home-component posts="{{ $feeds }}" user-id="0" user="{{ json_encode($user) }}" user-type="guest">
                     </home-component>
@@ -75,29 +92,9 @@ h5 {
                 </div>
             </div>
 
-            <div class="w3-col l3 w3-hide-small">
-                <div class="w3-container" style="margin-top: 50px;">
-                    <most-viewed-posts-component></most-viewed-posts-component>
-                </div>
+            
 
-                <div class="w3-container" style="margin-top: 50px;">
-                    <top-categories-component></top-categories-component>
-                </div>
-            </div>
 
-            <div class="w3-col l3">
-                <div class="w3-container">
-                    <random-post-component></random-post-component>
-                </div>
-
-                <div class="w3-container">
-                    <div class="" id="hashtags">
-                        <div class="w3-container" style="margin-top: 80px;">
-                            <hashtags-component></hashtags-component>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
 
@@ -117,8 +114,7 @@ h5 {
     </div>
 
     <script>
-
-window.onscroll = function() {
+    window.onscroll = function() {
         stickySide()
     };
 
@@ -151,11 +147,6 @@ window.onscroll = function() {
         var captionText = document.getElementById("caption");
         captionText.innerHTML = element.alt;
     }
-
-
-
-
-    
     </script>
 
 

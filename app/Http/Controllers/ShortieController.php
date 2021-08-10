@@ -59,7 +59,7 @@ class ShortieController extends Controller
         $shortie_text = $request->shortie;
         $user = auth()->user();
 
-        if ($count > 3) {
+        if ($count > 1) {
             $thread = Thread::create(['user_id' => $user->id]);
         }
 
@@ -75,7 +75,7 @@ class ShortieController extends Controller
                 $body = str_replace(">", "> ", $body);
 
                 if ($request->has('quoted') && $request->quoted > 0) {
-                    if ($count > 3) {
+                    if ($count > 1) {
                         if ($i == 0) {
                             $shortie = Shortie::create(['shortie' => $body, 'user_id' => auth()->user()->id, 'quoted' => $request->quoted, 'thread_id' => $thread->id]);
                         } else {
@@ -85,13 +85,13 @@ class ShortieController extends Controller
                         $shortie = Shortie::create(['shortie' => $body, 'user_id' => auth()->user()->id, 'quoted' => $request->quoted]);
                     }
                 } else {
-                    if ($count > 3) {
+                    if ($count > 1) {
                         $shortie = Shortie::create(['shortie' => $body, 'user_id' => auth()->user()->id, 'thread_id' => $thread->id]);
                     } else {
                         $shortie = Shortie::create(['shortie' => $body, 'user_id' => auth()->user()->id]);
                     }
                 }
-                if ($count > 3) {
+                if ($count > 1) {
                     if ($i == 0) {
                         $feed = Feed::create(['user_id' => $user->id, 'status' => 'Thread', 'shortie_id' => $shortie->id, 'thread_id' => $thread->id]);
                     } else {

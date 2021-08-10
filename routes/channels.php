@@ -46,3 +46,11 @@ Broadcast::channel('reply-channel', function($user) {
 Broadcast::channel('newpost-channel', function($user) {
     return  true;
 });
+
+Broadcast::channel('delete-channel', function($user) {
+    return  true;
+});
+
+Broadcast::channel('message-channel', function($user) {
+    return  true;
+});

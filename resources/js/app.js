@@ -93,6 +93,12 @@ Vue.component('quote-component', require('./components/QuoteComponent.vue').defa
 // Profile Picture
 Vue.component('profile-picture-component', require('./components/ProfilePictureComponent.vue').default);
 
+// Chat
+Vue.component('messages-component', require('./components/MessagesComponent.vue').default);
+Vue.component('chat-form', require('./components/ChatForm.vue').default);
+Vue.component('chat-component', require('./components/Chat.vue').default);
+
+
 // Group
 Vue.component('group-component', require('./components/GroupComponent.vue').default);
 Vue.component('send-group-invite-component', require('./components/SendGroupInviteComponent.vue').default);

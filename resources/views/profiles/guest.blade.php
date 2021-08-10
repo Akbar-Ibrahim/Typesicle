@@ -24,7 +24,7 @@
 
 
                     <feed-component posts="{{ json_encode($feeds) }}" user-id="{{ $user->id }}"
-                        user="{{ json_encode($user) }}" user-type="guest">
+                        user="{{ json_encode($user) }}" user-type="guest" page="profile">
                     </feed-component>
 
 

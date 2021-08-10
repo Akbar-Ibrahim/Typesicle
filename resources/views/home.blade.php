@@ -28,7 +28,7 @@
                     </div>
                     @endif
 
-                    @if( count($user->follows) == 0 && count($user->profile->follows) == 0 )
+                    @if( count($user->follows) == 0 )
                     <div class="w3-container">
                         <div class="w3-container">
                             <h4 class="w3-center"> Posts from people you follow will appear here </h4>
@@ -43,7 +43,7 @@
                     </div>
                     @else
                     <feed-component posts="{{ json_encode($feeds) }}" user-id="{{ Auth::user()->id }}"
-                        user="{{ json_encode($user) }}">
+                        user="{{ json_encode($user) }}" user-type="auth" page="home">
                     </feed-component>
                     @endif
 

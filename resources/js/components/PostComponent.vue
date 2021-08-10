@@ -74,7 +74,7 @@
     <!-- <textarea class="form-control " cols="30" rows="10" id="message" ref="message" v-model="message"></textarea>       -->
 
 
-    <div class="w3-container my-4 py-4" v-if="usertype === 'auth'">
+    <div class="w3-container my-4 py-4" >
       <div class="w3-row">
       <div class="w3-col s3 ">
         <feed-controls-component
@@ -133,7 +133,12 @@ export default {
   ],
 
   mounted() {
-    // this.fetchFeed();
+    this.bus.$on('deletechannelreceived', (data) => {
+      
+      if (data.postId == this.feed.post_id) {
+        this.$refs.postContainer.remove();
+      }
+    });
   },
   data() {
     return {
@@ -150,7 +155,7 @@ export default {
         .then((result) => {
           console.log(result);
         });
-      this.$refs.postContainer.remove();
+      // this.$refs.postContainer.remove();
     },
 
     removePost(data) {

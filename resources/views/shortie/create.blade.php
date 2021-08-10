@@ -94,9 +94,9 @@
                                 <div class="w3-third">
                                     <!-- <button style="font-size: 22px;"
                                     class="py-2 px-3 w3-right w3-circle add-shortie">+</button> -->
-                                    <span class="chars">240</span>
-                                    <input type="button" style="font-size: 22px;"
-                                        class="py-2 px-3 w3-right w3-circle add-shortie" value="+">
+                                    <span class="chars">750</span>
+                                    <!-- <input type="button" style="font-size: 22px;"
+                                        class="py-2 px-3 w3-right w3-circle add-shortie" value="+"> -->
 
                                 </div>
                             </div>
@@ -192,7 +192,7 @@
 <script>
 $(document).ready(function() {
     $(".send").attr("disabled", true);
-    var maxLength = 240;
+    var maxLength = 750;
 
     $('.summernote').summernote({
         toolbar: [],
@@ -221,7 +221,7 @@ $(document).ready(function() {
                 var length = maxLength - length;
                 $(this).parents(".shortie-container").find(".chars").text(length)
 
-                if (length < 240 && length > 0) {
+                if (length < 750 && length > 0) {
                     $(".send").attr("disabled", false);
                 } else {
                     $(".send").attr("disabled", true);

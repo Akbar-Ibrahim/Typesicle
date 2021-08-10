@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->string('email')->unique();
             $table->string('google_id')->nullable();
-            $table->enum('role',  ['user', 'manager', 'admin'])->default('user');
+            $table->enum('role',  ['admin', 'user', 'guest'])->default('user');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('query_status')->nullable();

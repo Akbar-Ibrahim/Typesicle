@@ -83,7 +83,7 @@
 
 <script>
 export default {
-  props: ["posts", "userId", "user", "userType"],
+  props: ["posts", "userId", "user", "userType", "page"],
 
   created() {
      //var instance= this;
@@ -107,6 +107,14 @@ export default {
 
       console.log("...received event");
     });
+
+    Echo.private("delete-channel").listen("DeletePost", (event) => {
+      console.log(event)
+      this.$emit("deletechannelreceived", event);
+
+      console.log("...received event");
+    });
+
   },
 
   mounted() {
@@ -124,12 +132,14 @@ export default {
   
   methods: {
     getFeeds() {
+      
       this.$refs.allContainer.style.display = "block";
       this.$refs.postContainer.style.display = "none";
       this.$refs.shortieContainer.style.display = "none";
       this.feeds = [];
 
-      let url = "/feeds/" + this.this_user.id;
+
+      let url = "/feeds/" + this.page + "/" + this.userId;
       fetch(url)
         .then((response) => {
           return response.json();
@@ -145,7 +155,7 @@ export default {
       this.$refs.postContainer.style.display = "block";
       this.allposts = [];
 
-      let url = "/allposts/" + this.this_user.id;
+      let url = "/allposts/" + this.page + "/" + this.this_user.id;
       fetch(url)
         .then((response) => {
           return response.json();
@@ -161,7 +171,7 @@ export default {
       this.$refs.shortieContainer.style.display = "block";
       this.shorties = [];
 
-      let url = "/allshorties/" + this.this_user.id;
+      let url = "/allshorties/" + this.page + "/" + this.this_user.id;
       fetch(url)
         .then((response) => {
           return response.json();

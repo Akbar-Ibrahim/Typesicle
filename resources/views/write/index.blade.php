@@ -37,7 +37,7 @@
                 <div class="w3-container w3-center">
                     <div style="width: 80%; margin-left: auto; margin-right: auto;" class="w3-padding "> A shortie is a
                         Twitter-style post with a limit of four picture uploads
-                        and 240 characters </div>
+                        and 750 characters </div>
                 </div>
 
             </div>

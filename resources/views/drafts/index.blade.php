@@ -2,12 +2,20 @@
 
 @section('styles')
 
-<link href="{{ asset('css/search-dropdown.css') }}" rel="stylesheet">
+<style>
+#nodrafts {
+    max-width: 700px;
+    margin: auto;
+    
+}
+</style>
 
 @endsection
 
 @section('content')
 @include('includes.urls')
+
+@if(count($drafts) > 0)
 <div class="w3-main" style="margin-top:43px;">
 
 
@@ -17,9 +25,9 @@
         <h5><b><i class="fa fa-pencil fa-fw"></i> Drafts </b></h5>
     </header>
 
-    @if(count($drafts) > 0)
+
     <div class="w3-row-padding w3-margin-bottom">
-        <div class="w3-twothird">
+        <div class="w3-col l8">
 
             @foreach($drafts as $draft)
             <div class="w3-container w3-padding w3-margin">
@@ -44,7 +52,7 @@
                     <img src="{{ '/images/' . $draft->photo->user_id . '/'. $draft->photo->photo }}"
                         onclick="showImage(this)" class="w3-hide-small"
                         style="height: 100px; width: 100%; object-fit: cover; cursor: pointer;">
-                        <img src="{{ '/images/' . $draft->photo->user_id . '/'. $draft->photo->photo }}"
+                    <img src="{{ '/images/' . $draft->photo->user_id . '/'. $draft->photo->photo }}"
                         onclick="showImage(this)" class="w3-hide-large"
                         style="height: 60px; width: 100%; object-fit: cover; cursor: pointer;">
                 </div>
@@ -56,13 +64,11 @@
 
         </div>
 
-        <div class="w3-third">
+        <div class="w3-col l3">
 
         </div>
 
-        @else
-        <div>No drafts</div>
-        @endif
+
     </div>
 
 
@@ -70,6 +76,14 @@
 
 </div>
 
+@else
+<div class="w3-container " id="nodrafts">
+    <div class="w3-center">
+        <h2 style="font-size: 50px;">No Drafts</h2>
+        <a class="w3-button w3-border" style="font-size: 21px;" href="{{ route('write.create') }}">Start Writing</a>
+    </div>
+</div>
+@endif
 @endsection
 
 @section('scripts')

@@ -23,11 +23,11 @@ class ProfileController extends Controller
 
     public function index($username, PostUtilService $postUtilService, PhotoService $photoService, AccountService $accountService)
     {
-
+        $page = "profile";
         $user = $postUtilService->getUser($username);
         $users = User::where('id', '!=', $user->id)->with('profile')->first();
         $photos = $photoService->getPhotos($user);
-        $feeds = $postUtilService->getAllFeeds($user);
+        $feeds = $postUtilService->getAllFeeds($user, $page);
         $photos = Photo::where(['user_id' => $user->id])->with("user")->orderBy('created_at', 'desc')->limit(9)->get();
         $recentPosts = $postUtilService->recentPosts($user->id);
         $accounts = $accountService->accountsToFollow($user->id);

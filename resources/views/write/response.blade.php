@@ -117,12 +117,12 @@
             </div>
 
 
-            <div class="w3-container mb-4 px-2 writing-options-item">
+            <!-- <div class="w3-container mb-4 px-2 writing-options-item">
                 <button class="w3-button my-categories-button">Select Category</button>
-            </div>
+            </div> -->
 
 
-            <div class="my-categories mb-4" style="display: none;">
+            <!-- <div class="my-categories mb-4" style="display: none;">
                 <div class="w3-right my-2">
                     <button class="my-categories-close-button w3-button">Close
                     </button>
@@ -130,7 +130,7 @@
                 <div class="py-4">
                     <categories-component username="{{ Auth::user()->username }}"></categories-component>
                 </div>
-            </div>
+            </div> -->
 
 
         </div>

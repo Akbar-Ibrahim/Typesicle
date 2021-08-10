@@ -1,7 +1,7 @@
 <template>
-  <div class="" style="margin-top: 50px;">
+  <div class="">
 <button 
-        class="w3-margin w3-padding w3-button" @click="goToRoute"
+        class="w3-padding w3-button" @click="goToRoute"
         style=" font-size: 17px">
         Pick a random post for me!
     </button>    

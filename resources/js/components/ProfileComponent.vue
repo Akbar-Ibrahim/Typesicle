@@ -11,13 +11,16 @@
       </a>
       <div class="title">{{ JSON.parse(user).profile.bio }}</div>
 
-      <div v-if="this.usertype === 'auth'">
+      <div v-if="this.usertype === 'auth'" class="">
         <div v-if="userId != currentUser" class="">
           <follow-component
             :user="userId"
             :profile="currentUser"
             :status="status"
           ></follow-component>
+        </div>
+        <div v-if="userId !== currentUser" class="">
+          <a class="w3-button w3-border" :href="`chat/${JSON.parse(user).username}`">Chat</a>
         </div>
       </div>
       <div style="margin: 12px 0">

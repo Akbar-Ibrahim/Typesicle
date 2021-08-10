@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/w3-css.css') }}" rel="stylesheet">
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<!-- <link href="{{ asset('css/w3-css.css') }}" rel="stylesheet"> -->
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
 
 
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
@@ -20,16 +20,13 @@
 
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link href="{{ asset('css/summernote-bs4.css') }}" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 
 
-
-<link href="{{ asset('css/w3-css.css') }}" rel="stylesheet">
-<link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 
@@ -110,20 +107,23 @@ h5 {
 @yield('styles')
 
 <body class="w3-light-grey">
-
+<div id="app">
     <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large"
-        style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="mySidebar">
-        <a href="javascript:void()" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-32">CLOSE</a>
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">PORTFOLIO</a>
-        <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">ABOUT ME</a>
-        <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">CONTACT</a>
+    <nav class="w3-sidebar w3-bar-block w3-animate-right w3-top w3-text-light-grey w3-large"
+        style="z-index:3;width:450px;font-weight:bold;display:none;right:0;background-color: #212121" id="mySidebar">
+        <a href="javascript:void()" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-32 w3-text-white">CLOSE</a>
+        <div style="height: 640px; overflow: scroll" class="">
+        <createcategory-component username="{{ Auth::user()->username }}"></createcategory-component>
+        </div>
     </nav>
 
     <!-- Top menu on small screens -->
-    <header class="w3-container w3-top w3-white w3-xlarge w3-padding-16">
-        <span class="w3-left w3-padding">typesicle</span>
+    <header class="w3-container w3-top w3-xlarge " style="background-color: #212121">
+        <span class="w3-left w3-padding w3-text-white"><b>typesicle</b></span>
+        @if ($route))
+        @else
         <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
+        @endif
     </header>
 
     <!-- Overlay effect when opening sidebar on small screens -->
@@ -135,6 +135,8 @@ h5 {
 
         <!-- Photo grid -->
         <div class="w3-row w3-grayscale-min" id="app">
+                
+
             <main>
                 @yield('content')
             </main>
@@ -158,7 +160,7 @@ h5 {
 
 
     
-
+</div>
 
 <script>
 function openNav() {
@@ -244,6 +246,14 @@ setTimeout(delayEditorLoad, 1500);
 
 
 $(document).ready(function() {
+
+    $(document).keydown(function(event) {
+    if (event.keyCode == 27) {
+        $('#mySidebar').hide();
+        $('#myOverlay').hide();
+    }
+    });
+    
 
     $('#preClickPublish').click(function() {
         $("#publish").click();

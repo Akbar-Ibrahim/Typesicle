@@ -53,13 +53,8 @@ if(auth()->user()) {
     }
 
     public function imagesUploadPost(Request $request)
-    {
-
-            
+    {            
                 $vote = Vote::create(["user_id" => 1, "poll_id" => 1, "my_choice" => 1]);
-            
-    
-          
 
     }
 

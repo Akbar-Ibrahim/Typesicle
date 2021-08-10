@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Comment;
+use App\CommentReply;
+use App\Events\DeletePost;
 use App\Events\NewPostEvent;
 use App\Feed;
 use App\Follow;
 use App\Notification;
-use App\Notifications\Like;
+use App\Like;
 use App\Photo;
 use App\Post;
 use App\Queue;
@@ -19,33 +22,61 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+
 
 class PostUtilController extends Controller
 {
     //
 
-    public function getAllFeeds($id, PostUtilService $postUtilService) {
+    public function getAllFeeds($page, $id, PostUtilService $postUtilService) {
 
         $user = User::where("id", $id)->first();
-        $feeds = $postUtilService->getAllFeeds($user);
+        $guest = User::where(["role" => "guest"])->first();
+        
+        $feeds = $postUtilService->getAllFeeds($user, $page);
+        
 
-        return $feeds;
+        if ($page === "profile" ) {
+            return $postUtilService->getAllFeeds($user, $page);
+        } else if ($page === "welcome") {
+            return $postUtilService->getAllFeeds($guest, $page);
+        } else if ($page === "home") {
+            $home = $postUtilService->getFollowersFeeds();
+            return $home;
+        }
     }
 
-    public function getAllPosts($id, PostUtilService $postUtilService) {
+    public function getAllPosts($page, $id, PostUtilService $postUtilService) {
 
         $user = User::where("id", $id)->first();
-        $posts = $postUtilService->getAllPosts($user);
+        $guest = User::where(['role' => 'guest'])->first();
+        $posts = $postUtilService->getAllPosts($user, $page);
+        // $home = $postUtilService->getFollowersPosts();
 
-        return $posts;
+        if ($page === "profile" ) {
+            return $postUtilService->getAllPosts($user, $page);
+        } else if ($page === "welcome") {
+            return $postUtilService->getAllPosts($guest, $page);
+        } else if ($page === "home") {
+            return $home;
+        }
     }
 
-    public function getAllShorties($id, PostUtilService $postUtilService) {
+    public function getAllShorties($page, $id, PostUtilService $postUtilService) {
 
         $user = User::where("id", $id)->first();
-        $shorties = $postUtilService->getAllShorties($user);
+        $shorties = $postUtilService->getAllShorties($user, $page);
+        $guest = User::where(["role" => "guest"])->first();
+        // $home = $postUtilService->getFollowersShorties();
 
-        return $shorties;
+        if ($page === "profile") {
+            return $postUtilService->getAllShorties($user, $page);
+        } else if ($page === "welcome") {
+            return $postUtilService->getAllShorties($guest, $page);
+        } else if ($page === "home") {
+            // return $home;
+        }
     }
 
     public function getHomeFeeds(PostUtilService $postUtilService) {
@@ -133,6 +164,7 @@ class PostUtilController extends Controller
 
     public function post($username, $url, $id, PostUtilService $postUtilService, HistoryService $historyService, AccountService $accountService) {
 
+        Feed::findOrFail($id);
         $user = $postUtilService->getUser($username);
         $post = $postUtilService->getSinglePost($url);
         $feed = $postUtilService->getFeed($id);
@@ -231,13 +263,32 @@ if(auth()->user()) {
     public function deletePost($id)
     {
         //
+        $post = Post::findOrFail($id);
+
+        if (! Gate::allows('delete-post', $post)) {
+            abort(403);
+        }
 
         $feed = Feed::findOrFail($id);
-        Feed::where(["post_id" => $feed->post_id])->delete();
+        $postId = $feed->post_id;
+        $comments = Comment::where("feed_id", $feed->id)->get();
+        Notification::where(['feed_id' => $feed->id])->delete();
+        foreach($comments as $comment) {
+            if ($reply = CommentReply::where("comment_id", $comment->id)->first()) {
+                    $reply->delete();
+            }
+        }
+        Comment::where(['feed_id' => $feed->id])->delete();
+        // $feed = Feed::where(["id" => $id])->first();
         Like::where(["post_id" => $feed->post_id])->delete();
         Repost::where(["post_id" => $feed->post_id])->delete();
         $post = Post::where(["id" => $feed->post_id])->delete();
-        $feed->delete();
+        Feed::where(['post_id' => $feed->post_id])->delete();
+        // $feed->delete();
+
+
+        broadcast(new DeletePost($postId));
+        // return $feed;
     }
 
     public function queueAction(Request $request, $id, $user_id) {

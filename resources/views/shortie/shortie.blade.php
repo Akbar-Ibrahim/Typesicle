@@ -28,6 +28,12 @@ div.scrollmenu button {
     opacity: 0.6;
     transition: 0.3s
 }
+
+.content {
+    max-width: 1000px;
+    margin: auto;
+    
+}
 </style>
 
 @endsection
@@ -35,11 +41,11 @@ div.scrollmenu button {
 
 @section('content')
 
-<div class="">
+<div class="content">
 
     <div class="w3-container">
         <div class="w3-row">
-            <div class="w3-col l8">
+            <div class="w3-col l12">
 
                 @if($feed)
                 @guest
@@ -60,9 +66,7 @@ div.scrollmenu button {
 
 
 
-                <div class="w3-col l4 w3-hide-small">
-                    
-                </div>
+
 
             </div>
         </div>

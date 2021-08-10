@@ -1,7 +1,7 @@
 <template>
   <div class="">
     
-        <div class="px-2">
+        <div class="px-1">
           <a :href="`/${user.username}`">
             <img v-if="user.profile.picture == 'avatar.png'"
               src="/images/avatar.png"

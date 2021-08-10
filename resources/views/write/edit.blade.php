@@ -132,12 +132,12 @@
                     Picture</button>
             </div>
 
-            <div class="w3-container w3-margin w3-center w3-border writing-options-item w3-hide-small">
+            <!-- <div class="w3-container w3-margin w3-center w3-border writing-options-item w3-hide-small">
                 <button class="w3-button my-categories-button">Select Category</button>
-            </div>
+            </div> -->
 
 
-            <div class="my-categories mb-4 w3-hide-small" style="display: none;" >
+            <!-- <div class="my-categories mb-4 w3-hide-small" style="display: none;" >
                 <div class="w3-right my-2">
                     <button class="my-categories-close-button w3-button">Close
                     </button>
@@ -145,7 +145,7 @@
                 <div class="py-4">
                     <createcategory-component username="{{ Auth::user()->username }}"></createcategory-component>
                 </div>
-            </div>
+            </div> -->
 
 
         </div>

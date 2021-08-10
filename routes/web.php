@@ -12,10 +12,12 @@
 */
 
 use App\Category;
+use App\Chat;
 use App\Events\LikeFeed;
 use App\Feed;
 use App\GroupMember;
 use App\Post;
+use App\Profile;
 use App\Shortie;
 use App\User;
 use Carbon\Carbon;
@@ -29,9 +31,22 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
-Route::get('/', 'WelcomeController@welcome');
+Route::get('/', 'WelcomeController@index');
+
+// Admin
+
+Route::get('/admin', 'AdminController@index')->middleware('auth')->middleware("isadmin");
+Route::get('/admin/users/index', 'AdminController@users')->middleware('auth')->middleware("isadmin");
+Route::get('/admin/users/create', 'AdminController@create')->middleware("isadmin");
+Route::post('/admin/users/store', 'AdminController@store')->name("user.store")->middleware("isadmin");
+Route::put('/admin/users/{id}/update', 'AdminController@update')->name("user.update")->middleware("isadmin");
+Route::get('/admin/users/{id}/edit', 'AdminController@edit')->middleware('auth')->name("users.edit")->middleware("isadmin");
 
 
+
+Route::get("/test", function(){
+    return Chat::create(["user_one" => 2, "user_two" => 2]);
+});
 
 Route::get("/date", function(){
 
@@ -169,7 +184,7 @@ Route::resource('write', 'PostController')->middleware(['auth'])->middleware('au
 Route::get('response', 'PostUtilController@response')->middleware(['auth'])->name("response.write")->middleware('auth');
 Route::post('post-preview', 'PostUtilController@preview')->middleware(['auth'])->name("post.preview")->middleware('auth');
 
-Route::get('delete-post/{id}', 'PostUtilController@deletePost')->middleware(['auth'])->name("delete.post")->middleware('auth');
+Route::get('delete-post/{id}', 'PostUtilController@deletePost')->middleware(['auth'])->name("delete.post");
 
 // Draft
 Route::resource('draft', 'DraftController')->middleware('auth')->middleware('auth');
@@ -189,6 +204,15 @@ Route::resource('poll', 'PollController')->middleware(['auth']);
 Route::post('vote', 'PollUtilController@vote')->middleware('auth');
 Route::get('myvote/{poll_id}', 'PollUtilController@myVote')->middleware('auth');
 
+
+//Chat
+Route::get('chat', 'ChatController@messages')->name('chat');
+Route::get('chat/{username}', 'ChatController@index')->name('chat.with');
+Route::get('chat-list', 'ChatController@fetchChatList')->name('chat-list');
+Route::get('messages', 'MessageController@fetchMessages');
+Route::post('messages', 'MessageController@sendMessage');
+
+Route::get('chat-{id}', 'ChatController@getChats')->name('chat.all');
 
 // Like
 Route::get('/{username}/liked/posts', 'LikeController@likedPosts')->name('liked:posts')->middleware('auth');
@@ -220,9 +244,9 @@ Route::post('/w/o/shortie', 'ShortieController@withoutShortie')->name('wo.shorti
 
 
 // Load feeds
-Route::get('/feeds/{id}', 'PostUtilController@getAllFeeds');
-Route::get('/allposts/{id}', 'PostUtilController@getAllPosts');
-Route::get('/allshorties/{id}', 'PostUtilController@getAllShorties');
+Route::get('/feeds/{page}/{id}', 'PostUtilController@getAllFeeds');
+Route::get('/allposts/{page}/{id}', 'PostUtilController@getAllPosts');
+Route::get('/allshorties/{page}/{id}', 'PostUtilController@getAllShorties');
 
 Route::post('shortie/comment', 'ShortieController@storeShortieComment')->name('store:shortie-comment')->middleware('auth');
 

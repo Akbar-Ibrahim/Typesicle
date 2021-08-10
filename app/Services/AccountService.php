@@ -13,7 +13,7 @@ class AccountService{
     public function accountsToFollow($id) {
         
         $user = User::where(["id" => $id])->first();
-        $accounts = User::where('id', '!=', $id)->with('profile.photo')->get();
+        $accounts = User::where('id', '!=', $id)->where('role', '!=', 'guest')->with('profile.photo')->get();
         $users = [];
 
         foreach($accounts as $account) {

@@ -4,6 +4,7 @@
       <div>
         <div class="w3-container">
         <input
+        style="background-color: #212121; color: white;"
           placeholder="Create New Category"
           name="category"
           value
@@ -16,7 +17,7 @@
         
         </div>
         <div class="" style="display: none;" >
-        <button id="createCategory" class="w3-button" @click="handle">Create</button>
+        <button style="background-color: #212121; color: white;" id="createCategory" class="w3-button" @click="handle">Create</button>
         </div>
       </div>
 
@@ -143,3 +144,13 @@ categoryInput.addEventListener("keyup", function(event) {
 };
 
 </script>
+
+<style scoped>
+div {
+  background-color: #212121;
+}
+
+button {
+  color: white;
+}
+</style>

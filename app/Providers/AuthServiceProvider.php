@@ -51,6 +51,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->id == $post->user_id;
         });
 
+        Gate::define('delete-post', function ($user, $post) {
+            return $user->id == $post->user_id;
+        });
+
         // Queue
         Gate::define('can-queue', function ($user, $post) {
             return $user->id !== $post->user_id;
@@ -67,6 +71,10 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('edit-profile', function ($user, $profile) {
             return $user->id == $profile->user_id;
+        });
+
+        Gate::define('can-chat', function ($user) {
+            return $user->id == $user->id;
         });
     }
 }

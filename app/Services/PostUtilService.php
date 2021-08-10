@@ -47,6 +47,7 @@ class PostUtilService
     {
 
         return User::where('username', $username)->with('profile.photo')->firstOrFail();
+        
     }
 
 
@@ -207,8 +208,8 @@ class PostUtilService
     public function getFeed($id)
     {
 
-        $forGuest = Feed::where('id', $id)->with('user.profile', 'comments', 'reposts', 'post.user.profile', 'feedLikes', 'post.photo', 'thread.shorties', 'shortie.user', 'shortie.shortiePhoto.photo', 'quiz', 'poll.votes')->orderBy('created_at', 'desc')->first();
-        $feed = Feed::where('id', $id)->with('user.profile', 'comments', 'reposts', 'post.user.profile', 'feedLikes', 'post.photo', 'thread.shorties', 'shortie.user', 'shortie.shortiePhoto.photo', 'quiz', 'poll.votes')->orderBy('created_at', 'desc')->first();
+        $forGuest = Feed::where('id', $id)->with('user.profile', 'comments', 'reposts', 'post.user.profile', 'feedLikes', 'post.photo', 'thread.shorties', 'shortie.user', 'shortie.shortiePhoto.photo', 'quiz', 'poll.votes')->orderBy('created_at', 'desc')->firstOrFail();
+        $feed = Feed::where('id', $id)->with('user.profile', 'comments', 'reposts', 'post.user.profile', 'feedLikes', 'post.photo', 'thread.shorties', 'shortie.user', 'shortie.shortiePhoto.photo', 'quiz', 'poll.votes')->orderBy('created_at', 'desc')->firstOrFail();
 
         $data = [];
 
@@ -241,14 +242,19 @@ class PostUtilService
         }
     }
 
-    public function getAllFeeds($user)
+    public function getAllFeeds($user, $page)
     {
         // return Feed::where('user_id', $user->id)->with('user.profile', 'post.user', 'post.photo', 'shortie.user', 'shortie.shortiePhoto.photo', 'quiz')->orderBy('created_at', 'desc')->with('user.profile')->paginate(15);
         // return Feed::where('user_id', $user->id)->with('user.profile', 'post.user', 'feedLikes', 'post.photo', 'thread.shorties', 'shortie.user', 'shortie.thread.feed', 'shortie.shortiePhoto.photo', 'quiz')->orderBy('created_at', 'desc')->get();
 
+        $forGuest = [];
+        $feeds = [];
+        if ($page === "profile") {
         $forGuest = Feed::where('user_id', $user->id)->with('user.profile', 'post.user', 'post.photo', 'shortie.user', 'shortie.shortiePhoto.photo')->orderBy('created_at', 'desc')->get();
         $feeds = Feed::where('user_id', $user->id)->with('user.profile', 'post.user', 'post.photo', 'shortie.user', 'shortie.shortiePhoto.photo')->orderBy('created_at', 'desc')->get();
-
+        } else if ($page === "welcome") {
+            return Feed::with('user.profile', 'post.user', 'post.photo', 'shortie.user', 'shortie.shortiePhoto.photo')->orderBy('created_at', 'desc')->get();            
+        }
         $result = [];
 
         if (Auth::check()) {
@@ -302,14 +308,26 @@ class PostUtilService
 
             return $result;
         } else {
+            // if ($page === "profile") {
+            //     return Feed::where('user_id', $user->id)->with('user.profile', 'post.user', 'post.photo', 'shortie.user', 'shortie.shortiePhoto.photo')->orderBy('created_at', 'desc')->get();
+            // } else if ($page === "welcome") {
+            //     return Feed::with('user.profile', 'post.user', 'post.photo', 'shortie.user', 'shortie.shortiePhoto.photo')->orderBy('created_at', 'desc')->get();
+            // }
             return $forGuest;
         }
     }
 
-    public function getAllPosts($user)
+    public function getAllPosts($user, $page)
     {
+        $forGuest = [];
+        $feeds = [];
+
+        if ($page === "profile") {
         $forGuest = Feed::where('user_id', $user->id)->with('user.profile', 'post.user', 'post.photo', 'shortie')->orderBy('created_at', 'desc')->get();
         $feeds = Feed::where('user_id', $user->id)->with('user.profile', 'post.user', 'post.photo', 'shortie')->orderBy('created_at', 'desc')->get();
+        } else if ($page === "welcome") {
+            return Feed::with('user.profile', 'post.user', 'post.photo', 'shortie')->orderBy('created_at', 'desc')->get();
+        }
         $posts = [];
 
         if (Auth::check()) {
@@ -349,10 +367,17 @@ class PostUtilService
     }
 
 
-    public function getAllShorties($user)
+    public function getAllShorties($user, $page)
     {
+        $forGuest = [];
+        $feeds = [];
+
+        if ($page === "profile") {
         $forGuest = Feed::where('user_id', $user->id)->with('user.profile', 'post', 'shortie.user', 'shortie.shortiePhoto.photo')->orderBy('created_at', 'desc')->get();
         $feeds = Feed::where('user_id', $user->id)->with('user.profile', 'post', 'shortie.user', 'shortie.shortiePhoto.photo')->orderBy('created_at', 'desc')->get();
+    } else if ($page === "welcome") {
+        return Feed::with('user.profile', 'post', 'shortie.user', 'shortie.shortiePhoto.photo')->orderBy('created_at', 'desc')->get();
+    }
         $shorties = [];
 
         if (Auth::check()) {
@@ -384,18 +409,18 @@ class PostUtilService
     }
 
     public function getHomeFeeds() {
-        $feeds = Feed::with('user.profile', 'post.user', 'post.photo', 'shortie.user', 'shortie.shortiePhoto.photo')->orderBy('created_at', 'desc')->paginate(4);
+        $feeds = Feed::with('user.profile', 'thread', 'post.user', 'post.photo', 'shortie.user', 'shortie.shortiePhoto.photo')->orderBy('created_at', 'desc')->paginate(100);
         return response()->json($feeds);
     }
 
     public function getHomePosts () {
-        $posts = Feed::with('user.profile', 'post.user', 'post.photo', 'shortie')->orderBy('created_at', 'desc')->paginate(2);
+        $posts = Feed::with('user.profile', 'post.user', 'post.photo', 'shortie')->orderBy('created_at', 'desc')->paginate(100);
         return response()->json($posts);
     }
 
     public function getHomeShorties() {
 
-        $shorties = Feed::with('user.profile', 'post', 'shortie.user', 'shortie.shortiePhoto.photo')->orderBy('created_at', 'desc')->paginate(2);
+        $shorties = Feed::with('user.profile', 'post', 'shortie.user', 'shortie.shortiePhoto.photo')->orderBy('created_at', 'desc')->paginate(100);
         return response()->json($shorties);
     }
 
@@ -409,30 +434,158 @@ class PostUtilService
         $feeds = [];
 
         foreach ($resultSet as $result) {
-            if ($user->isFollowing($result->user->profile->id) || $result->user->isFollowing($user->profile->id)) {
+            if ($user->isFollowing($result->user->profile->id) ) {
                 array_push($feeds, $result);
             }
         }
 
-        // return Feed::orderBy('created_at', 'desc')->with('user.profile', 'post.user', 'post.photo', 'shortie.user', 'shortie.shortiePhoto.photo', 'quiz')->orderBy('created_at', 'desc')->with('user.profile')->paginate(15);
-        return $feeds;
+
+        $result = [];
+
+        if (Auth::check()) {
+            foreach ($feeds as $feed) {
+                if ($feed !== null) {
+                    if ($feed->post) {
+             
+                        if (Auth::user()->isLiked($feed->post_id)) {
+                            $feed->post->is_liked = 1;
+                        } else {
+                            $feed->post->is_liked = 0;
+                        }
+        
+                        if (Auth::user()->isReposted($feed->post_id)) {
+                            $feed->post->is_shared = 1;
+                        } else {
+                            $feed->post->is_shared = 0;
+                        }
+        
+                        if (Auth::user()->isQueued($feed->post_id)) {
+                            $feed->post->is_queued = 1;
+                        } else {
+                            $feed->post->is_queued = 0;
+                        }
+        
+        
+        
+                        array_push($result, $feed);
+                    
+                }
+
+                if ($feed->status === 'Shortie' || $feed->thread) {
+                    if ($feed->shortie !== null) {
+                    if (Auth::user()->isLikedShortie($feed->shortie_id)) {
+                        $feed->shortie->is_liked = 1;
+                    } else {
+                        $feed->shortie->is_liked = 0;
+                    }
+
+                    if (Auth::user()->isSharedShortie($feed->shortie_id)) {
+                        $feed->shortie->is_shared = 1;
+                    } else {
+                        $feed->shortie->is_shared = 0;
+                    }
+
+                    array_push($result, $feed);
+                }
+            }
+            }
+            }
+
+
+        } 
+
+        return $result;
     }
 
+    public function getFollowersPosts(){
+
+        $user = auth()->user();
+        $resultSet = Feed::with('user.profile', 'post.user', 'post.photo', 'shortie')->orderBy('created_at', 'desc')->get();
+        $feeds = [];
+
+        foreach ($resultSet as $result) {
+            if ($user->isFollowing($result->user->profile->id))
+                array_push($feeds, $result);
+        }
+
+        $posts = [];
+
+        if (Auth::check()) {
+            foreach ($feeds as $feed) {
+                if ($feed !== null) {
+                if ($feed->post) {
+                 
+                    if (Auth::user()->isLiked($feed->post_id)) {
+                        $feed->post->is_liked = 1;
+                    } else {
+                        $feed->post->is_liked = 0;
+                    }
+    
+                    if (Auth::user()->isReposted($feed->post_id)) {
+                        $feed->post->is_shared = 1;
+                    } else {
+                        $feed->post->is_shared = 0;
+                    }
+    
+                    if (Auth::user()->isQueued($feed->post_id)) {
+                        $feed->post->is_queued = 1;
+                    } else {
+                        $feed->post->is_queued = 0;
+                    }
+    
+    
+    
+                    array_push($posts, $feed);
+                }
+                }
+            }
+    
+            
+        }
+        return $posts;
+    }
 
     public function getFollowersShorties()
     {
 
         $user = auth()->user();
-        $resultSet = Feed::where(['status' => 'shortie'])->orderBy('created_at', 'desc')->with('user.profile', 'post.user', 'post.photo', 'shortie.user', 'shortie.shortiePhoto.photo', 'quiz')->orderBy('created_at', 'desc')->with('user.profile')->paginate(15);
-        $shorties = [];
+        // $resultSet = Feed::where(['status' => 'shortie'])->orderBy('created_at', 'desc')->with('user.profile', 'post.user', 'post.photo', 'shortie.user', 'shortie.shortiePhoto.photo', 'quiz')->orderBy('created_at', 'desc')->with('user.profile')->get();
+        $resultSet= Feed::with('user.profile', 'post', 'shortie.user', 'shortie.shortiePhoto.photo')->orderBy('created_at', 'desc')->get();
+        $feeds = [];
 
         foreach ($resultSet as $result) {
-            if ($user->isFollowing($result->user->profile->id) || $result->user->isFollowing($user->profile->id))
-                array_push($resultSet, $result);
+            if ($user->isFollowing($result->user->profile->id))
+                array_push($feeds, $result);
         }
 
-        // return Feed::orderBy('created_at', 'desc')->with('user.profile', 'post.user', 'post.photo', 'shortie.user', 'shortie.shortiePhoto.photo', 'quiz')->orderBy('created_at', 'desc')->with('user.profile')->paginate(15);
-        return $feeds;
+        $result = [];
+
+        if (Auth::check()) {
+            foreach ($feeds as $feed) {
+
+                        if ($feed->status === 'Shortie' || $feed->thread) {
+                            if ($feed->shortie !== null) {
+                            if (Auth::user()->isLikedShortie($feed->shortie_id)) {
+                                $feed->shortie->is_liked = 1;
+                            } else {
+                                $feed->shortie->is_liked = 0;
+                            }
+
+                            if (Auth::user()->isSharedShortie($feed->shortie_id)) {
+                                $feed->shortie->is_shared = 1;
+                            } else {
+                                $feed->shortie->is_shared = 0;
+                            }
+
+                            array_push($result, $feed);
+                        }
+                    }
+
+            }
+            
+        }
+        
+        return $result;
     }
 
     public function getHashtagPosts($hashtag)

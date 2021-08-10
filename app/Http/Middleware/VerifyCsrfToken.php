@@ -28,7 +28,8 @@ class VerifyCsrfToken extends Middleware
         'vote',
         'shortie/comment',
         'group/send-chat',
-        '/share/{id}/{user_id}/action'
+        '/share/{id}/{user_id}/action',
+        '/messages'
 
     ];
 }

@@ -34,20 +34,21 @@
                 </div>
                 <hr>
 
-                <div class="w3-container" style="max-width: 600px; margin: auto; margin-top: 50px; margin-bottom: 50px;">
-                <div> Know someone who might enjoy reading this? Mail the post to them </div>
-                <form method="POST" action="{{ route('email-post') }}" class="emailPost">
-                                @csrf
-                                <input type="hidden" name="title" value="{{ $feed->post->title }}">
-                                <input type="hidden" name="id" value="{{ $feed->id }}">
-                                <input type="hidden" name="url" value="{{ $feed->post->url }}">
-                                <input type="hidden" name="author" value="{{ $feed->user->username }}">
-                                <input type="hidden" name="body" value="{{ $feed->post->body }}">
+                <div class="w3-container"
+                    style="max-width: 600px; margin: auto; margin-top: 50px; margin-bottom: 50px;">
+                    <div> Know someone who might enjoy reading this? Mail the post to them </div>
+                    <form method="POST" action="{{ route('email-post') }}" class="emailPost">
+                        @csrf
+                        <input type="hidden" name="title" value="{{ $feed->post->title }}">
+                        <input type="hidden" name="id" value="{{ $feed->id }}">
+                        <input type="hidden" name="url" value="{{ $feed->post->url }}">
+                        <input type="hidden" name="author" value="{{ $feed->user->username }}">
+                        <input type="hidden" name="body" value="{{ $feed->post->body }}">
 
-                                <input class="py-1" type="email" name="recipient" placeholder="Enter email"
-                                    style="width: 80%; border: none; ">
-                                <button class="emailPost w3-button">Send</button>
-                            </form>
+                        <input class="py-1" type="email" name="recipient" placeholder="Enter email"
+                            style="width: 80%; border: none; ">
+                        <button class="emailPost w3-button">Send</button>
+                    </form>
                 </div>
 
                 <div class="w3-container" style="margin-top: 50px; margin-bottom: 70px">
@@ -119,7 +120,8 @@
                         num-of-comments="{{ count($feed->comments) }}">
                     </comment-component> -->
                 </div>
-
+                @else
+                <div>This post is no longer available</div>
                 @endif
             </div>
 
@@ -137,7 +139,7 @@
 
         <div class="w3-col l4 w3-hide-small">
             <div class="w3-container">
-                <userrandompostexcept-component post-id="{{ $feed->id }}" user-id="{{ $user->id }}">
+                <userrandompostexcept-component post-id="{{ $user->id }}" user-id="{{ $user->id }}">
                 </userrandompostexcept-component>
             </div>
 
@@ -163,37 +165,6 @@
     </div>
 </div>
 
-
-<!-- Modal for full size images on click -->
-<div id="emailPostOverlay" class="w3-modal w3-black" style="padding-top: 0; z-index: 7;">
-    <div class="d-flex">
-        <div class="flex-grow-1">
-        </div>
-        <div onclick="document.getElementById('emailPostOverlay').style.display='none'"
-            style="font-size: 25px; cursor: pointer;" class="w3-button w3-black w3-xlarge "> &times;</div>
-    </div>
-    <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
-
-        <div class="w3-container my-4">
-            <div> Email this article to a friend </div>
-            <form method="POST" action="{{ route('email-post') }}">
-                @csrf
-                <input type="hidden" name="title" value="{{ $feed->post->title }}">
-                <input type="hidden" name="id" value="{{ $feed->id }}">
-                <input type="hidden" name="url" value="{{ $feed->post->url }}">
-                <input type="hidden" name="author" value="{{ $feed->user->username }}">
-                <input type="hidden" name="body" value="{{ $feed->post->body }}">
-
-                <input class="py-1" type="email" name="recipient" placeholder="Enter email"
-                    style="width: 30%; border: none; ">
-                <button class="emailPost w3-button">Send</button>
-            </form>
-        </div>
-
-
-
-    </div>
-</div>
 
 @endsection
 

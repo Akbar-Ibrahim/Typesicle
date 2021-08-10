@@ -18,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'google_id', 'password', 'query_status'
+        'name', 'username', 'email', 'google_id', 'password', 'query_status', "role"
     ];
 
     protected $appends = [
@@ -68,6 +68,12 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $check;
 
     }
+
+    // public function role()
+    // {
+    //     return $this->belongsTo('App\Role');
+
+    // }
 
     public function setUsernameAttribute($value)
     {
@@ -290,5 +296,21 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->notifications()->where(['user_id' => $this->id])->get();
     }
 
-    
+    public function messages()
+    {
+        return $this->hasMany(Message::class)->orderBy('created_at', 'DESC');
+    }
+
+    public function chatList()
+    {
+        return $this->hasMany(ChatList::class)->orderBy('created_at', 'DESC');
+    }
+
+    public function lastMessage(){
+        return "";
+    }
+
+    public function last_message_date() {
+        return "";
+    }
 }

@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="w3-container" style="margin-top: 30px;" v-if="usertype === 'auth'">
+    <div class="w3-container" style="margin-top: 30px;" >
       <div class="w3-col s3">
         <feed-controls-component
           :user-id="userId"
@@ -62,7 +62,7 @@
       </div>
       <div>
         <div class="w3-left">
-          <span ref="remaining" :id="feed.shortie.id">240</span> characters
+          <span ref="remaining" :id="feed.shortie.id">750</span> characters
           remaining
         </div>
         <div class="w3-right w3-border">
@@ -83,7 +83,7 @@ export default {
     var reply = this.$refs.reply;
     reply.disabled = true;
 
-    var maxLength = 240;
+    var maxLength = 750;
     var uniqueId = this.feed.shortie.id;
     var chars = this.$refs.remaining;
 
@@ -104,7 +104,7 @@ export default {
           var length = maxLength - length;
           chars.innerText = length;
 
-          if (length < 240 && length > 0) {
+          if (length < 750 && length > 0) {
             reply.disabled = false;
           } else {
             reply.disabled = true;
@@ -131,10 +131,14 @@ export default {
     },
 
     writeReply() {
+      if (this.usertype === "auth") {
       // this.$refs.replyField.value = "";
       this.$refs.replyField.value = "";
       // $(".note-editable:visible").html("");
       this.$refs.replyContainer.style.display = "block";
+      } else {
+        location.href = "/login";
+      }
     },
 
     reply() {

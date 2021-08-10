@@ -22,7 +22,7 @@
                     
                     
                     <feed-component posts="{{ json_encode($addToGroup) }}" user-id="{{ Auth::user()->id }}" user="{{ json_encode($user) }}" 
-                        user-type="auth">
+                        user-type="auth" page="profile">
                     </feed-component>
 
                     
@@ -31,7 +31,7 @@
 
 
                 <div>
-                    <div class="w3-container w3-border w3-center">
+                    <div class="w3-container w3-center">
                         
                     </div>
                 </div>
