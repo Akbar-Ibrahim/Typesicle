@@ -21,6 +21,8 @@
     </div>
 
     <div>
+            <div style="padding-left: 30px; display: none;" ref="displayShared"> Reposted by <a :href="`/${feed.user.username}`"> {{ feed.user.name }} </a> </div>
+            
       <div 
         v-html="shortie.shortie"
         class="px-4 mb-4 w3-hide-small"
@@ -109,6 +111,7 @@ export default {
   props: ["shortie", "smallscreenHeight", "date", "feed"],
 
   mounted() {
+    this.shared()
     // this.fetchPhotos();
     if (this.shortie.shortie_photo.length == 1) {
       this.height = "400px;"
@@ -127,6 +130,16 @@ export default {
     };
   },
   methods: {
+            shared() {
+            if (this.feed.shortie !== null) {
+                if (this.feed.shortie.is_shared == 1) {
+                    this.$refs.displayShared.style.display = "block"
+                    
+                }
+            }
+        },
+
+
     readShortie() {
       if (this.shortie.commenting_on == 0) {
         if (this.shortie.thread !== null) {

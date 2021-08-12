@@ -3358,9 +3358,10 @@ __webpack_require__.r(__webpack_exports__);
                 this.status = 0;
               } else {
                 this.status = 1;
-              }
+              } // let url = "/profile-follow?profileId=" + this.profile + "&status=" + this.status;
 
-              url = "/profile-follow?profileId=" + this.profile + "&status=" + this.status;
+
+              url = "http://localhost:5000/follo?user_id=1&profile_id=2";
               _context.next = 8;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(url));
 
@@ -6799,10 +6800,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["shortie", "smallscreenHeight", "date", "feed"],
   mounted: function mounted() {
-    // this.fetchPhotos();
+    this.shared(); // this.fetchPhotos();
+
     if (this.shortie.shortie_photo.length == 1) {
       this.height = "400px;";
       this.ssheight = "200px;";
@@ -6819,6 +6823,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    shared: function shared() {
+      if (this.feed.shortie !== null) {
+        if (this.feed.shortie.is_shared == 1) {
+          this.$refs.displayShared.style.display = "block";
+        }
+      }
+    },
     readShortie: function readShortie() {
       if (this.shortie.commenting_on == 0) {
         if (this.shortie.thread !== null) {
@@ -66124,6 +66135,20 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", [
+      _c(
+        "div",
+        {
+          ref: "displayShared",
+          staticStyle: { "padding-left": "30px", display: "none" }
+        },
+        [
+          _vm._v(" Reposted by "),
+          _c("a", { attrs: { href: "/" + _vm.feed.user.username } }, [
+            _vm._v(" " + _vm._s(_vm.feed.user.name) + " ")
+          ])
+        ]
+      ),
+      _vm._v(" "),
       _c("div", {
         staticClass: "px-4 mb-4 w3-hide-small",
         staticStyle: { "font-size": "26px", cursor: "pointer" },
