@@ -40,8 +40,8 @@ if (this.status == -1) {
         this.status = 1;
       }
 
-      // let url = "/profile-follow?profileId=" + this.profile + "&status=" + this.status;
-      let url = "http://localhost:5000/follo?user_id=1&profile_id=2"
+      let url = "/profile-follow?profileId=" + this.profile + "&status=" + this.status;
+      
       let response = await fetch(url);
       this.result = await response.json();
   

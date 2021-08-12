@@ -3358,10 +3358,9 @@ __webpack_require__.r(__webpack_exports__);
                 this.status = 0;
               } else {
                 this.status = 1;
-              } // let url = "/profile-follow?profileId=" + this.profile + "&status=" + this.status;
+              }
 
-
-              url = "http://localhost:5000/follo?user_id=1&profile_id=2";
+              url = "/profile-follow?profileId=" + this.profile + "&status=" + this.status;
               _context.next = 8;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(url));
 
