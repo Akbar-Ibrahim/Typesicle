@@ -77,7 +77,7 @@
         <span class="w3-left w3-padding w3-text-white"><b>typesicle</b></span>
         
         <a href="javascript:void(0)" class="w3-hide-large w3-hide-medium w3-right w3-button w3-white" onclick="w3_open()">☰</a>
-        @if($user->role === "admin")
+        @if(Auth::user() && Auth::user()->role === "admin")
         <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open_right_menu()">☰</a>
         @endif
         @auth
@@ -104,6 +104,9 @@
     <nav class="w3-sidebar w3-bar-block w3-collapse w3-text-white w3-animate-left w3-card"
         style="z-index:3;width:300px; margin-top: 46px; background-color: #212121" id="mySidebar">
         @guest
+        <div class="w3-hide-large w3-text-white">
+                    <a href="javascript:void(0)"  style="font-size: 30px; text-decoration: none;" class="w3-margin w3-padding w3-text-white" onclick="w3_close()">Close</a>
+                </div>
         <a href="/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i>
             Home</a>
         <a href="" class="w3-bar-item w3-button w3-padding w3-text-white"><i class="fa fa-map fa-fw"></i> Top
