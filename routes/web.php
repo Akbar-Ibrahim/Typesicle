@@ -15,6 +15,7 @@ use App\Category;
 use App\Chat;
 use App\Events\LikeFeed;
 use App\Feed;
+use App\Follow;
 use App\GroupMember;
 use App\Post;
 use App\Profile;
@@ -27,6 +28,7 @@ use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
@@ -35,7 +37,7 @@ Route::get('/', 'WelcomeController@index');
 
 // Admin
 
-Route::get('/admin', 'AdminController@index')->middleware('auth')->middleware("isadmin");
+Route::get('/admin', 'AdminController@index')->middleware('auth')->middleware("isadmin")->name('admin.index');
 Route::get('/admin/users/index', 'AdminController@users')->middleware('auth')->middleware("isadmin");
 Route::get('/admin/users/create', 'AdminController@create')->middleware("isadmin");
 Route::post('/admin/users/store', 'AdminController@store')->name("user.store")->middleware("isadmin");
@@ -45,7 +47,17 @@ Route::get('/admin/users/{id}/edit', 'AdminController@edit')->middleware('auth')
 
 
 Route::get("/test", function(){
-    return Chat::create(["user_one" => 2, "user_two" => 2]);
+    // return Chat::create(["user_one" => 2, "user_two" => 2]);
+    $followers = Follow::where(["profile_id" => 1])->with("user")->get();
+        $email_list = [];
+
+        foreach ($followers as $follower) {
+            array_push($email_list, $follower->user);
+        }
+
+
+        
+        return $email_list;
 });
 
 Route::get("/date", function(){

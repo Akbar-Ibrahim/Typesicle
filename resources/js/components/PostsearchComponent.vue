@@ -64,12 +64,14 @@ export default {
     return {
       key: "",
       result: [],
+      res: [],
     };
   },
-created(){this.flask()},
+created(){},
   mounted() {},
 
   methods: {
+     
     async search() {
       if (this.key) {
         let url = `/api/search-post-list?q=${this.key}`;

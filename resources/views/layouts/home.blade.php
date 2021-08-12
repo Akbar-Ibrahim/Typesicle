@@ -63,11 +63,11 @@
     @endauth
 
     <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large"
-        style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="myRightSidebar">
+    <nav class="w3-sidebar w3-bar-block  w3-animate-right w3-top w3-text-white w3-large"
+        style="z-index:3;width:250px;font-weight:bold;display:none;right:0;background-color:#212121" id="myRightSidebar">
         <a href="javascript:void()" onclick="w3_close_right_menu()"
             class="w3-bar-item w3-button w3-center w3-padding-32">CLOSE</a>
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">PORTFOLIO</a>
+        <a href="{{ route('admin.index') }}" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">Admin</a>
         <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">ABOUT ME</a>
         <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">CONTACT</a>
     </nav>
@@ -77,7 +77,9 @@
         <span class="w3-left w3-padding w3-text-white"><b>typesicle</b></span>
         
         <a href="javascript:void(0)" class="w3-hide-large w3-hide-medium w3-right w3-button w3-white" onclick="w3_open()">☰</a>
-        <!-- <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open_right_menu()">☰</a> -->
+        @if($user->role === "admin")
+        <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open_right_menu()">☰</a>
+        @endif
         @auth
         <button route="{{ route('notification.index') }}" onclick="location.href=this.getAttribute('route')"
             class="w3-button w3-padding-large w3-right " title="Notifications"><i class="fa fa-bell w3-green"></i><span
@@ -99,20 +101,20 @@
         id="myRightOverlay"></div>
 
     <!-- Side Navigation -->
-    <nav class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card"
-        style="z-index:3;width:300px; margin-top: 46px;" id="mySidebar">
+    <nav class="w3-sidebar w3-bar-block w3-collapse w3-text-white w3-animate-left w3-card"
+        style="z-index:3;width:300px; margin-top: 46px; background-color: #212121" id="mySidebar">
         @guest
         <a href="/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i>
             Home</a>
-        <a href="" class="w3-bar-item w3-button w3-padding"><i class="fa fa-map fa-fw"></i> Top
+        <a href="" class="w3-bar-item w3-button w3-padding w3-text-white"><i class="fa fa-map fa-fw"></i> Top
             Pages</a>
-        <a href="" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cc-discover fa-fw"></i> Discover</a>
-        <a href="{{ route('category.index') }}" class="w3-bar-item w3-button w3-padding"><i
+        <a href="" class="w3-bar-item w3-button w3-padding w3-text-white"><i class="fa fa-cc-discover fa-fw"></i> Discover</a>
+        <a href="{{ route('category.index') }}" class="w3-bar-item w3-button w3-padding w3-text-white"><i
                 class="fa fa-list fa-fw"></i> See Categories</a>
         @else
-        <div class="w3-container w3-padding w3-margin-top">
-            <div class="d-flex w3-padding-top">
-                <div>
+        <div class="w3-container w3-padding w3-margin-top" style="background-color: #212121">
+            <div class="d-flex w3-padding-top" style="background-color: #212121">
+                <div style="background-color: #212121">
                     @if(Auth::user()->profile->picture === 'avatar.png')
                     <img src="/images/avatar.png" class="w3-circle w3-margin-right w3-border"
                         style="width:30px; height:30px;">
@@ -122,9 +124,9 @@
                     @endif
                 </div>
                 <div class="flex-grow-1">
-                    <a href="{{ route('profile.show', Auth::user()->username) }}"> {{ Auth::user()->name }} </a>
+                    <a class="w3-text-white" href="{{ route('profile.show', Auth::user()->username) }}"> {{ Auth::user()->name }} </a>
                 </div>
-                <div class="w3-hide-large">
+                <div class="w3-hide-large w3-text-white">
                     <a href="javascript:void(0)"  style="font-size: 30px;" onclick="w3_close()">X</a>
                 </div>
             </div>
@@ -162,7 +164,7 @@
             Home</a>
 
         
-        <a href="{{ route('chat.with', Auth::user()->username) }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i> Messages
+        <!-- <a href="{{ route('chat.with', Auth::user()->username) }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i> Messages -->
         </a>
         
 

@@ -20,7 +20,7 @@
           ></follow-component>
         </div>
         <div v-if="userId !== currentUser" class="">
-          <a class="w3-button w3-border" :href="`chat/${JSON.parse(user).username}`">Chat</a>
+          <!-- <a class="w3-button w3-border" :href="`chat/${JSON.parse(user).username}`">Chat</a> -->
         </div>
       </div>
       <div style="margin: 12px 0">

@@ -8,6 +8,7 @@ use App\Draft;
 use App\Category;
 use App\Events\NewPostEvent;
 use App\Feed;
+use App\Follow;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Mail;
 use App\Photo;
@@ -143,18 +144,30 @@ class PostService
         // $url = route('home:post', [$user->username, $feed->post->url, $feed->id]);
 
         // $recipient_address->notify(new NewPost($author, $post, $url));
+        $followers = Follow::where(["profile_id" => auth()->user()->id])->with("user")->get();
+        $email_list = [];
 
-        $recipient = User::where(["id" => 1])->first();
+        foreach ($followers as $follower) {
+            array_push($email_list, $follower->user);
+        }
+    
+        
+        // $recipient = User::where(["id" => 1])->first();
 
         $url = route('post.url', [$post->user->username, $post->url, $post->feed->id]);
 
-        Mail::to($recipient)->send(new NewPost($post, $recipient, $url));
+        
+        foreach ($email_list as $recipient) {
+            Mail::to($recipient)->send(new NewPost($post, $recipient, $url));    
+            
+        
         
         Notification::create(["user_id" => $recipient->id, "type" => "post", "notifier" => auth()->user()->id, "message" => "has published a new post", "read" => "no", "feed_id" => $feed->id]);
         $myNotifications = Notification::where(["user_id" => $recipient->id, "read" => "no"])->get();
         
         $count = $myNotifications->count();
         broadcast(new NewPostEvent($count, $recipient->id))->toOthers();
+    }
     }
 
     public function updatePost($id)

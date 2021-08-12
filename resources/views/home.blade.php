@@ -17,7 +17,7 @@
 @section('content')
 <div class="w3-container">
     <div class="w3-row ">
-        <div class="w3-col l8">
+        <div class="w3-col l10">
             <div class="card">
                 <!-- <div class="card-header">Dashboard</div> -->
 
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="w3-col l4">
+        <div class="w3-col l2">
             @if (count($top_categories) > 0)
             <div class="w3-container" style="margin-bottom: 30px;">
                 <div class="w3-container w3-center">

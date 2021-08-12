@@ -5,12 +5,14 @@ Hey {{ $user->name }},
 </h1>
 
 <h3>
-{{ $author }} has published a new post
+{{ $author }} has published a new article
 </h3>
 
-<h1> {{ $title }} </h1>
+<div style="margin-top: 50px;">
+<h1 style="font-size: 30px;"> {{ $title }} </h1>
+</div>
 @component('mail::button', ['url' => $url])
-Button Text
+Read Article
 @endcomponent
 
 Thanks,<br>

@@ -4,7 +4,7 @@
 
 <head>
 
-    <title>Shotie - Create</title>
+    <title>Shortie - Create</title>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -35,13 +35,29 @@
 
 <body>
 
+    <header class="w3-container w3-top w3-xlarge " style="background-color: #212121">
+        <span class="w3-left w3-padding w3-text-white"><b>typesicle</b></span>
 
-    <div class="w3-container" style="margin-top: 50px;">
+        <a href="javascript:void(0)" class="w3-hide-large w3-hide-medium w3-right w3-button w3-white"
+            onclick="w3_open()">☰</a>
+        <!-- <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open_right_menu()">☰</a> -->
+
+        @guest
+        <a class="w3-right w3-button w3-white" href="{{ route('login') }}">{{ __('Login') }}</a>
+        @if (Route::has('register'))
+        <a class="w3-right w3-button w3-white" href="{{ route('register') }}">{{ __('Register') }}</a>
+        @endif
+        @endguest
+    </header>
+
+
+
+    <div class="w3-container" style="margin-top: 50px;" >
         <div class="row justify-content-center">
-            <div class="w3-col l5">
+            <div class="w3-col l6">
 
 
-                <form id="myShorties" action="{{ route('store:shortie') }}" method="post" enctype="multipart/form-data">
+                <form id="myShorties" action="{{ route('store:shortie') }}" method="post" enctype="multipart/form-data" style="margin-top: 100px;">
                     @csrf
                     <input id="count" type="hidden" name="count">
                     <input id="isEmpty" type="hidden" name="isEmpty" value="No">

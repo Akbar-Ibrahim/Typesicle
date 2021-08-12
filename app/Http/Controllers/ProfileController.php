@@ -23,8 +23,12 @@ class ProfileController extends Controller
 
     public function index($username, PostUtilService $postUtilService, PhotoService $photoService, AccountService $accountService)
     {
-        $page = "profile";
+        
         $user = $postUtilService->getUser($username);
+
+
+        $page = "profile";
+        
         $users = User::where('id', '!=', $user->id)->with('profile')->first();
         $photos = $photoService->getPhotos($user);
         $feeds = $postUtilService->getAllFeeds($user, $page);

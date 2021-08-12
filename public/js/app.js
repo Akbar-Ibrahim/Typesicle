@@ -3017,7 +3017,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.postContainer.style.display = "none";
       this.$refs.shortieContainer.style.display = "none";
       this.feeds = [];
-      var url = "/feeds/" + this.page + "/" + this.userId;
+      var url = "/feeds/" + this.page + "/" + this.this_user.id;
       fetch(url).then(function (response) {
         return response.json();
       }).then(function (result) {
@@ -3783,13 +3783,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["posts", "userId", "user", "userType"],
+  props: ["posts", "userId", "user", "userType", "page"],
   created: function created() {
     var _this = this;
 
@@ -3815,21 +3810,22 @@ __webpack_require__.r(__webpack_exports__);
 
       console.log("...received event");
     });
+    Echo["private"]("delete-channel").listen("DeletePost", function (event) {
+      console.log(event);
+
+      _this.$emit("deletechannelreceived", event);
+
+      console.log("...received event");
+    });
   },
-  mounted: function mounted() {
-    this.getFeeds(); //  this.getPosts();
-  },
+  mounted: function mounted() {},
   data: function data() {
     return {
-      // feeds: JSON.parse(this.posts),
-      feeds: [],
+      feeds: JSON.parse(this.posts),
       this_user: JSON.parse(this.user),
       allposts: [],
       shorties: [],
-      bus: this,
-      feedsPagination: 1,
-      postsPagination: 1,
-      shortiesPagination: 1
+      bus: this
     };
   },
   methods: {
@@ -3838,64 +3834,42 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$refs.allContainer.style.display = "block";
       this.$refs.postContainer.style.display = "none";
-      this.$refs.shortieContainer.style.display = "none"; // this.feeds = [];
-
-      var page = 1;
-      var url = "/api/home-feeds?page=" + this.feedsPagination;
+      this.$refs.shortieContainer.style.display = "none";
+      this.feeds = [];
+      var url = "/feeds/" + this.page + "/" + this.this_user.id;
       fetch(url).then(function (response) {
         return response.json();
       }).then(function (result) {
-        for (var i = 0; i < result.data.length; i++) {
-          _this2.feeds.push(result.data[i]);
-        } // this.feeds = result.data;
-
-      }); // this.$http.get('/api/home-feeds?page=' + this.page)
-      //               .then(res => {
-      //                   return res.json();
-      //               }).then(res => {
-      //                   $.each(res.data, (key, value) => {
-      //                       this.feeds.push(value);
-      //                   });
-      //               });
-
-      this.feedsPagination = this.feedsPagination + 1;
+        _this2.feeds = result;
+      });
     },
     getPosts: function getPosts() {
       var _this3 = this;
 
       this.$refs.allContainer.style.display = "none";
       this.$refs.shortieContainer.style.display = "none";
-      this.$refs.postContainer.style.display = "block"; // this.allposts = [];
-
-      var url = "/api/home-posts?page=" + this.postsPagination;
+      this.$refs.postContainer.style.display = "block";
+      this.allposts = [];
+      var url = "/allposts/" + this.page + "/" + this.this_user.id;
       fetch(url).then(function (response) {
         return response.json();
       }).then(function (result) {
-        // this.allposts = result.data;
-        for (var i = 0; i < result.data.length; i++) {
-          _this3.allposts.push(result.data[i]);
-        }
+        _this3.allposts = result;
       });
-      this.postsPagination = this.postsPagination + 1;
     },
     getShorties: function getShorties() {
       var _this4 = this;
 
       this.$refs.allContainer.style.display = "none";
       this.$refs.postContainer.style.display = "none";
-      this.$refs.shortieContainer.style.display = "block"; // this.shorties = [];
-
-      var page = 1;
-      var url = "/api/home-shorties?page=" + this.shortiesPagination;
+      this.$refs.shortieContainer.style.display = "block";
+      this.shorties = [];
+      var url = "/allshorties/" + this.page + "/" + this.this_user.id;
       fetch(url).then(function (response) {
         return response.json();
       }).then(function (result) {
-        // this.shorties = result.data;
-        for (var i = 0; i < result.data.length; i++) {
-          _this4.shorties.push(result.data[i]);
-        }
+        _this4.shorties = result;
       });
-      this.shortiesPagination = this.shortiesPagination + 1;
     } // likeFeed(feed_id, text) {
     //   let url = "/api/post-like?feed_id=" + feed_id + "&user_id=" + this.userId;
     //   fetch(url)
@@ -5267,12 +5241,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       key: "",
-      result: []
+      result: [],
+      res: []
     };
   },
-  created: function created() {
-    this.flask();
-  },
+  created: function created() {},
   mounted: function mounted() {},
   methods: {
     search: function search() {
@@ -63073,7 +63046,6 @@ var render = function() {
           _c(
             "button",
             {
-              ref: "allTabButton",
               staticClass: "tabs w3-button",
               staticStyle: { width: "100%" },
               on: { click: _vm.getFeeds }
@@ -63086,7 +63058,6 @@ var render = function() {
           _c(
             "button",
             {
-              ref: "postTabButton",
               staticClass: "tabs w3-button",
               staticStyle: { width: "100%" },
               on: { click: _vm.getPosts }
@@ -63099,7 +63070,6 @@ var render = function() {
           _c(
             "button",
             {
-              ref: "shortieTabButton",
               staticClass: "tabs w3-button",
               staticStyle: { width: "100%" },
               on: { click: _vm.getShorties }
@@ -63113,122 +63083,94 @@ var render = function() {
     _c(
       "div",
       { ref: "allContainer" },
-      [
-        _vm._l(_vm.feeds, function(feed, i) {
-          return _c("div", { key: i }, [
-            feed.post !== null
-              ? _c(
-                  "div",
-                  { staticClass: "my-4" },
-                  [
-                    _c("post-component", {
-                      attrs: {
-                        user: feed.user,
-                        post: feed,
-                        date: feed.date,
-                        size: "width: 35px",
-                        "user-id": _vm.userId,
-                        "auth-user": JSON.parse(_vm.user),
-                        bus: _vm.bus,
-                        usertype: _vm.userType
-                      }
-                    })
-                  ],
-                  1
-                )
-              : feed.status === "Shortie" && feed.thread == null
-              ? _c(
-                  "div",
-                  { staticClass: "w3-container" },
-                  [
-                    _c("my-shortie-component", {
-                      attrs: {
-                        shortie: feed.shortie,
-                        usertype: _vm.userType,
-                        "auth-user": JSON.parse(_vm.user),
-                        "user-id": _vm.userId,
-                        feed: feed,
-                        bus: _vm.bus
-                      }
-                    })
-                  ],
-                  1
-                )
-              : feed.thread !== null
-              ? _c(
-                  "div",
-                  [
-                    _c("my-thread-component", {
-                      attrs: {
-                        thread: feed.thread,
-                        usertype: _vm.userType,
-                        "auth-user": JSON.parse(_vm.user),
-                        "user-id": _vm.userId,
-                        feed: feed,
-                        bus: _vm.bus
-                      }
-                    })
-                  ],
-                  1
-                )
-              : _vm._e()
-          ])
-        }),
-        _vm._v(" "),
-        _c("infinite-loading", {
-          on: {
-            distance: function($event) {
-              1
-            },
-            infinite: _vm.getFeeds
-          }
-        })
-      ],
-      2
+      _vm._l(_vm.feeds, function(feed, i) {
+        return _c("div", { key: i }, [
+          feed.post !== null
+            ? _c(
+                "div",
+                { staticClass: "my-4" },
+                [
+                  _c("post-component", {
+                    attrs: {
+                      user: feed.user,
+                      post: feed,
+                      date: feed.date,
+                      size: "width: 35px",
+                      "user-id": _vm.userId,
+                      "auth-user": JSON.parse(_vm.user),
+                      bus: _vm.bus,
+                      usertype: _vm.userType
+                    }
+                  })
+                ],
+                1
+              )
+            : feed.status === "Shortie" && feed.thread == null
+            ? _c(
+                "div",
+                { staticClass: "w3-container" },
+                [
+                  _c("my-shortie-component", {
+                    attrs: {
+                      shortie: feed.shortie,
+                      usertype: _vm.userType,
+                      "auth-user": JSON.parse(_vm.user),
+                      "user-id": _vm.userId,
+                      feed: feed,
+                      bus: _vm.bus
+                    }
+                  })
+                ],
+                1
+              )
+            : feed.thread !== null
+            ? _c(
+                "div",
+                [
+                  _c("my-thread-component", {
+                    attrs: {
+                      thread: feed.thread,
+                      usertype: _vm.userType,
+                      "auth-user": JSON.parse(_vm.user),
+                      "user-id": _vm.userId,
+                      feed: feed,
+                      bus: _vm.bus
+                    }
+                  })
+                ],
+                1
+              )
+            : _vm._e()
+        ])
+      }),
+      0
     ),
     _vm._v(" "),
     _c(
       "div",
       { ref: "postContainer", staticStyle: { display: "none" } },
-      [
-        _vm._l(_vm.allposts, function(feed, i) {
-          return _c(
-            "div",
-            { key: i },
-            [
-              _c("post-component", {
-                attrs: {
-                  user: feed.user,
-                  post: feed,
-                  date: feed.created_at,
-                  size: "width: 35px",
-                  "user-id": _vm.userId,
-                  "auth-user": JSON.parse(_vm.user),
-                  bus: _vm.bus,
-                  usertype: _vm.userType
-                }
-              })
-            ],
-            1
-          )
-        }),
-        _vm._v(" "),
-        _c(
+      _vm._l(_vm.allposts, function(feed, i) {
+        return _c(
           "div",
-          {
-            staticClass: "w3-container w3-center",
-            staticStyle: { "margin-top": "50px" }
-          },
+          { key: i },
           [
-            _c(
-              "button",
-              { staticClass: "w3-button", on: { click: _vm.getPosts } },
-              [_vm._v("Load More")]
-            )
-          ]
+            _c("post-component", {
+              attrs: {
+                user: feed.user,
+                post: feed,
+                date: feed.created_at,
+                size: "width: 35px",
+                "user-id": _vm.userId,
+                "auth-user": JSON.parse(_vm.user),
+                bus: _vm.bus,
+                usertype: _vm.userType
+              }
+            })
+          ],
+          1
         )
-      ],
-      2
+      }),
+      0
     ),
     _vm._v(" "),
     _c(
@@ -63255,7 +63197,18 @@ var render = function() {
               )
             : _c(
                 "div",
-                [_c("my-thread-component", { attrs: { feed: feed } })],
+                [
+                  _c("my-thread-component", {
+                    attrs: {
+                      thread: feed.thread,
+                      usertype: _vm.userType,
+                      "auth-user": JSON.parse(_vm.user),
+                      "user-id": _vm.userId,
+                      feed: feed,
+                      bus: _vm.bus
+                    }
+                  })
+                ],
                 1
               )
         ])
@@ -64803,18 +64756,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.userId !== _vm.currentUser
-                ? _c("div", {}, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "w3-button w3-border",
-                        attrs: { href: "chat/" + JSON.parse(_vm.user).username }
-                      },
-                      [_vm._v("Chat")]
-                    )
-                  ])
-                : _vm._e()
+              _vm.userId !== _vm.currentUser ? _c("div", {}) : _vm._e()
             ])
           : _vm._e(),
         _vm._v(" "),

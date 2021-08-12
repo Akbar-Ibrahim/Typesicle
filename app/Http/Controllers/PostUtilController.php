@@ -52,13 +52,14 @@ class PostUtilController extends Controller
         $user = User::where("id", $id)->first();
         $guest = User::where(['role' => 'guest'])->first();
         $posts = $postUtilService->getAllPosts($user, $page);
-        // $home = $postUtilService->getFollowersPosts();
+        
 
         if ($page === "profile" ) {
             return $postUtilService->getAllPosts($user, $page);
         } else if ($page === "welcome") {
             return $postUtilService->getAllPosts($guest, $page);
         } else if ($page === "home") {
+            $home = $postUtilService->getFollowersPosts();
             return $home;
         }
     }
@@ -68,14 +69,15 @@ class PostUtilController extends Controller
         $user = User::where("id", $id)->first();
         $shorties = $postUtilService->getAllShorties($user, $page);
         $guest = User::where(["role" => "guest"])->first();
-        // $home = $postUtilService->getFollowersShorties();
+        
 
         if ($page === "profile") {
             return $postUtilService->getAllShorties($user, $page);
         } else if ($page === "welcome") {
             return $postUtilService->getAllShorties($guest, $page);
         } else if ($page === "home") {
-            // return $home;
+            $home = $postUtilService->getFollowersShorties();
+            return $home;
         }
     }
 

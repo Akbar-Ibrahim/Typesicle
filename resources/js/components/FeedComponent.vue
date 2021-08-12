@@ -139,7 +139,7 @@ export default {
       this.feeds = [];
 
 
-      let url = "/feeds/" + this.page + "/" + this.userId;
+      let url = "/feeds/" + this.page + "/" + this.this_user.id;
       fetch(url)
         .then((response) => {
           return response.json();
