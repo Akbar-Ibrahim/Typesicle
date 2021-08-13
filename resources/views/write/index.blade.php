@@ -13,8 +13,8 @@
 
 @section('content')
 
-
-<div class="w3-container content w3-border " style="margin-top: 100px;">
+@include('includes.loadBlock')
+<div class="w3-container content w3-border " style="margin-top: 100px; display: none;" id="wrapper-div">
     <div class="w3-row-padding">
         
         <div class=" ">
@@ -52,6 +52,7 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('js/loadBlock.js') }}"></script>
 <!-- <script src="{{ asset('js/app.js') }}"></script> -->
 
 

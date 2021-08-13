@@ -57,7 +57,7 @@ class FollowService
     public function countFollowings() {
 
         $id = request()->id;
-        $followings = Follow::where(["user_id" => $id])->get();
-        return $followings->load('user');
+        $followings = Follow::where(["user_id" => $id])->with("profile.user")->get();
+        return $followings;
     }
 }

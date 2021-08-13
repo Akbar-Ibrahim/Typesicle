@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'WelcomeController@index')->name('welcome');
 
 // Admin
 
@@ -45,6 +45,10 @@ Route::put('/admin/users/{id}/update', 'AdminController@update')->name("user.upd
 Route::get('/admin/users/{id}/edit', 'AdminController@edit')->middleware('auth')->name("users.edit")->middleware("isadmin");
 
 
+// follows
+
+Route::get('{username}/followers', 'FollowController@followers')->name('followers.index');
+Route::get('/{username}/following', 'FollowController@following')->name('following.index');
 
 Route::get("/test", function(){
     // return Chat::create(["user_one" => 2, "user_two" => 2]);
@@ -183,6 +187,11 @@ Route::get("/notifications", "NotificationController@index")->name("notification
 
 
 // Post
+Route::get('/popular', 'PostUtilController@popular')->name('popular');
+Route::get('/discover', 'PostUtilController@discover')->name('discover');
+Route::get('/top-pages', 'PostUtilController@topPages')->name('top-pages');
+
+
 Route::resource('post', 'PostController')->middleware(['auth']);
 Route::get('post/{username}/{url}/{id}', ['as' => 'post.url', 'uses' => 'PostUtilController@post' ]);
 

@@ -11,6 +11,8 @@ use App\Feed;
 use App\Follow;
 use App\Notification;
 use App\Like;
+use App\Mail\NewPost;
+use App\Mail\SendArticleToFriend;
 use App\Photo;
 use App\Post;
 use App\Queue;
@@ -202,31 +204,15 @@ class PostUtilController extends Controller
     public function emailPost(Request $request){
 
 
-        $feed = $request->feed;
+        $feed = Feed::where(["id" => $request->feed_id])->first();
+        $post = Post::where(["id" => $request->post_id])->first();
+
         $recipient = $request->recipient;
-        $title = $request->title;
-        $body = $request->body;
-        $author = $request->author;
-        $id = $request->id;
-        $url = $request->url;
-        $route = route('post.url', [$author, $url, $id]);
         
-    
-    
-    
-             $data = [
-                     'greet' => 'you,',
-                     'author' => $author,
-                     'content' => $body,
-                    'title' => $title,
-                    'route' => $route,
-    
-    
-                ];
-    
-                Mail::send('mail.test', $data, function($message) use ($recipient){
-                   $message->to($recipient, 'Bro')->subject("Hey, check this post out!");
-               });
+        $url = $request->url;
+        $route = route('post.url', [$post->user->username, $post->url, $feed->id]);
+        
+        Mail::to($recipient)->send(new SendArticleToFriend($post, $route));    
     
 
             return redirect()->back();
@@ -317,5 +303,55 @@ if(auth()->user()) {
         return $top_hashtags;
     }
 
+    public function popular(){
+        $posts = Post::where("views", ">", 5)->with('feed', 'user')->get();
+        
+        
+
+        if (auth()->user()) {
+            $user = auth()->user();
+        Notification::where(["user_id" => $user->id])->update(["read" => "yes"]);
+        $notifications = Notification::where(["user_id" => $user->id])->with('feed', 'comment')->orderBy("created_at", "desc")->get();
+        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+
+        return view('popular.index', compact('user', 'n', 'posts'));
+        }
+        
+        return view('popular.index', compact( 'posts'));
+    }
+
+    public function discover(){
+        $posts = Post::where("views", ">", 5)->with('feed', 'user')->get();
+        
+        
+
+        if (auth()->user()) {
+            $user = auth()->user();
+        Notification::where(["user_id" => $user->id])->update(["read" => "yes"]);
+        $notifications = Notification::where(["user_id" => $user->id])->with('feed', 'comment')->orderBy("created_at", "desc")->get();
+        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+
+        return view('discover.index', compact('user', 'n', 'posts'));
+        }
+        
+        return view('discover.index', compact( 'posts'));
+    }
+
+    public function topPages(){
+        $posts = Post::where("views", ">", 5)->with('feed', 'user')->get();
+        
+        
+
+        if (auth()->user()) {
+            $user = auth()->user();
+        Notification::where(["user_id" => $user->id])->update(["read" => "yes"]);
+        $notifications = Notification::where(["user_id" => $user->id])->with('feed', 'comment')->orderBy("created_at", "desc")->get();
+        $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+
+        return view('pages.index', compact('user', 'n', 'posts'));
+        }
+        
+        return view('pages.index', compact( 'posts'));
+    }
 
 }

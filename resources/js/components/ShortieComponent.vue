@@ -1,5 +1,16 @@
 <template>
   <div :id="shortie.id">
+
+<div
+        v-if="feed.reposted === 'yes'"
+        class="pl-4 my-2" style="margin-left:20px;"
+      >
+        <div>
+          Reposted: Originally by
+          <a :href="`/${feed.shortie.user.username}`">{{ feed.shortie.user.name }}</a>
+        </div>
+</div>
+
     <div>
       <header-component :user="shortie.user" :date="date" size="width: 35px">
       </header-component>
@@ -21,7 +32,7 @@
     </div>
 
     <div>
-            <div style="padding-left: 30px; display: none;" ref="displayShared"> Reposted by <a :href="`/${feed.user.username}`"> {{ feed.user.name }} </a> </div>
+            
             
       <div 
         v-html="shortie.shortie"
@@ -108,10 +119,10 @@
 
 <script>
 export default {
-  props: ["shortie", "smallscreenHeight", "date", "feed"],
+  props: ["shortie", "smallscreenHeight", "date", "feed", "userId"],
 
   mounted() {
-    this.shared()
+    // this.shared()
     // this.fetchPhotos();
     if (this.shortie.shortie_photo.length == 1) {
       this.height = "400px;"

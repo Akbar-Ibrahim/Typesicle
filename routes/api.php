@@ -59,8 +59,8 @@ Route::get('/top-categories', 'CategoryUtilController@getTopCategories');
 
 //Follow
 Route::get('profile-follow', 'FollowController@followProfile')->name('follow:profile')->middleware('auth');
-Route::get('count-followers', 'FollowController@countFollowers')->name('count:followers')->middleware('auth');
-Route::get('count-followings', 'FollowController@countFollowings')->name('count:followings')->middleware('auth');
+Route::get('count-followers', 'FollowController@countFollowers')->name('count:followers');
+Route::get('count-followings', 'FollowController@countFollowings')->name('count:followings');
 Route::get('following/{user}', 'FollowController@handleFollowing')->name('following')->middleware('auth');
 Route::get('followers/{user}', 'FollowController@handleFollowers')->name('followers')->middleware('auth');
 

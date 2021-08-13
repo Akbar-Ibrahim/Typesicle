@@ -12,6 +12,7 @@
         style="width: 100%; border: none;"
         class=""
         placeholder="Search for authors"
+        autocomplete="off"
       />
       <span class="input-group-btn" style="border: none;">
         <button type="submit" class="btn btn-default">
@@ -33,7 +34,7 @@
         
         <div class="flex-grow-w">
           <div>
-          <a :href="`//${r.username}`">{{ r.name }}</a>
+          <a :href="`/${r.username}`">{{ r.name }}</a>
           </div>
           <div>
             <a :href="`/${r.username}`"> {{ r.posts.length }} <span v-if="r.posts.length == 1"> post </span> <span v-else> posts </span> </a>

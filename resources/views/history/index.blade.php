@@ -28,33 +28,32 @@
                     @endif
                 </div>
 
-                <div style="margin-top: 50px;">                    
+                <div style="margin-top: 50px;">
                     <parent-component history="{{ json_encode($history) }}" user-id="{{ Auth::user()->id }}"
-                    user="{{ json_encode($user) }}" user-type="auth">
-                        </parent-component>
+                        user="{{ json_encode($user) }}" user-type="auth">
+                    </parent-component>
                 </div>
 
-                @if(count($history) < 1)
-        <div class="w3-container w3-center" style="margin-top: 120px;">
-        <div class="w3-container" style="width: 70%; margin: auto;">
-            <h2> You haven't read any posts yet </h2>
-            <h4>Start below</h4>
-                    <random-post-component></random-post-component>
+                @if(count($history) < 1) <div class="w3-container w3-center" style="margin-top: 120px;">
+                    <div class="w3-container" style="width: 70%; margin: auto;">
+                        <h2> You haven't read any posts yet </h2>
+                        <h4>Start below</h4>
+                        <random-post-component></random-post-component>
+                    </div>
             </div>
-        </div>
-        @endif
-                
+            @endif
 
-            </div>
-        </div>
 
-        <!-- Right side -->
-
-        <div class="w3-col m3">
-            
         </div>
+    </div>
+
+    <!-- Right side -->
+
+    <div class="w3-col m3">
 
     </div>
+
+</div>
 
 </div>
 

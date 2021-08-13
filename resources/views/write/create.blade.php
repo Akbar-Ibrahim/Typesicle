@@ -8,8 +8,8 @@
 
 
 @section('content')
-
-<div class="w3-container">
+@include('includes.loadBlock')
+<div class="w3-container" id="wrapper-div" style="display: none;">
 
 </div>
 
@@ -171,6 +171,6 @@
 @endsection
 
 @section('scripts')
-
+<script src="{{ asset('js/loadBlock.js') }}"></script>
 
 @endsection

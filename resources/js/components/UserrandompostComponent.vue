@@ -1,8 +1,8 @@
 <template>
-  <div class="">
+  <div class="w3-center">
     
 <button 
-        class="w3-button" @click="goToRoute"
+        class="btn btn-primary w3-text-white lawngreen" @click="goToRoute"
         style="font-size: 17px">
         Read a random post by this author!
     </button>    

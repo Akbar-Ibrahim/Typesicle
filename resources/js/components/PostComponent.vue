@@ -1,16 +1,8 @@
 <template>
   <div ref="postContainer" class="w3-container" style="margin-bottom: 50px">
-    <header-component
-      :user="feed.user"
-      :date="date"
-      size="width: 35px; height: 35px;"
-    >
-    </header-component>
-
-    <div class="w3-row">
-      <div
-        v-if="feed.status === 'Reposted' || feed.status === 'rwc'"
-        class="pl-4 my-2"
+    <div
+        v-if="feed.reposted === 'yes'"
+        class="pl-4 my-2" style="margin-left:20px;"
       >
         <div>
           Reposted: Originally by
@@ -21,6 +13,15 @@
           v-html="feed.repost_message.substring(0, 250)"
         ></div>
       </div>
+    <header-component
+      :user="feed.post.user"
+      :date="date"
+      size="width: 35px; height: 35px;"
+    >
+    </header-component>
+
+    <div class="w3-row">
+      
 
       <div v-if="feed.post.responding_to > 0" class="pl-2">
         Responding to

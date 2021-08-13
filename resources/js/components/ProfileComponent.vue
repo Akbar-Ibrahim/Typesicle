@@ -19,14 +19,17 @@
             :status="status"
           ></follow-component>
         </div>
+        <follows-component
+            :u="JSON.parse(user)"
+          ></follows-component>
         <div v-if="userId !== currentUser" class="">
           <!-- <a class="w3-button w3-border" :href="`chat/${JSON.parse(user).username}`">Chat</a> -->
         </div>
       </div>
       <div style="margin: 12px 0">
-        <a v-if="JSON.parse(user).profile.twitter !== null" :href="JSON.parse(user).profile.twitter"><i class="fa fa-twitter"></i></a>
-        <a v-if="JSON.parse(user).profile.instagram !== null" :href="JSON.parse(user).profile.instagram"><i class="fa fa-instagram"></i></a>
-        <a v-if="JSON.parse(user).profile.facebook" :href="JSON.parse(user).profile.facebook"><i class="fa fa-facebook"></i></a>
+        <a v-if="JSON.parse(user).profile.twitter !== null" :href="JSON.parse(user).profile.twitter"><i class="fas fa fa-twitter"></i></a>
+        <a v-if="JSON.parse(user).profile.instagram !== null" :href="JSON.parse(user).profile.instagram"><i class="fas fa fa-instagram"></i></a>
+        <a v-if="JSON.parse(user).profile.facebook" :href="JSON.parse(user).profile.facebook"><i class="fas fa fa-facebook"></i></a>
       </div>
     </div>
   </div>

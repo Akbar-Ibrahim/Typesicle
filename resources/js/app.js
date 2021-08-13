@@ -107,9 +107,13 @@ Vue.component('send-group-invite-component', require('./components/SendGroupInvi
 Vue.component('search-component', require('./components/SearchComponent.vue').default);
 Vue.component('postsearch-component', require('./components/PostsearchComponent.vue').default);
 
+Vue.component('load-component', require('./components/LoadComponent.vue').default);
+
 // Profile
+Vue.component('user-component', require('./components/UserComponent.vue').default);
 Vue.component('accounts-component', require('./components/AccountsComponent.vue').default);
 Vue.component('follow-component', require('./components/FollowComponent.vue').default);
+Vue.component('follows-component', require('./components/FollowsComponent.vue').default);
 Vue.component('profile-component', require('./components/ProfileComponent.vue').default);
 Vue.component('photos-component', require('./components/PhotosComponent.vue').default);
 

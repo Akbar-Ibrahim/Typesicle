@@ -49,7 +49,8 @@
     }
 
     .w3-bar-block .w3-bar-item {
-        padding: 16px
+        padding: 16px;
+        text-decoration: none;
     }
     </style>
     @yield('styles')
@@ -73,7 +74,7 @@
     </nav>
 
 
-    <header class="w3-container w3-top w3-xlarge " style="background-color: #212121">
+    <header class="w3-container w3-top w3-xlarge " style="background-color: #212121;z-index:10">
         <span class="w3-left w3-padding w3-text-white"><b>typesicle</b></span>
         
         <a href="javascript:void(0)" class="w3-hide-large w3-hide-medium w3-right w3-button w3-white" onclick="w3_open()">☰</a>
@@ -104,16 +105,19 @@
     <nav class="w3-sidebar w3-bar-block w3-collapse w3-text-white w3-animate-left w3-card"
         style="z-index:3;width:300px; margin-top: 46px; background-color: #212121" id="mySidebar">
         @guest
+      <div class="">  
         <div class="w3-hide-large w3-text-white">
                     <a href="javascript:void(0)"  style="font-size: 30px; text-decoration: none;" class="w3-margin w3-padding w3-text-white" onclick="w3_close()">Close</a>
                 </div>
         <a href="/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i>
             Home</a>
-        <a href="" class="w3-bar-item w3-button w3-padding w3-text-white"><i class="fa fa-map fa-fw"></i> Top
+        <a href="{{ route('top-pages') }}" class="w3-bar-item w3-button w3-padding w3-text-white"><i class="fa fa-map fa-fw"></i> Top
             Pages</a>
-        <a href="" class="w3-bar-item w3-button w3-padding w3-text-white"><i class="fa fa-cc-discover fa-fw"></i> Discover</a>
+        <a href="{{ route('discover') }}" class="w3-bar-item w3-button w3-padding w3-text-white"><i class="fa fa-cc-discover fa-fw"></i> Discover</a>
+        <a href="{{ route('popular') }}" class="w3-bar-item w3-button w3-padding w3-text-white"><i class="fa fa-cc-discover fa-fw"></i> Popular on Typesicle</a>
         <a href="{{ route('category.index') }}" class="w3-bar-item w3-button w3-padding w3-text-white"><i
                 class="fa fa-list fa-fw"></i> See Categories</a>
+</div>
         @else
         <div class="w3-container w3-padding w3-margin-top" style="background-color: #212121">
             <div class="d-flex w3-padding-top" style="background-color: #212121">
@@ -179,6 +183,7 @@
                 class="fa fa-pencil fa-fw"></i> Shortie</a> -->
         <a href="{{ route('draft.index') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-pencil fa-fw"></i>
             Drafts</a>
+            <a href="{{ route('popular') }}" class="w3-bar-item w3-button w3-padding w3-text-white"><i class="fa fa-cc-discover fa-fw"></i> Popular on Typesicle</a>
         <!-- <a href="{{ route('photos.index', Auth::user()->username) }}" class="w3-bar-item w3-button w3-padding"><i class="fa fas fa-image"></i> My Photos</a> -->
 
         <a href="{{ route('history.index', Auth::user()->username) }}" class="w3-bar-item w3-button w3-padding"><i

@@ -1,6 +1,7 @@
 <template>
 <div>
         <button
+        style="color: white"
           ref="followBtn"
           class="w3-button "
           @click="followProfile"
@@ -68,12 +69,14 @@ if (this.status == -1) {
     textOnMouseover() {
       if (this.status == 1) {
         this.$refs.followBtn.innerHTML = "Unfollow";
+        this.$refs.followBtn.style.backgroundColor = "red";
       }
     },
 
     textOnMouseout() {
       if (this.status == 1) {
         this.$refs.followBtn.innerHTML = "Following";
+        this.$refs.followBtn.style.backgroundColor = "green";
       }
     }
   },

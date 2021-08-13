@@ -14,6 +14,7 @@ class Feed extends Model
     'post_id', 
     'category_id',
     'status', 
+    'reposted',
     'repost_message', 
     'quiz_id', 
     'likes', 

@@ -41,7 +41,7 @@ class RepostController extends Controller
                 Post::where('id', $feed->post_id)->increment('shares');
                 // $feed = Feed::where('id', $id)->first();
                 $post = Post::where('id', $feed->post_id)->first();
-                Feed::create(['user_id' => $user_id, 'post_id' => $post->id, 'status' => 'Reposted']);
+                Feed::create(['user_id' => $user_id, 'post_id' => $post->id, 'status' => 'post', 'reposted' => 'yes']);
                 $data = Repost::create(["user_id" => $user_id, "post_id" => $feed->post_id, "status" => 1]);
                 $data->load('user.profile.photo', 'feed');
 
@@ -75,7 +75,7 @@ class RepostController extends Controller
                 Shortie::where('id', $feed->shortie_id)->increment('shares');
                 // $feed = Feed::where('id', $id)->first();
                 $shortie = Shortie::where('id', $feed->shortie_id)->first();
-                Feed::create(['user_id' => $user_id, 'shortie_id' => $shortie->id, 'status' => 'Shortie']);
+                Feed::create(['user_id' => $user_id, 'shortie_id' => $shortie->id, 'status' => 'Reposted', 'reposted' => 'yes']);
                 $data = Repost::create(["user_id" => $user_id, "feed_id" => $id, "shortie_id" => $feed->shortie_id, "status" => 1]);
 
                 Notification::create(["user_id" => $feed->shortie->user_id, "type" => "share", "notifier" => $data->user_id, "message" => "shared your shortie", "read" => "no", "feed_id" => $feed->id]);

@@ -28,7 +28,7 @@ h5 {
     transition: 0.3s
 }
 </style>
-
+@yield('styles')
 <body class="w3-light-grey">
 
     <!-- Sidebar/menu -->
@@ -132,3 +132,4 @@ h5 {
 
 </html>
 <script src="{{ asset('js/app.js') }}"></script>
+@yield('scripts')

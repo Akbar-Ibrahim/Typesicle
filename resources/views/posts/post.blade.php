@@ -11,8 +11,8 @@
 
 @section('content')
 @include('includes.urls')
-
-<div class="w3-container">
+@include('includes.loadBlock')
+<div class="w3-container" id="wrapper-div" style="display: none;">
     <div class="w3-row">
         <div class="w3-col l8">
             <!-- Start of post div -->
@@ -39,6 +39,8 @@
                     <div> Know someone who might enjoy reading this? Mail the post to them </div>
                     <form method="POST" action="{{ route('email-post') }}" class="emailPost">
                         @csrf
+                        <input type="hidden" name="feed_id" value="{{ $feed->id }}">
+                        <input type="hidden" name="post_id" value="{{ $feed->post->id }}">
                         <input type="hidden" name="title" value="{{ $feed->post->title }}">
                         <input type="hidden" name="id" value="{{ $feed->id }}">
                         <input type="hidden" name="url" value="{{ $feed->post->url }}">
@@ -169,6 +171,7 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('js/loadBlock.js') }}"></script>
 <!-- <script src="{{ asset('js/emailPostOverlay.js') }}" defer></script> -->
 <!-- <script src="{{ asset('js/modal.js') }}"></script> -->
 

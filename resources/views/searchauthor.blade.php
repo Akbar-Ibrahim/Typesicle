@@ -1,16 +1,20 @@
 @extends('layouts.home')
 
 @section('styles')
+<style>
+.content {
+    max-width: 800px;
+    margin: auto;
+}
 
-<link href="{{ asset('css/search-dropdown.css') }}" rel="stylesheet">
-
+</style>
 @endsection
 
 @section('content')
 
 
 
-<div>
+<div class="content w3-border">
 
 
     <!-- Header -->
@@ -25,7 +29,7 @@
     </div>
 
     <div class="w3-row-padding w3-margin-bottom">
-        <div class="w3-twothird">
+        <div class="w3-col l12">
             
             <div id="app">
                 @if($searchterm == '')
@@ -46,30 +50,18 @@
 
                 @foreach($users as $user)
 
-                <div class=" w3-container">
-                    @auth
-                <profile-component current-user="{{ $user->id }}" user-id="{{ Auth::user()->id }}" usertype="auth"
-                    user="{{ json_encode($user) }}" status="{{Auth::user()->isFollowing($user->profile->id) ? 1 : 0}}">
-                </profile-component>
-                @else
-                <profile-component current-user="{{ $user->id }}" 
-                    user="{{ json_encode($user) }}" usertype="guest">
-                </profile-component>
-                @endauth
-                    
-
-                    <div>
-
-                    </div>
-
+                <div class="w3-margin w3-padding w3-border">
+                <user-component current-user="{{ $user->id }}" user-id="{{ Auth::user()->id }}"
+                    usertype="auth" user="{{ json_encode($user) }}"
+                    status="{{Auth::user()->isFollowing($user->profile->id) ? 1 : 0}}">
+                </user-component>
                 </div>
-
                 @endforeach
 
 
                 @elseif(count($users) == 0)
 
-                <search-component></search-component>
+                
                 <h1> There are no results for <b> "{{ $searchterm }}" </b> </h1>
 
                 @endif
@@ -77,11 +69,7 @@
 
         </div>
 
-        <div class="w3-third">
-
-
-        </div>
-
+        
     </div>
 
 

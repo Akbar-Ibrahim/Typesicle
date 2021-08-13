@@ -15,7 +15,8 @@
 @endsection
 
 @section('content')
-<div class="w3-container">
+@include('includes.loadBlock')
+<div class="w3-container" id="wrapper-div" style="display: none;">
     <div class="w3-row ">
         <div class="w3-col l10">
             <div class="card">
@@ -94,7 +95,7 @@
 @endsection
 
 @section('scripts')
-<!-- <script src="{{ asset('js/like.js') }}"></script> -->
+<script src="{{ asset('js/loadBlock.js') }}"></script>
 
 
 <script>

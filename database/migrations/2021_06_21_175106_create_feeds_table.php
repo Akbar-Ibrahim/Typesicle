@@ -22,6 +22,7 @@ class CreateFeedsTable extends Migration
             $table->unsignedBigInteger('shortie_id')->index()->nullable();
             $table->unsignedBigInteger('thread_id')->index()->nullable();
             $table->unsignedBigInteger('poll_id')->index()->nullable();
+            $table->string('reposted')->nullable()->default('no');
             $table->text('repost_message')->nullable();
             $table->string('status')->nullable();
             $table->integer('views')->unsigned()->index()->default(0);

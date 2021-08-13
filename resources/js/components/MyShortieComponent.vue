@@ -6,6 +6,7 @@
       :date="feed.date"
       :shortie="feed.shortie"
       :feed="feed"
+      :userId="userId"
     >
     </shortie-component>
 
@@ -15,6 +16,7 @@
           :date="feed.date"
           :shortie="feed.shortie.quoted_shortie"
           :feed="feed"
+          :userId="userId"
         >
         </shortie-component>
       </div>

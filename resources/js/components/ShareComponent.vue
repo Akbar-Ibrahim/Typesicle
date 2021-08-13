@@ -171,7 +171,7 @@ if (this.myFeed.post !== null){
         }
       } else if (this.myFeed.shortie !== null) {
         if (this.myFeed.shortie.is_shared == 1) {
-          this.$refs.buttonToggle.textContent = "Shared";
+          this.$refs.buttonToggle.textContent = "Shared";sharesh
           this.$refs.buttonIcon.style.innerHTML = '<i style="border: none;" class="far fas fa fa-share"></i>';
         this.$refs.buttonIcon.style.color = "red";
         }
