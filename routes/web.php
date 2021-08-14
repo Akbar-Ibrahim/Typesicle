@@ -119,8 +119,8 @@ Route::get('google', function () {
 // Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
 // Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
 
-// Route::get('/home', 'HomeController@index')->name('home')->middleware("verified", "auth");
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware("verified", "auth");
+// Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('/forgot-password', function () {
 //     return view('auth.forgot-password');
 // })->middleware('guest')->name('password.request');
@@ -251,7 +251,7 @@ Route::get('/{username}/category/{categoryURL}', 'CategoryUtilController@getCate
 
 
 // Email
-Route::post('/email-user', 'PostUtilController@emailPost')->middleware('auth')->name('email-post');
+Route::post('/email-user', 'PostUtilController@emailPost')->name('email-post');
 
 // Hashtags
 Route::get('hashtag/{hashtag}', 'PostUtilController@getHashtagPosts')->name('hashtag');

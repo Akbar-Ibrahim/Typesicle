@@ -7,6 +7,7 @@ use App\Post;
 use App\Draft;
 use App\Category;
 use App\Events\NewPostEvent;
+use App\Events\NotificationEvent;
 use App\Feed;
 use App\Follow;
 use Illuminate\Mail\Mailable;
@@ -166,7 +167,7 @@ class PostService
         $myNotifications = Notification::where(["user_id" => $recipient->id, "read" => "no"])->get();
         
         $count = $myNotifications->count();
-        broadcast(new NewPostEvent($count, $recipient->id))->toOthers();
+        broadcast(new NotificationEvent($count, $recipient->id))->toOthers();
     }
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\LikeFeed;
 use App\Events\NewPostEvent;
+use App\Events\NotificationEvent;
 use App\Feed;
 use App\Like;
 use App\Notification;
@@ -37,7 +38,7 @@ class LikeController extends Controller
                     $myNotifications = Notification::where(["user_id" => $feed->post->user_id, "read" => "no"])->get();
     
                     $count = $myNotifications->count();
-                    broadcast(new NewPostEvent($count, $feed->post->user_id))->toOthers();
+                    broadcast(new NotificationEvent($count, $feed->post->user_id))->toOthers();
 
                     break;
                 case 'Unlike':
@@ -66,7 +67,7 @@ class LikeController extends Controller
                     $myNotifications = Notification::where(["user_id" => $feed->shortie->user_id, "read" => "no"])->get();
     
                     $count = $myNotifications->count();
-                    broadcast(new NewPostEvent($count, $feed->shortie->user_id))->toOthers();
+                    broadcast(new NotificationEvent($count, $feed->shortie->user_id))->toOthers();
 
 
                     break;

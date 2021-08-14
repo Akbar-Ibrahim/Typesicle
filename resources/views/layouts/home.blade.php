@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>W3.CSS Template</title>
+    <title>Typesicle</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -183,6 +183,8 @@
                 class="fa fa-pencil fa-fw"></i> Shortie</a> -->
         <a href="{{ route('draft.index') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-pencil fa-fw"></i>
             Drafts</a>
+            <a href="{{ route('photos.index', Auth::user()->username) }}" class="w3-bar-item w3-button w3-padding"><i class="fas fa fa-image fa-fw"></i>
+            Photos</a>
             <a href="{{ route('popular') }}" class="w3-bar-item w3-button w3-padding w3-text-white"><i class="fa fa-cc-discover fa-fw"></i> Popular on Typesicle</a>
         <!-- <a href="{{ route('photos.index', Auth::user()->username) }}" class="w3-bar-item w3-button w3-padding"><i class="fa fas fa-image"></i> My Photos</a> -->
 
@@ -224,20 +226,21 @@
 
 
                 @auth
-                @if(!\Request::is('home'))
+                @if(1)
                 <!-- Footer -->
                 <footer class="w3-container w3-padding-16 w3-light-grey w3-bottom w3-hide-large">
 
-                    <div class="w3-row">
-                        <div class="w3-col s3 w3-center ">
+                    <div class="w3-row-padding d-flex">
+                        <!-- <div class="w3-col s3 w3-center ">
                             <span style="cursor: pointer;" onclick="postOverlay(this)">Posts</span>
-                            <!-- <span style="cursor:pointer" onclick="openPostOverlay()">Posts</span> -->
+                        </div> -->
+                        <div class="w3-center flex-fill">
+                            <span style="cursor: pointer;" onclick="location.href='/home'">Home</span>
                         </div>
-                        <div class="w3-col s3 w3-center ">
+                        <div class=" w3-center flex-fill">
                             <span style="cursor: pointer;" onclick="categoryOverlay(this)">Categories</span>
-                            <!-- <span style="cursor:pointer" onclick="openCategoryOverlay()">Categories</span> -->
                         </div>
-                        <div class="w3-col s3 w3-center ">
+                        <div class="w3-center flex-fill">
                             <span style="cursor: pointer;" onclick="photoOverlay(this)">Photos</span>
                         </div>
                     </div>
@@ -322,7 +325,7 @@ if (document.getElementById("newNotification").textContent > 0) {
     document.getElementById("newNotification").style.display = "inline-block";
 }
 
-Echo.private("newpost-channel").listen("NewPostEvent", (event) => {
+Echo.private("notification-channel").listen("NotificationEvent", (event) => {
 
     if (event.user_id == authid) {
         document.getElementById("newNotification").style.display = "inline-block";

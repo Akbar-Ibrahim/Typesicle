@@ -19,7 +19,8 @@ export default {
 
   data() {
     return {
-      result: []
+      result: [],
+      checkStatus: this.status
     };
   },
 
@@ -35,13 +36,13 @@ if (this.status == -1) {
   location.href = "/register"
 } else {
 
-      if (this.status == 1) {
-        this.status = 0;
+      if (this.checkStatus == 1) {
+        this.checkStatus = 0;
       } else {
-        this.status = 1;
+        this.checkStatus = 1;
       }
 
-      let url = "/profile-follow?profileId=" + this.profile + "&status=" + this.status;
+      let url = "/profile-follow?profileId=" + this.profile + "&status=" + this.checkStatus;
       
       let response = await fetch(url);
       this.result = await response.json();
@@ -67,14 +68,14 @@ if (this.status == -1) {
     // },
 
     textOnMouseover() {
-      if (this.status == 1) {
+      if (this.checkStatus == 1) {
         this.$refs.followBtn.innerHTML = "Unfollow";
         this.$refs.followBtn.style.backgroundColor = "red";
       }
     },
 
     textOnMouseout() {
-      if (this.status == 1) {
+      if (this.checkStatus == 1) {
         this.$refs.followBtn.innerHTML = "Following";
         this.$refs.followBtn.style.backgroundColor = "green";
       }
@@ -83,7 +84,7 @@ if (this.status == -1) {
 
   computed: {
     buttonText() {
-      return this.status == 1 ? "Following" : "Follow";
+      return this.checkStatus == 1 ? "Following" : "Follow";
     }
   }
 };

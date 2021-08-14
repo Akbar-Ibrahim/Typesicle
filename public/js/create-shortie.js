@@ -130,7 +130,7 @@ $(document).ready(function () {
         );
         // autosize(document.querySelectorAll('textarea'));
 
-        var maxLength = 240;
+        var maxLength = 750;
         $(".send").attr("disabled", true);
 
         $('.summernote').summernote({
@@ -158,7 +158,7 @@ $(document).ready(function () {
                     var length = maxLength - length;
                     $(this).parents(".shortie-container").find(".chars").text(length)
 
-                    if (length < 240 && length > 0) {
+                    if (length < 750 && length > 0) {
                         $(".send").attr("disabled", false);
                     } else {
                         $(".send").attr("disabled", true);

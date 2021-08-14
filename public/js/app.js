@@ -3332,7 +3332,8 @@ __webpack_require__.r(__webpack_exports__);
   props: ["user", "profile", "status"],
   data: function data() {
     return {
-      result: []
+      result: [],
+      checkStatus: this.status
     };
   },
   mounted: function mounted() {
@@ -3355,13 +3356,13 @@ __webpack_require__.r(__webpack_exports__);
               break;
 
             case 4:
-              if (this.status == 1) {
-                this.status = 0;
+              if (this.checkStatus == 1) {
+                this.checkStatus = 0;
               } else {
-                this.status = 1;
+                this.checkStatus = 1;
               }
 
-              url = "/profile-follow?profileId=" + this.profile + "&status=" + this.status;
+              url = "/profile-follow?profileId=" + this.profile + "&status=" + this.checkStatus;
               _context.next = 8;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(url));
 
@@ -3393,13 +3394,13 @@ __webpack_require__.r(__webpack_exports__);
     //   $.get(url);
     // },
     textOnMouseover: function textOnMouseover() {
-      if (this.status == 1) {
+      if (this.checkStatus == 1) {
         this.$refs.followBtn.innerHTML = "Unfollow";
         this.$refs.followBtn.style.backgroundColor = "red";
       }
     },
     textOnMouseout: function textOnMouseout() {
-      if (this.status == 1) {
+      if (this.checkStatus == 1) {
         this.$refs.followBtn.innerHTML = "Following";
         this.$refs.followBtn.style.backgroundColor = "green";
       }
@@ -3407,7 +3408,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     buttonText: function buttonText() {
-      return this.status == 1 ? "Following" : "Follow";
+      return this.checkStatus == 1 ? "Following" : "Follow";
     }
   }
 });
@@ -3438,8 +3439,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["u"],
   data: function data() {
@@ -3448,6 +3447,19 @@ __webpack_require__.r(__webpack_exports__);
       follows: [],
       type: ""
     };
+  },
+  created: function created() {
+    var _this = this;
+
+    Echo["private"]("follow-channel").listen("FollowEvent", function (event) {
+      if (_this.u.id == event.user_id) {
+        _this.$refs.followersRef.textContent = " " + event.count;
+      }
+
+      if (_this.u.id == event.follower) {
+        _this.$refs.followingRef.textContent = " " + event.count;
+      }
+    });
   },
   mounted: function mounted() {
     this.followersCount();
@@ -63022,28 +63034,28 @@ var render = function() {
       "button",
       {
         ref: "following",
-        staticClass: "w3-button ",
+        staticClass: "w3-button",
         on: {
           click: function($event) {
             return _vm.getFollows("following")
           }
         }
       },
-      [_vm._v("\n        Following  "), _c("span", { ref: "followingRef" })]
+      [_vm._v("\n    Following "), _c("span", { ref: "followingRef" })]
     ),
     _vm._v(" "),
     _c(
       "button",
       {
         ref: "followers",
-        staticClass: "w3-button ",
+        staticClass: "w3-button",
         on: {
           click: function($event) {
             return _vm.getFollows("followers")
           }
         }
       },
-      [_vm._v("\n        Followers  "), _c("span", { ref: "followersRef" })]
+      [_vm._v("\n    Followers "), _c("span", { ref: "followersRef" })]
     )
   ])
 }

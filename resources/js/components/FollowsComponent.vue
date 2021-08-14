@@ -1,59 +1,64 @@
 <template>
-    <div>
+  <div>
+    <button @click="getFollows('following')" ref="following" class="w3-button">
+      Following <span ref="followingRef"></span>
+    </button>
 
-
-        <button @click="getFollows('following')" ref="following" class="w3-button ">
-            Following  <span ref="followingRef"></span>
-        </button>
-
-        <button @click="getFollows('followers')" ref="followers" class="w3-button ">
-            Followers  <span ref="followersRef"></span>
-        </button>
-    </div>
+    <button @click="getFollows('followers')" ref="followers" class="w3-button">
+      Followers <span ref="followersRef"></span>
+    </button>
+  </div>
 </template>
 
 <script>
 export default {
-    props: ["u"],
+  props: ["u"],
 
-    data() {
-        return {
-            result: [],
-            follows: [],
-            type: ""
-        };
+  data() {
+    return {
+      result: [],
+      follows: [],
+      type: "",
+    };
+  },
+  created() {
+    Echo.private("follow-channel").listen("FollowEvent", (event) => {
+      if (this.u.id == event.user_id) {
+        this.$refs.followersRef.textContent = " " + event.count;
+      }
+      if (this.u.id == event.follower) {
+        this.$refs.followingRef.textContent = " " + event.count;
+      }
+    });
+  },
+
+  mounted() {
+    this.followersCount();
+    this.followingCount();
+  },
+
+  methods: {
+    async followersCount() {
+      let url = `/api/count-followers?id=${this.u.id}`;
+      let response = await fetch(url);
+      let result = await response.json();
+      this.$refs.followersRef.textContent = " " + result.length;
     },
 
-    mounted() {
-        this.followersCount();
-        this.followingCount();
+    async followingCount() {
+      let url = `/api/count-followings?id=${this.u.id}`;
+      let response = await fetch(url);
+      let result = await response.json();
+      this.$refs.followingRef.textContent = " " + result.length;
     },
 
-    methods: {
-        async followersCount() {
-            let url = `/api/count-followers?id=${this.u.id}`;
-            let response = await fetch(url);
-            let result = await response.json();
-            this.$refs.followersRef.textContent =  " " + result.length;
-        },
-
-        async followingCount() {
-            let url = `/api/count-followings?id=${this.u.id}`;
-            let response = await fetch(url);
-            let result = await response.json();
-            this.$refs.followingRef.textContent = " " + result.length;
-        },
-
-        getFollows(f) {
-        location.href = this.u.username + "/"  + f;
-      
+    getFollows(f) {
+      location.href = this.u.username + "/" + f;
     },
+  },
 
-    
-    },
-
-    computed: {
-        buttonText() {}
-    }
+  computed: {
+    buttonText() {},
+  },
 };
 </script>

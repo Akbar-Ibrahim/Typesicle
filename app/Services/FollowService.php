@@ -1,7 +1,9 @@
 <?php
 namespace App\Services;
 
+use App\Events\FollowEvent;
 use App\Events\NewPostEvent;
+use App\Events\NotificationEvent;
 use Illuminate\Http\Request;
 use App\Follow;
 use App\Mail\FollowNotificationEmail;
@@ -18,8 +20,8 @@ class FollowService
         $profile_id = request()->profileId;
         $user = auth()->user();
         $status = request()->status;
-        
-        if($status == 1){
+        $check = Follow::where(['profile_id' => $profile_id, 'user_id' => $user->id])->first();
+        if($check == null){
             $follow = Follow::create(['profile_id' => $profile_id, 'user_id' => $user->id, 'status' => $status]);
 
                 $user_followed = $follow->profile->user;
@@ -33,13 +35,20 @@ class FollowService
         
 
                 $count = $myNotifications->count();
-                broadcast(new NewPostEvent($count, $profile_id))->toOthers();
+                broadcast(new NotificationEvent($count, $profile_id))->toOthers();
 
+                $getFollowers = Follow::where(["profile_id" => $profile_id])->get();
+                $followerCount = $getFollowers->count();
+                broadcast(new FollowEvent($followerCount, $profile_id, $user->id))->toOthers();
 
                 return $follow->load('profile.user');
 
         }else{
             Follow::where(['profile_id' => $profile_id, 'user_id' => $user->id])->delete();
+
+                $getFollowers = Follow::where(["profile_id" => $profile_id])->get();
+                $followerCount = $getFollowers->count();
+                broadcast(new FollowEvent($followerCount, $profile_id, $user->id))->toOthers();
             
         }
 

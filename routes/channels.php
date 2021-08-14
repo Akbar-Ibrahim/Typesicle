@@ -47,10 +47,18 @@ Broadcast::channel('newpost-channel', function($user) {
     return  true;
 });
 
+Broadcast::channel('notification-channel', function($user) {
+    return  true;
+});
+
 Broadcast::channel('delete-channel', function($user) {
     return  true;
 });
 
 Broadcast::channel('message-channel', function($user) {
+    return  true;
+});
+
+Broadcast::channel('follow-channel', function($user) {
     return  true;
 });

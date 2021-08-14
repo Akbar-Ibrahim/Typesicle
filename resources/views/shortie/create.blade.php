@@ -205,8 +205,18 @@
     </script> -->
 </body>
 <script src="{{ asset('js/summernote-bs4.js') }}" defer></script>
+<script src="{{ asset('js/shortie.js') }}" defer></script>
 <script>
 $(document).ready(function() {
+
+//     $(document).on("change", ".fileUpload", function () {
+// var images = $(this).parents(".shortie-container").find(".media").find("img").length;
+//     if (images > 0) {
+//         alert(images)
+//     }
+// });
+    
+    
     $(".send").attr("disabled", true);
     var maxLength = 750;
 
@@ -249,7 +259,7 @@ $(document).ready(function() {
 });
 </script>
 <script src="{{ asset('js/app.js') }}" defer></script>
-<script src="{{ asset('js/create-shortie.js') }}" defer></script>
+
 <script>
 $(document).ready(function() {
 
@@ -273,7 +283,7 @@ window.onclick = function(event) {
 }
 </script>
 
-<script src="{{ asset('js/shortie.js') }}" defer></script>
-<!-- <script src="{{ asset('js/create-shortie.js') }}" defer></script> -->
+
+
 
 </html>

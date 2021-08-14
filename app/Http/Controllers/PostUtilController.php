@@ -21,6 +21,7 @@ use App\Services\AccountService;
 use App\Services\HistoryService;
 use App\Services\PostUtilService;
 use App\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
@@ -211,11 +212,26 @@ class PostUtilController extends Controller
         
         $url = $request->url;
         $route = route('post.url', [$post->user->username, $post->url, $feed->id]);
-        
+        try {
         Mail::to($recipient)->send(new SendArticleToFriend($post, $route));    
+        } catch (Exception $e) {
+            if ($e) {
+                if (auth()->user()) {
+                    $user = auth()->user();
+                Notification::where(["user_id" => $user->id])->update(["read" => "yes"]);
+                $notifications = Notification::where(["user_id" => $user->id])->with('feed', 'comment')->orderBy("created_at", "desc")->get();
+                $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+        
+                return view('errors.sendArticle', compact('user', 'n', 'route', 'post', 'feed'));
+                }
+                
+                return view('errors.sendArticle', compact("route", "post", "feed"));
+                
+            }
+        }
     
 
-            return redirect()->back();
+            return view("mail.sendArticle", compact("route", "post"));
     }
 
     public function getHashtagPosts($hashtag, PostUtilService $postUtilService){
