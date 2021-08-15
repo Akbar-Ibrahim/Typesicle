@@ -25,14 +25,14 @@
             </div>
 
             <div class="w3-container w3-center" style="font-size: 27px; margin-top: 50px;">
-                <a class="w3-button w3-border" href="/write/create"> Write an article </a>
+                <a style="text-decoration: none;" class="w3-button w3-border w3-text-white lawngreen" href="/write/create"> Write an article </a>
             </div>
 
 
 
             <div>
                 <div class="w3-container w3-center" style="font-size: 27px; margin-top: 50px;">
-                    <a class="w3-button w3-border" href="/shortie/create"> Write a shortie </a>
+                    <a style="text-decoration: none;" class="w3-button w3-border w3-text-white lawngreen" href="/shortie/create"> Write a shortie </a>
                 </div>
                 <div class="w3-container w3-center">
                     <div style="width: 80%; margin-left: auto; margin-right: auto;" class="w3-padding "> A shortie is a

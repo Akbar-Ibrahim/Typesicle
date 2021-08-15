@@ -1,10 +1,10 @@
 <template>
   <div class=" w3-center">
-    <div class="w3-padding">Click to read another article by this author</div>
+    <!-- <div class="w3-padding">Click to read another article by this author</div> -->
 <button :route="route"
-        class="w3-button w3-border" @click="goToRoute"
-        style="font-size: 22px">
-        <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+        class="btn btn-primary lawngreen" @click="goToRoute"
+        style="font-size: 22px; width: 100%; border: 1px solid white; color: white;">
+        Read a random post
 
     </button>    
   </div>

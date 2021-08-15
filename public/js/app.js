@@ -67222,24 +67222,20 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: " w3-center" }, [
-    _c("div", { staticClass: "w3-padding" }, [
-      _vm._v("Click to read another article by this author")
-    ]),
-    _vm._v(" "),
     _c(
       "button",
       {
-        staticClass: "w3-button w3-border",
-        staticStyle: { "font-size": "22px" },
+        staticClass: "btn btn-primary lawngreen",
+        staticStyle: {
+          "font-size": "22px",
+          width: "100%",
+          border: "1px solid white",
+          color: "white"
+        },
         attrs: { route: _vm.route },
         on: { click: _vm.goToRoute }
       },
-      [
-        _c("i", {
-          staticClass: "fa fa-newspaper-o",
-          attrs: { "aria-hidden": "true" }
-        })
-      ]
+      [_vm._v("\n        Read a random post\n\n    ")]
     )
   ])
 }

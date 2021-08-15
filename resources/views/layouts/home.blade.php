@@ -65,7 +65,7 @@
 
     <!-- Sidebar/menu -->
     <nav class="w3-sidebar w3-bar-block  w3-animate-right w3-top w3-text-white w3-large"
-        style="z-index:3;width:250px;font-weight:bold;display:none;right:0;background-color:#212121" id="myRightSidebar">
+        style="z-index:13;width:250px;font-weight:bold;display:none;right:0;background-color:#212121" id="myRightSidebar">
         <a href="javascript:void()" onclick="w3_close_right_menu()"
             class="w3-bar-item w3-button w3-center w3-padding-32">CLOSE</a>
         <a href="{{ route('admin.index') }}" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">Admin</a>
@@ -75,7 +75,7 @@
 
 
     <header class="w3-container w3-top w3-xlarge " style="background-color: #212121;z-index:10">
-        <span class="w3-left w3-padding w3-text-white"><b>typesicle</b></span>
+        <span class="w3-left w3-padding w3-text-white"><b>Typesicle</b></span>
         
         <a href="javascript:void(0)" class="w3-hide-large w3-hide-medium w3-right w3-button w3-white" onclick="w3_open()">☰</a>
         @if(Auth::user() && Auth::user()->role === "admin")

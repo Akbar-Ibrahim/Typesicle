@@ -205,7 +205,7 @@
     </script> -->
 </body>
 <script src="{{ asset('js/summernote-bs4.js') }}" defer></script>
-<script src="{{ asset('js/shortie.js') }}" defer></script>
+
 <script>
 $(document).ready(function() {
 
@@ -282,7 +282,8 @@ window.onclick = function(event) {
     }
 }
 </script>
-
+<script src="{{ asset('js/create-shortie.js') }}" defer></script>
+<script src="{{ asset('js/shortie.js') }}" defer></script>
 
 
 

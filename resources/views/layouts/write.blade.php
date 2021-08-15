@@ -119,7 +119,7 @@ h5 {
 
     <!-- Top menu on small screens -->
     <header class="w3-container w3-top w3-xlarge " style="background-color: #212121;z-index:10;">
-        <span class="w3-left w3-padding w3-text-white"><b>typesicle</b></span>
+        <span class="w3-left w3-padding w3-text-white"><b>Typesicle</b></span>
         @if ($route))
         @else
         <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
