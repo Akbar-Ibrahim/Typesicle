@@ -71,7 +71,7 @@ h5 {
             <a href="/"><span class="w3-bar-item w3-text-white">Typesicle</span></a>
             <div class="w3-right">
                 @guest
-                <a class="w3-right w3-button w3-text-white" href="{{ route('login') }}">{{ __('SIGN IN') }}</a>
+                <a class="w3-right w3-button w3-text-white w3-hide-small" href="{{ route('login') }}">{{ __('SIGN IN') }}</a>
                 @if (Route::has('register'))
                 <!-- <a class="w3-right w3-button w3-text-white" href="{{ route('register') }}">{{ __('Register') }}</a> -->
                 @endif
