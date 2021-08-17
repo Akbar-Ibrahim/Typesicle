@@ -149,7 +149,7 @@ span.psw {
 }
 
 .content {
-    max-width: 700px;
+    max-width: 500px;
     margin: auto;
 }
 </style>
