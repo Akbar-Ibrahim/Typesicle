@@ -15,8 +15,7 @@
 
 @section('content')
 
-@include('includes.loadBlock')
-<div class=" content" style="display: none;" id="wrapper-div">
+<div class="content">
     <div class="w3-row">
 
 
@@ -28,7 +27,7 @@
     
     <div class="w3-container w3-center">
     <div class="w3-margin"> This page is an endangered species</div>
-    <a class="btn btn-primary lawngreen w3-text-white" style="font-size: 30px; text-decoration: none;" href="{{ route('welcome') }}"> Click to save it  </a>
+    <a class="btn btn-default btn-lg w3-text-white" style="text-decoration: none; background-color: #7CFC00" href="{{ route('welcome') }}"> Click to save it  </a>
     </div>
     
     @else
@@ -83,7 +82,5 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/loadBlock.js') }}"></script>
-
 
 @endsection

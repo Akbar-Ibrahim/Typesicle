@@ -3,42 +3,38 @@
     <div class=" my-3">
       <h4>Popular Articles</h4>
     </div>
+    
     <div
-      v-for="(p, i) in posts"
+      v-for="(post, i) in posts"
       :key="i"
-      class="w3-margin-bottom"
-      :route="`/${p.user.username}`"
+      :route="`/${post.user.username}`"
       style="cursor: pointer"
     >
-      <div class="" style="padding-left: 18px">
-        <div class="">
-          <h5 class="">
-            <a :href="`/post/${p.user.username}/${p.url}/${p.feed.id}`">{{
-              p.title
-            }}</a>
-          </h5>
-        </div>
-
+      <div v-if="post !== null" class="my-4" style="padding-left: 18px">
         <div class="d-flex">
-          <div class="pr-2">by </div>
-          <div>
-            <a :href="`/${p.user.username}`">
-              <img
-                :src="`/images/${p.user.id}/profile_pic/${p.user.profile.picture}`"
-                class="w3-center w3-circle w3-border"
-                style="width: 20px"
-              />
-            </a>
+          <div class="px-2">
+            <profile-picture-component
+              :user="post.user"
+              size="height: 35px; width: 35px;"
+            ></profile-picture-component>
           </div>
 
-          <div class="flex-grow-1 pl-2">
-            <a style="font-size: 15px" :href="`/${p.user.username}`">{{
-              p.user.name
+          <div class="flex-grow-1">
+            <div>
+            <a :href="`/post/${post.user.username}/${post.url}/${post.feed.id}`">{{
+              post.title
             }}</a>
+            </div>
+            <div>
+              by  <a :href="`/${post.user.username}`"> {{ post.user.name }} </a> 
+              <span v-if="post.category !== null" > in <a href=""> {{ post.category.name }} </a> </span>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
+
   </div>
 </template>
 

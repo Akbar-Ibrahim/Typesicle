@@ -607,7 +607,7 @@ class PostUtilService
     public function popularPosts($id)
     {
         // return Feed::where('user_id', $id)->where('views', '>', 10)->where(['status' => 'Post Original'])->with('user.profile.photo', 'post.user')->orderBy('created_at', 'desc')->get();
-        return Post::where('user_id', $id)->where('views', '>', 10)->with('user.profile.photo', 'feed')->orderBy('created_at', 'desc')->limit(5)->get();
+        return Post::where('user_id', $id)->where('views', '>', 10)->with('user.profile.photo', 'feed', 'category')->orderBy('created_at', 'desc')->limit(5)->get();
     }
 
     public function mostViewed(){

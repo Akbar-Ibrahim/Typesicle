@@ -38,7 +38,7 @@
         <button style="display: none;" class="w3-button" ref="buttonToggle" >
           Like
         </button>
-        <button class="w3-button" @click="likeFeed()" ref="buttonIcon"> <i style="border: none;" class="fas fa fa-heart"></i> </button>
+        <button class="w3-button" @click="likeFeed()" ref="buttonIcon"> <i style="border: none; background-color: #7CFC00;" class="fas fa fa-heart"></i> </button>
       </div>
       <div class="">
         <button
@@ -163,14 +163,14 @@ if (this.myFeed.post !== null){
       if (this.myFeed.post !== null) {
         if (this.myFeed.post.is_liked == 1) {
           this.$refs.buttonToggle.textContent = "Unlike";
-          this.$refs.buttonIcon.innerHTML = '<i class="fas fa fa-heart"></i>';
+          this.$refs.buttonIcon.innerHTML = '<i style="background-color: red;" class="fas fa fa-heart"></i>';
         this.$refs.buttonIcon.style.color = "red";
         this.$refs.buttonIcon.style.border = "none";
         }
       } else if (this.myFeed.shortie !== null) {
         if (this.myFeed.shortie.is_liked == 1) {
           this.$refs.buttonToggle.textContent = "Unlike";
-          this.$refs.buttonIcon.innerHTML = '<i class="fas fa fa-heart"></i>';
+          this.$refs.buttonIcon.innerHTML = '<i style="background-color: red;" class="fas fa fa-heart"></i>';
         this.$refs.buttonIcon.style.color = "red";
         this.$refs.buttonIcon.style.border = "none";
         }
@@ -215,13 +215,13 @@ if (this.myFeed.post !== null){
 
       if (action.toLowerCase() === "like") {
         this.$refs.buttonToggle.textContent = "Unlike";
-        this.$refs.buttonIcon.innerHTML = '<i class="fas fa fa-heart"></i>';
+        this.$refs.buttonIcon.innerHTML = '<i style="background-color: red; class="fas fa fa-heart"></i>';
         this.$refs.buttonIcon.style.color = "red";
         this.$refs.buttonIcon.style.border = "none";
         
       } else {
         this.$refs.buttonToggle.textContent = "Like";
-        this.$refs.buttonIcon.innerHTML = '<i class="fas fa fa-heart"></i>';
+        this.$refs.buttonIcon.innerHTML = '<i style="background-color: #7CFC00;" class="fas fa fa-heart"></i>';
         this.$refs.buttonIcon.style.border = "none";
         
       }

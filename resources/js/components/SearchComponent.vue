@@ -15,7 +15,7 @@
         autocomplete="off"
       />
       <span class="input-group-btn" style="border: none;">
-        <button type="submit" class="btn btn-default">
+        <button type="submit" class="btn btn-default w3-text-white" style="background-color: #7CFC00">
           <span class="glyphicon glyphicon-search"></span>
         </button>
       </span>

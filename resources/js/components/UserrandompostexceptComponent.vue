@@ -2,8 +2,8 @@
   <div class=" w3-center">
     <!-- <div class="w3-padding">Click to read another article by this author</div> -->
 <button :route="route"
-        class="btn btn-primary lawngreen" @click="goToRoute"
-        style="font-size: 22px; width: 100%; border: 1px solid white; color: white;">
+        class="btn btn-default btn-lg" @click="goToRoute"
+        style="width: 100%; border: 1px solid white; color: white; background-color: #7CFC00;">
         Read a random post
 
     </button>    

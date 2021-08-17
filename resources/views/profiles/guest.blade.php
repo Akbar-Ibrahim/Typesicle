@@ -14,29 +14,20 @@
 
             <!-- <h1 class="w3-center" id="loader" style="font-size: 60px;">...</h1> -->
             <div id="profile-main">
-
-
                 @if (count($user->feeds) == 0)
 
                 @else
                 @if($feeds)
                 <div style="margin-top: 50px;">
 
-
                     <feed-component posts="{{ json_encode($feeds) }}" user-id="{{ $user->id }}"
                         user="{{ json_encode($user) }}" user-type="guest" page="profile">
                     </feed-component>
 
-
                 </div>
                 @endif
                 @endif
 
-                <div>
-                    <div class="w3-container w3-border w3-center">
-
-                    </div>
-                </div>
 
                 <!-- Hey -->
             </div>

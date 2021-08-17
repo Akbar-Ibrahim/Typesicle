@@ -2,23 +2,21 @@
 
 @section('styles')
 <style>
-.emailPost input[type=text] {
-    /* width: 100%; */
-}
+
 </style>
 @endsection
 
 
 @section('content')
 @include('includes.urls')
-@include('includes.loadBlock')
-<div class="w3-container" id="wrapper-div" style="display: none;">
-    <div class="w3-row">
+
+<div class="w3-container">
+    <div class="w3-row-padding" style="margin-top: 100px;">
         <div class="w3-col l8">
             <!-- Start of post div -->
 
 
-            <div class="w3-container my-4">
+            <div class="w3-container">
                 <postsearch-component></postsearch-component>
             </div>
 
@@ -41,11 +39,6 @@
                         @csrf
                         <input type="hidden" name="feed_id" value="{{ $feed->id }}">
                         <input type="hidden" name="post_id" value="{{ $feed->post->id }}">
-                        <input type="hidden" name="title" value="{{ $feed->post->title }}">
-                        <input type="hidden" name="id" value="{{ $feed->id }}">
-                        <input type="hidden" name="url" value="{{ $feed->post->url }}">
-                        <input type="hidden" name="author" value="{{ $feed->user->username }}">
-                        <input type="hidden" name="body" value="{{ $feed->post->body }}">
 
                         <input class="py-1" type="email" name="recipient" placeholder="Enter email"
                             style="width: 80%; border: none; ">
@@ -104,7 +97,7 @@
                 @endauth
                 @guest
                 <div class="w3-containerw3-padding w3-center">
-                    <a style="font-size: 23px;" href="/register" class="w3-button w3-padding w3-border">Sign up to
+                    <a style="font-size: 23px; background-color: #7CFC00" href="/login" class="btn btn-default btn-large w3-text-white">Sign In to
                         drop
                         a comment</a>
                 </div>
@@ -140,7 +133,7 @@
 
 
         <div class="w3-col l4 w3-hide-small">
-            <div class="w3-container">
+            <div class="">
                 <userrandompostexcept-component post-id="{{ $user->id }}" user-id="{{ $user->id }}">
                 </userrandompostexcept-component>
             </div>
@@ -171,7 +164,7 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/loadBlock.js') }}"></script>
+
 <!-- <script src="{{ asset('js/emailPostOverlay.js') }}" defer></script> -->
 <!-- <script src="{{ asset('js/modal.js') }}"></script> -->
 

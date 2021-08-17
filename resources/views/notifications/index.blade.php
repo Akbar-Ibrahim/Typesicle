@@ -72,7 +72,15 @@
                         </div>
 
                         <div class="t">
+                            <div class="w3-container">
                             {!! $notification->feed->shortie->shortie !!}
+                            </div>
+
+                            @if($notification->feed->shortie->shortiePhoto)
+                            <div class="w3-container">
+                            Shortie has {{ count($notification->feed->shortie->shortiePhoto) }} photo(s)
+                            </div>
+                            @endif
                         </div>
 
                     </div>

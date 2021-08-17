@@ -1,8 +1,8 @@
 <template>
   <div class="">
 <button 
-        class="w3-padding w3-button" @click="goToRoute"
-        style=" font-size: 17px">
+        class="btn btn-default btn-lg w3-text-white" @click="goToRoute"
+        style="background-color: #7CFC00;">
         Pick a random post for me!
     </button>    
   </div>

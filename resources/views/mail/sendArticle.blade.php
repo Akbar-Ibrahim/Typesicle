@@ -14,7 +14,7 @@
 @section('content')
 
 
-<div class=" content" id="wrapper-div">
+<div class=" content">
     <div class="w3-row">
 
         <div class="w3-center">

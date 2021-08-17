@@ -15,12 +15,12 @@
 
 @section('content')
 
-@include('includes.loadBlock')
-<div class=" content" style="display: none;" id="wrapper-div">
+
+<div class="content">
     <div class="w3-row">
 
         <div class="w3-col m12 ">
-            <div class="w3-container ">
+            <div class="w3-container w3-center ">
                 <h1>Popular on Typesicle </h1>
             </div>
 
@@ -70,7 +70,6 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/loadBlock.js') }}"></script>
 
 
 @endsection

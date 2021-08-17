@@ -42,7 +42,7 @@ class Notification extends Model
     // }
 
     public function feed(){
-        return $this->belongsTo('App\Feed')->with('post.user', 'shortie.user');
+        return $this->belongsTo('App\Feed')->with('post.user', 'shortie.user', 'shortie.shortiePhoto');
     }
 
     public function comment() {

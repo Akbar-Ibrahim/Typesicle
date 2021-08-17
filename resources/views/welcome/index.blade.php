@@ -2,7 +2,6 @@
 
 @section('styles')
 
-<link href="{{ asset('css/shortie.css') }}" rel="stylesheet">
 <style>
 
 .content {
@@ -55,8 +54,8 @@ div img:hover {
 @section('content')
 @include('includes.urls')
 @include('includes.imageModal')
-@include('includes.loadBlock')
-<div id="wrapper-div" style="display: none;">
+
+<div>
 
 
 @auth

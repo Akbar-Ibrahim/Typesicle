@@ -65,7 +65,7 @@ div img:hover {
 @include('includes.urls')
 @include('includes.imageModal')
 @include('includes.loadBlock')
-<div id="wrapper-div" style="display: none;">
+<div class="w3-container">
 
 
 @auth
@@ -79,7 +79,7 @@ div img:hover {
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/loadBlock.js') }}"></script>
+
 <!-- <script src="{{ asset('js/queue.js') }}"></script> -->
 <!-- <script src="{{ asset('js/like.js') }}"></script> -->
 <!-- <script src="{{ asset('js/create-shortie.js') }}" defer></script> -->

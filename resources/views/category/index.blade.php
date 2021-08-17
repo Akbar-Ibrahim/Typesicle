@@ -12,8 +12,8 @@
 <div class="w3-container w3-margin">
 
     <header class="w3-container mb-4 py-4" style="padding-top:22px">
-        <!-- <h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5> -->
-        <h5><b><i class="fa fa-list-alt"></i> All Categories</b></h5>
+        
+        <h5><b> All Categories</b></h5>
     </header>
 
     @auth

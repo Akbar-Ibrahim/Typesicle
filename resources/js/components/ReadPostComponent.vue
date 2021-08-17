@@ -62,7 +62,7 @@
 
     <div class="w3-container my-4" v-html="feed.post.body"></div>
 
-<div class="w3-container">
+<div class="w3-container d-flex">
 <div class="w3-col l3 ">
     <feed-controls-component
       :user-id="userId"

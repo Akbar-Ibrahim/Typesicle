@@ -2,8 +2,8 @@
   <div class="w3-center">
     
 <button 
-        class="btn btn-primary w3-text-white lawngreen" @click="goToRoute"
-        style="font-size: 17px">
+        class="btn btn-default btn-lg w3-text-white" @click="goToRoute"
+        style="background-color: #7CFC00;">
         Read a random post by this author!
     </button>    
   </div>

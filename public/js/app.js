@@ -3016,6 +3016,12 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.allContainer.style.display = "block";
       this.$refs.postContainer.style.display = "none";
       this.$refs.shortieContainer.style.display = "none";
+      this.$refs.allRef.style.backgroundColor = "#212121";
+      this.$refs.allRef.style.color = "white";
+      this.$refs.postsRef.style.backgroundColor = "white";
+      this.$refs.postsRef.style.color = "black";
+      this.$refs.shortiesRef.style.backgroundColor = "white";
+      this.$refs.postsRef.style.color = "black";
       this.feeds = [];
       var url = "/feeds/" + this.page + "/" + this.this_user.id;
       fetch(url).then(function (response) {
@@ -3030,6 +3036,12 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.allContainer.style.display = "none";
       this.$refs.shortieContainer.style.display = "none";
       this.$refs.postContainer.style.display = "block";
+      this.$refs.allRef.style.backgroundColor = "white";
+      this.$refs.allRef.style.color = "black";
+      this.$refs.postsRef.style.backgroundColor = "#212121";
+      this.$refs.postsRef.style.color = "white";
+      this.$refs.shortiesRef.style.backgroundColor = "white";
+      this.$refs.postsRef.style.color = "black";
       this.allposts = [];
       var url = "/allposts/" + this.page + "/" + this.this_user.id;
       fetch(url).then(function (response) {
@@ -3044,6 +3056,12 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.allContainer.style.display = "none";
       this.$refs.postContainer.style.display = "none";
       this.$refs.shortieContainer.style.display = "block";
+      this.$refs.allRef.style.backgroundColor = "white";
+      this.$refs.allRef.style.color = "black";
+      this.$refs.postsRef.style.backgroundColor = "white";
+      this.$refs.postsRef.style.color = "black";
+      this.$refs.shortiesRef.style.backgroundColor = "#212121";
+      this.$refs.postsRef.style.color = "white";
       this.shorties = [];
       var url = "/allshorties/" + this.page + "/" + this.this_user.id;
       fetch(url).then(function (response) {
@@ -3242,14 +3260,14 @@ __webpack_require__.r(__webpack_exports__);
       if (this.myFeed.post !== null) {
         if (this.myFeed.post.is_liked == 1) {
           this.$refs.buttonToggle.textContent = "Unlike";
-          this.$refs.buttonIcon.innerHTML = '<i class="fas fa fa-heart"></i>';
+          this.$refs.buttonIcon.innerHTML = '<i style="background-color: red;" class="fas fa fa-heart"></i>';
           this.$refs.buttonIcon.style.color = "red";
           this.$refs.buttonIcon.style.border = "none";
         }
       } else if (this.myFeed.shortie !== null) {
         if (this.myFeed.shortie.is_liked == 1) {
           this.$refs.buttonToggle.textContent = "Unlike";
-          this.$refs.buttonIcon.innerHTML = '<i class="fas fa fa-heart"></i>';
+          this.$refs.buttonIcon.innerHTML = '<i style="background-color: red;" class="fas fa fa-heart"></i>';
           this.$refs.buttonIcon.style.color = "red";
           this.$refs.buttonIcon.style.border = "none";
         }
@@ -3286,12 +3304,12 @@ __webpack_require__.r(__webpack_exports__);
 
       if (action.toLowerCase() === "like") {
         this.$refs.buttonToggle.textContent = "Unlike";
-        this.$refs.buttonIcon.innerHTML = '<i class="fas fa fa-heart"></i>';
+        this.$refs.buttonIcon.innerHTML = '<i style="background-color: red; class="fas fa fa-heart"></i>';
         this.$refs.buttonIcon.style.color = "red";
         this.$refs.buttonIcon.style.border = "none";
       } else {
         this.$refs.buttonToggle.textContent = "Like";
-        this.$refs.buttonIcon.innerHTML = '<i class="fas fa fa-heart"></i>';
+        this.$refs.buttonIcon.innerHTML = '<i style="background-color: #7CFC00;" class="fas fa fa-heart"></i>';
         this.$refs.buttonIcon.style.border = "none";
       }
     }
@@ -5023,10 +5041,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
 //
 //
 //
@@ -62633,8 +62647,12 @@ var render = function() {
           _c(
             "button",
             {
+              ref: "allRef",
               staticClass: "tabs w3-button",
-              staticStyle: { width: "100%" },
+              staticStyle: {
+                width: "100%",
+                "background-color": "#212121, color: white"
+              },
               on: { click: _vm.getFeeds }
             },
             [_vm._v("All")]
@@ -62645,6 +62663,7 @@ var render = function() {
           _c(
             "button",
             {
+              ref: "postsRef",
               staticClass: "tabs w3-button",
               staticStyle: { width: "100%" },
               on: { click: _vm.getPosts }
@@ -62657,6 +62676,7 @@ var render = function() {
           _c(
             "button",
             {
+              ref: "shortiesRef",
               staticClass: "tabs w3-button",
               staticStyle: { width: "100%" },
               on: { click: _vm.getShorties }
@@ -62929,7 +62949,7 @@ var render = function() {
           [
             _c("i", {
               staticClass: "fas fa fa-heart",
-              staticStyle: { border: "none" }
+              staticStyle: { border: "none", "background-color": "#7CFC00" }
             })
           ]
         )
@@ -64584,68 +64604,81 @@ var render = function() {
         [
           _vm._m(0),
           _vm._v(" "),
-          _vm._l(_vm.posts, function(p, i) {
+          _vm._l(_vm.posts, function(post, i) {
             return _c(
               "div",
               {
                 key: i,
-                staticClass: "w3-margin-bottom",
                 staticStyle: { cursor: "pointer" },
-                attrs: { route: "/" + p.user.username }
+                attrs: { route: "/" + post.user.username }
               },
               [
-                _c("div", { staticStyle: { "padding-left": "18px" } }, [
-                  _c("div", {}, [
-                    _c("h5", {}, [
-                      _c(
-                        "a",
-                        {
-                          attrs: {
-                            href:
-                              "/post/" +
-                              p.user.username +
-                              "/" +
-                              p.url +
-                              "/" +
-                              p.feed.id
-                          }
-                        },
-                        [_vm._v(_vm._s(p.title))]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "d-flex" }, [
-                    _c("div", { staticClass: "pr-2" }, [_vm._v("by ")]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("a", { attrs: { href: "/" + p.user.username } }, [
-                        _c("img", {
-                          staticClass: "w3-center w3-circle w3-border",
-                          staticStyle: { width: "20px" },
-                          attrs: {
-                            src:
-                              "/images/" +
-                              p.user.id +
-                              "/profile_pic/" +
-                              p.user.profile.picture
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "flex-grow-1 pl-2" }, [
-                      _c(
-                        "a",
-                        {
-                          staticStyle: { "font-size": "15px" },
-                          attrs: { href: "/" + p.user.username }
-                        },
-                        [_vm._v(_vm._s(p.user.name))]
-                      )
-                    ])
-                  ])
-                ])
+                post !== null
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "my-4",
+                        staticStyle: { "padding-left": "18px" }
+                      },
+                      [
+                        _c("div", { staticClass: "d-flex" }, [
+                          _c(
+                            "div",
+                            { staticClass: "px-2" },
+                            [
+                              _c("profile-picture-component", {
+                                attrs: {
+                                  user: post.user,
+                                  size: "height: 35px; width: 35px;"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "flex-grow-1" }, [
+                            _c("div", [
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href:
+                                      "/post/" +
+                                      post.user.username +
+                                      "/" +
+                                      post.url +
+                                      "/" +
+                                      post.feed.id
+                                  }
+                                },
+                                [_vm._v(_vm._s(post.title))]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", [
+                              _vm._v("\n            by  "),
+                              _c(
+                                "a",
+                                { attrs: { href: "/" + post.user.username } },
+                                [_vm._v(" " + _vm._s(post.user.name) + " ")]
+                              ),
+                              _vm._v(" "),
+                              post.category !== null
+                                ? _c("span", [
+                                    _vm._v(" in "),
+                                    _c("a", { attrs: { href: "" } }, [
+                                      _vm._v(
+                                        " " + _vm._s(post.category.name) + " "
+                                      )
+                                    ])
+                                  ])
+                                : _vm._e()
+                            ])
+                          ])
+                        ])
+                      ]
+                    )
+                  : _vm._e()
               ]
             )
           })
@@ -65145,7 +65178,11 @@ var staticRenderFns = [
       [
         _c(
           "button",
-          { staticClass: "btn btn-default", attrs: { type: "submit" } },
+          {
+            staticClass: "btn btn-default w3-text-white",
+            staticStyle: { "background-color": "#7CFC00" },
+            attrs: { type: "submit" }
+          },
           [_c("span", { staticClass: "glyphicon glyphicon-search" })]
         )
       ]
@@ -65549,8 +65586,8 @@ var render = function() {
     _c(
       "button",
       {
-        staticClass: "w3-padding w3-button",
-        staticStyle: { "font-size": "17px" },
+        staticClass: "btn btn-default btn-lg w3-text-white",
+        staticStyle: { "background-color": "#7CFC00" },
         on: { click: _vm.goToRoute }
       },
       [_vm._v("\n        Pick a random post for me!\n    ")]
@@ -65697,7 +65734,7 @@ var render = function() {
       domProps: { innerHTML: _vm._s(_vm.feed.post.body) }
     }),
     _vm._v(" "),
-    _c("div", { staticClass: "w3-container" }, [
+    _c("div", { staticClass: "w3-container d-flex" }, [
       _c(
         "div",
         { staticClass: "w3-col l3 " },
@@ -66162,7 +66199,11 @@ var staticRenderFns = [
       [
         _c(
           "button",
-          { staticClass: "btn btn-default", attrs: { type: "submit" } },
+          {
+            staticClass: "btn btn-default w3-text-white",
+            staticStyle: { "background-color": "#7CFC00" },
+            attrs: { type: "submit" }
+          },
           [_c("span", { staticClass: "glyphicon glyphicon-search" })]
         )
       ]
@@ -67191,8 +67232,8 @@ var render = function() {
     _c(
       "button",
       {
-        staticClass: "btn btn-primary w3-text-white lawngreen",
-        staticStyle: { "font-size": "17px" },
+        staticClass: "btn btn-default btn-lg w3-text-white",
+        staticStyle: { "background-color": "#7CFC00" },
         on: { click: _vm.goToRoute }
       },
       [_vm._v("\n        Read a random post by this author!\n    ")]
@@ -67225,12 +67266,12 @@ var render = function() {
     _c(
       "button",
       {
-        staticClass: "btn btn-primary lawngreen",
+        staticClass: "btn btn-default btn-lg",
         staticStyle: {
-          "font-size": "22px",
           width: "100%",
           border: "1px solid white",
-          color: "white"
+          color: "white",
+          "background-color": "#7CFC00"
         },
         attrs: { route: _vm.route },
         on: { click: _vm.goToRoute }

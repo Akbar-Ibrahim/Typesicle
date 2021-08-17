@@ -15,14 +15,14 @@
 @endsection
 
 @section('content')
-@include('includes.loadBlock')
-<div class="w3-container" id="wrapper-div" style="display: none;">
+
+<div class="w3-container">
     <div class="w3-row ">
         <div class="w3-col l10">
-            <div class="card">
-                <!-- <div class="card-header">Dashboard</div> -->
+            <div class="">
 
-                <div class="card-body">
+
+                <div class="w3-container">
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -43,6 +43,9 @@
                         </div>
                     </div>
                     @else
+                    <div class="w3-container" style="margin-top: 50px; margin-bottom: 50px;">
+                        <postsearch-component></postsearch-component>
+                    </div>
                     <feed-component posts="{{ json_encode($feeds) }}" user-id="{{ Auth::user()->id }}"
                         user="{{ json_encode($user) }}" user-type="auth" page="home">
                     </feed-component>
@@ -95,7 +98,6 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/loadBlock.js') }}"></script>
 
 
 <script>

@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
 <link href="{{ asset('css/w3-css.css') }}" rel="stylesheet">
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <style>
@@ -29,28 +30,31 @@ h5 {
 }
 </style>
 @yield('styles')
+
 <body class="w3-light-grey">
 
     <!-- Sidebar/menu -->
-    <!-- <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large"
-        style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="mySidebar">
-        <a href="javascript:void()" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-32">CLOSE</a>
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">PORTFOLIO</a>
-        <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">ABOUT ME</a>
-        <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">CONTACT</a>
-    </nav> -->
+    <nav class="w3-sidebar w3-bar-block w3-animate-right w3-top w3-text-white w3-large w3-hide-large"
+        style="z-index:3;width:250px;font-weight:bold;display:none;right:0;background-color:#212121;" id="myRightSidebar">
+        <a style="text-decoration: none;" href="javascript:void()" onclick="w3_close_right_menu()" class="w3-bar-item w3-button w3-center w3-padding-32">CLOSE</a>
+        <a style="text-decoration: none;" href="/" class="w3-bar-item w3-button w3-center w3-padding-16">BACK TO TYPESICLE</a>
+        <a style="text-decoration: none;" href="/register" class="w3-bar-item w3-button w3-center w3-padding-16">SIGN UP</a>
+        <a style="text-decoration: none;" href="/login" class="w3-bar-item w3-button w3-center w3-padding-16">SIGN IN</a>
+        
+    </nav>
 
     <!-- Top menu on small screens -->
-    <header class="w3-container w3-top w3-xlarge " style="background-color: #212121">
-        <span class="w3-left w3-padding w3-text-white"><b>Typesicle</b></span>
+    <header class="w3-container w3-top w3-large " style="background-color: #212121">
+        <a href="/"><span class="w3-left w3-padding w3-text-white"><b>Typesicle</b></span></a>
         <!-- <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a> -->
 
         @guest
-        <a class="w3-right w3-button w3-text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
+        <a style="text-decoration: none;" class="w3-right w3-button w3-text-white w3-hide-small" href="{{ route('login') }}">{{ __('Login') }}</a>
         @if (Route::has('register'))
-        <a class="w3-right w3-button w3-text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
+        <a style="text-decoration: none;" class="w3-right w3-button w3-text-white w3-hide-small" href="{{ route('register') }}">{{ __('Register') }}</a>
         @endif
         @endguest
+        <a href="javascript:void(0)" class="w3-right w3-button w3-text-white w3-hide-large" onclick="w3_open_right_menu()">☰</a>
     </header>
 
     <!-- Overlay effect when opening sidebar on small screens -->
@@ -62,13 +66,13 @@ h5 {
 
         <!-- Photo grid -->
         <div class="w3-row w3-grayscale-min" id="app">
-            
-                <div class="w3-container" style="margin-top: 50px;">
+
+            <div class="w3-container" style="margin-top: 50px;">
                 <main>
-                @yield('content')
+                    @yield('content')
                 </main>
-                </div>
-            
+            </div>
+
         </div>
 
         <!-- Pagination -->
@@ -125,6 +129,26 @@ h5 {
         var captionText = document.getElementById("caption");
         captionText.innerHTML = element.alt;
     }
+
+
+    function w3_open_right_menu() {
+        document.getElementById("myRightSidebar").style.display = "block";
+        document.getElementById("myRightOverlay").style.display = "block";
+    }
+
+    function w3_close_right_menu() {
+        document.getElementById("myRightSidebar").style.display = "none";
+        document.getElementById("myRightOverlay").style.display = "none";
+    }
+    
+    $(document).ready(function() {
+    $(document).keydown(function(event) {
+    if (event.keyCode == 27) {
+        $("#myRightSidebar").hide();
+
+    }
+    });
+    });
     </script>
 
 
