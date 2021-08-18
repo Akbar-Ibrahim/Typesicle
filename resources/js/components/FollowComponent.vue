@@ -1,7 +1,7 @@
 <template>
 <div>
         <button
-        style="color: white"
+        style="color: white, background-color: #04AA6D;"
           ref="followBtn"
           class="w3-button "
           @click="followProfile"
@@ -77,7 +77,7 @@ if (this.status == -1) {
     textOnMouseout() {
       if (this.checkStatus == 1) {
         this.$refs.followBtn.innerHTML = "Following";
-        this.$refs.followBtn.style.backgroundColor = "green";
+        this.$refs.followBtn.style.backgroundColor = "#04AA6D";
       }
     }
   },

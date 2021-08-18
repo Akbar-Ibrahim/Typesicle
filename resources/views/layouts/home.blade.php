@@ -66,7 +66,7 @@ h5 {
 
         <!-- Top container -->
         <div class="w3-bar w3-top w3-large" style="z-index:4; background-color: #212121">
-            <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-text-white" style="background-color: #7CFC00"
+            <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-text-white" style="background-color: #212121"
                 onclick="w3_open();"><i class="fa fa-bars w3-text-white"></i> </button>
             <a href="/"><span class="w3-bar-item w3-text-white">Typesicle</span></a>
             <div class="w3-right">

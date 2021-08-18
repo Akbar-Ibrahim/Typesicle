@@ -2964,6 +2964,89 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["posts", "userId", "user", "userType", "page"],
   created: function created() {
@@ -3420,7 +3503,7 @@ __webpack_require__.r(__webpack_exports__);
     textOnMouseout: function textOnMouseout() {
       if (this.checkStatus == 1) {
         this.$refs.followBtn.innerHTML = "Following";
-        this.$refs.followBtn.style.backgroundColor = "green";
+        this.$refs.followBtn.style.backgroundColor = "#04AA6D";
       }
     }
   },
@@ -5240,6 +5323,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["post", "user", "date", "size", "userId", "bus", "authUser", "usertype"],
   mounted: function mounted() {
@@ -5476,8 +5577,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -5978,6 +6077,54 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6985,6 +7132,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["shortie", "smallscreenHeight", "date", "feed", "userId"],
   mounted: function mounted() {
@@ -7458,8 +7608,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["userId", "currentUser", "status", "user", "usertype"],
+  props: ["userId", "currentUser", "status", "user", "usertype", "page"],
   mounted: function mounted() {
     this.fetchUser();
   },
@@ -12373,7 +12548,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.tabs {\r\n  /* margin-right: 50px;\r\n    padding: 10px 20px; */\r\n  font-size: 21px;\n}\r\n", ""]);
+exports.push([module.i, "\n.tabs {\r\n    /* margin-right: 50px;\r\n    padding: 10px 20px; */\r\n    font-size: 21px;\n}\r\n", ""]);
 
 // exports
 
@@ -62642,20 +62817,72 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", {}, [
     _c("div", { staticClass: "w3-container w3-center" }, [
-      _c("div", { staticClass: "w3-row-padding" }, [
+      _c(
+        "div",
+        { staticClass: "w3-row-padding w3-hide-small w3-hide-medium" },
+        [
+          _c("div", { staticClass: "w3-col s4" }, [
+            _c(
+              "button",
+              {
+                ref: "allRef",
+                staticClass: "tabs w3-button",
+                staticStyle: {
+                  width: "100%",
+                  "background-color": "#212121, color: white"
+                },
+                on: { click: _vm.getFeeds }
+              },
+              [_vm._v("\n                        All\n                    ")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w3-col s4" }, [
+            _c(
+              "button",
+              {
+                ref: "postsRef",
+                staticClass: "tabs w3-button",
+                staticStyle: { width: "100%" },
+                on: { click: _vm.getPosts }
+              },
+              [_vm._v("\n                        Posts\n                    ")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w3-col s4" }, [
+            _c(
+              "button",
+              {
+                ref: "shortiesRef",
+                staticClass: "tabs w3-button",
+                staticStyle: { width: "100%" },
+                on: { click: _vm.getShorties }
+              },
+              [
+                _vm._v(
+                  "\n                        Shorties\n                    "
+                )
+              ]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "w3-row-padding w3-hide-large" }, [
         _c("div", { staticClass: "w3-col s4" }, [
           _c(
             "button",
             {
               ref: "allRef",
-              staticClass: "tabs w3-button",
+              staticClass: "tabs btn btn-default btn-lg",
               staticStyle: {
                 width: "100%",
                 "background-color": "#212121, color: white"
               },
               on: { click: _vm.getFeeds }
             },
-            [_vm._v("All")]
+            [_vm._v("\n                        All\n                    ")]
           )
         ]),
         _vm._v(" "),
@@ -62664,11 +62891,11 @@ var render = function() {
             "button",
             {
               ref: "postsRef",
-              staticClass: "tabs w3-button",
+              staticClass: "tabs btn btn-default btn-lg",
               staticStyle: { width: "100%" },
               on: { click: _vm.getPosts }
             },
-            [_vm._v("Posts")]
+            [_vm._v("\n                        Posts\n                    ")]
           )
         ]),
         _vm._v(" "),
@@ -62677,11 +62904,11 @@ var render = function() {
             "button",
             {
               ref: "shortiesRef",
-              staticClass: "tabs w3-button",
+              staticClass: "tabs btn btn-default btn-lg",
               staticStyle: { width: "100%" },
               on: { click: _vm.getShorties }
             },
-            [_vm._v("Shorties")]
+            [_vm._v("\n                        Shorties\n                    ")]
           )
         ])
       ])
@@ -63017,7 +63244,7 @@ var render = function() {
     _c("button", {
       ref: "followBtn",
       staticClass: "w3-button ",
-      staticStyle: { color: "white" },
+      staticStyle: { color: "white, background-color: #04AA6D" },
       domProps: { textContent: _vm._s(_vm.buttonText) },
       on: {
         click: _vm.followProfile,
@@ -64735,7 +64962,7 @@ var render = function() {
             },
             [
               _c("div", [
-                _vm._v("\n        Reposted: Originally by\n        "),
+                _vm._v("\n          Reposted: Originally by\n          "),
                 _c(
                   "a",
                   { attrs: { href: "/" + _vm.feed.post.user.username } },
@@ -64756,18 +64983,40 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _c("header-component", {
-        attrs: {
-          user: _vm.feed.post.user,
-          date: _vm.date,
-          size: "width: 35px; height: 35px;"
-        }
-      }),
+      _c(
+        "div",
+        { staticClass: "w3-hide-small w3-hide-medium" },
+        [
+          _c("header-component", {
+            attrs: {
+              user: _vm.feed.post.user,
+              date: _vm.date,
+              size: "width: 35px; height: 35px;"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "w3-hide-large" },
+        [
+          _c("header-component", {
+            attrs: {
+              user: _vm.feed.post.user,
+              date: _vm.date,
+              size: "width: 60px; height: 60px;"
+            }
+          })
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "w3-row" }, [
         _vm.feed.post.responding_to > 0
           ? _c("div", { staticClass: "pl-2" }, [
-              _vm._v("\n      Responding to\n      "),
+              _vm._v("\n        Responding to\n        "),
               _c(
                 "a",
                 {
@@ -64783,13 +65032,13 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n        " +
+                    "\n          " +
                       _vm._s(_vm.feed.post.in_response_to.title) +
-                      "\n      "
+                      "\n        "
                   )
                 ]
               ),
-              _vm._v("\n      by\n      "),
+              _vm._v("\n        by\n        "),
               _c(
                 "a",
                 {
@@ -64799,9 +65048,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n        " +
+                    "\n          " +
                       _vm._s(_vm.feed.post.in_response_to.user.name) +
-                      "\n      "
+                      "\n        "
                   )
                 ]
               )
@@ -64812,33 +65061,61 @@ var render = function() {
       _c("div", { staticClass: "w3-row" }, [
         _c("div", { staticClass: "w3-col s9 pl-2" }, [
           _c("div", { staticClass: "w3-container" }, [
-            _c("h4", { staticClass: "pl-3" }, [
-              _c(
-                "a",
-                {
-                  attrs: {
-                    href:
-                      "/post/" +
-                      _vm.feed.user.username +
-                      "/" +
-                      _vm.feed.post.url +
-                      "/" +
-                      _vm.feed.id
-                  }
-                },
-                [
-                  _vm._v(
-                    "\n            " +
-                      _vm._s(_vm.feed.post.title) +
-                      "\n          "
-                  )
-                ]
-              )
-            ]),
+            _c(
+              "h4",
+              {
+                staticClass: "pl-3 w3-hide-small w3-hide-medium",
+                staticStyle: { "font-size": "30px" }
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticStyle: { "text-decoration": "none" },
+                    attrs: {
+                      href:
+                        "/post/" +
+                        _vm.feed.user.username +
+                        "/" +
+                        _vm.feed.post.url +
+                        "/" +
+                        _vm.feed.id
+                    }
+                  },
+                  [_c("b", [_vm._v(_vm._s(_vm.feed.post.title))])]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "h1",
+              {
+                staticClass: "pl-3 w3-hide-large",
+                staticStyle: { "font-size": "30px" }
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticStyle: { "text-decoration": "none" },
+                    attrs: {
+                      href:
+                        "/post/" +
+                        _vm.feed.user.username +
+                        "/" +
+                        _vm.feed.post.url +
+                        "/" +
+                        _vm.feed.id
+                    }
+                  },
+                  [_c("b", [_vm._v(_vm._s(_vm.feed.post.title))])]
+                )
+              ]
+            ),
             _vm._v(" "),
             _vm.feed.post.category_id !== null
               ? _c("div", { staticClass: "w3-container" }, [
-                  _vm._v("\n          Category:\n          "),
+                  _vm._v("\n            Category:\n            "),
                   _c(
                     "a",
                     {
@@ -64852,9 +65129,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n            " +
+                        "\n              " +
                           _vm._s(_vm.feed.post.category.name) +
-                          "\n          "
+                          "\n            "
                       )
                     ]
                   )
@@ -64972,8 +65249,7 @@ var render = function() {
             : _vm._e()
         ])
       ])
-    ],
-    1
+    ]
   )
 }
 var staticRenderFns = []
@@ -65260,31 +65536,7 @@ var render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
-        _c("div", { staticStyle: { margin: "12px 0" } }, [
-          JSON.parse(_vm.user).profile.twitter !== null
-            ? _c(
-                "a",
-                { attrs: { href: JSON.parse(_vm.user).profile.twitter } },
-                [_c("i", { staticClass: "fas fa fa-twitter" })]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          JSON.parse(_vm.user).profile.instagram !== null
-            ? _c(
-                "a",
-                { attrs: { href: JSON.parse(_vm.user).profile.instagram } },
-                [_c("i", { staticClass: "fas fa fa-instagram" })]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          JSON.parse(_vm.user).profile.facebook
-            ? _c(
-                "a",
-                { attrs: { href: JSON.parse(_vm.user).profile.facebook } },
-                [_c("i", { staticClass: "fas fa fa-facebook" })]
-              )
-            : _vm._e()
-        ])
+        _c("div", { staticStyle: { margin: "12px 0" } })
       ],
       1
     )
@@ -65587,7 +65839,7 @@ var render = function() {
       "button",
       {
         staticClass: "btn btn-default btn-lg w3-text-white",
-        staticStyle: { "background-color": "#7CFC00" },
+        staticStyle: { "background-color": "#04AA6D" },
         on: { click: _vm.goToRoute }
       },
       [_vm._v("\n        Pick a random post for me!\n    ")]
@@ -65618,79 +65870,130 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { ref: "postContainer", staticClass: "mt-4" }, [
     _vm.feed.post.responding_to > 0
-      ? _c(
-          "div",
-          [
-            _c("header-component", {
-              attrs: {
-                user: _vm.feed.user,
-                date: _vm.date,
-                size: "width: 35px"
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "w3-padding" }, [
-              _vm._v("\n          In response to\n          "),
-              _c("a", { attrs: { href: "" } }, [
-                _vm._v(" " + _vm._s(_vm.feed.post.in_response_to.title) + " ")
-              ]),
-              _vm._v(" by\n          "),
-              _c("a", { attrs: { href: "" } }, [
-                _vm._v(
-                  " " + _vm._s(_vm.feed.post.in_response_to.user.name) + " "
-                )
-              ])
+      ? _c("div", [
+          _c(
+            "div",
+            { staticClass: "w3-hide-small w3-hide-medium" },
+            [
+              _c("header-component", {
+                attrs: {
+                  user: _vm.feed.user,
+                  date: _vm.date,
+                  size: "width: 35px"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "w3-large" },
+            [
+              _c("header-component", {
+                attrs: {
+                  user: _vm.feed.user,
+                  date: _vm.date,
+                  size: "width: 60px"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "w3-padding" }, [
+            _vm._v("\n            In response to\n            "),
+            _c("a", { attrs: { href: "" } }, [
+              _vm._v(" " + _vm._s(_vm.feed.post.in_response_to.title) + " ")
+            ]),
+            _vm._v(" by\n            "),
+            _c("a", { attrs: { href: "" } }, [
+              _vm._v(" " + _vm._s(_vm.feed.post.in_response_to.user.name) + " ")
             ])
-          ],
-          1
-        )
+          ])
+        ])
       : _vm._e(),
     _vm._v(" "),
     _vm.feed.repost_message !== null
-      ? _c(
-          "div",
-          [
-            _c("header-component", {
-              attrs: {
-                user: _vm.feed.user,
-                date: _vm.date,
-                size: "width: 35px"
-              }
-            }),
-            _vm._v(" "),
-            _c("div", {
-              staticClass: "w3-container w3-padding w3-margin",
-              domProps: { innerHTML: _vm._s(_vm.feed.repost_message) }
-            })
-          ],
-          1
-        )
+      ? _c("div", [
+          _c(
+            "div",
+            { staticClass: "w3-hide-small w3-hide-medium" },
+            [
+              _c("header-component", {
+                attrs: {
+                  user: _vm.feed.user,
+                  date: _vm.date,
+                  size: "width: 35px"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "w3-hide-large" },
+            [
+              _c("header-component", {
+                attrs: {
+                  user: _vm.feed.user,
+                  date: _vm.date,
+                  size: "width: 60px"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "w3-container w3-padding w3-margin",
+            domProps: { innerHTML: _vm._s(_vm.feed.repost_message) }
+          })
+        ])
       : _vm._e(),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "w3-container" },
-      [
-        _c("header-component", {
-          attrs: {
-            user: _vm.feed.post.user,
-            date: _vm.date,
-            size: "width: 35px"
-          }
-        }),
+    _c("div", { staticClass: "w3-container" }, [
+      _c(
+        "div",
+        { staticClass: "w3-hide-small w3-hide-medium" },
+        [
+          _c("header-component", {
+            attrs: {
+              user: _vm.feed.post.user,
+              date: _vm.date,
+              size: "width: 35px"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "w3-hide-large" },
+        [
+          _c("header-component", {
+            attrs: {
+              user: _vm.feed.post.user,
+              date: _vm.date,
+              size: "width: 60px"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "w3-container" }, [
+        _c("h1", { staticClass: "w3-hide-small" }, [
+          _vm._v(_vm._s(_vm.feed.post.title))
+        ]),
         _vm._v(" "),
-        _c("div", { staticClass: "w3-container" }, [
-          _c("h1", { staticClass: "w3-hide-small" }, [
-            _vm._v(_vm._s(_vm.feed.post.title))
-          ]),
-          _vm._v(" "),
-          _c("h4", { staticClass: "w3-hide-large" }, [
-            _vm._v(_vm._s(_vm.feed.post.title))
-          ])
+        _c("h4", { staticClass: "w3-hide-large" }, [
+          _vm._v(_vm._s(_vm.feed.post.title))
         ])
-      ],
-      1
-    ),
+      ])
+    ]),
     _vm._v(" "),
     _vm.feed.post.category !== null
       ? _c("div", { staticClass: "w3-container w3-margin w3-padding" }, [
@@ -65705,7 +66008,13 @@ var render = function() {
                   _vm.feed.post.category.url
               }
             },
-            [_vm._v(" " + _vm._s(_vm.feed.post.category.name) + " ")]
+            [
+              _vm._v(
+                "\n            " +
+                  _vm._s(_vm.feed.post.category.name) +
+                  "\n        "
+              )
+            ]
           )
         ])
       : _vm._e(),
@@ -66603,9 +66912,25 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
+      { staticClass: "w3-hide-small w3-hide-medium" },
       [
         _c("header-component", {
           attrs: { user: _vm.shortie.user, date: _vm.date, size: "width: 35px" }
+        })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "w3-hide-large" },
+      [
+        _c("header-component", {
+          attrs: {
+            user: _vm.shortie.user,
+            date: _vm.date,
+            size: "width: 60px; height: 60px;"
+          }
         })
       ],
       1
@@ -66648,7 +66973,11 @@ var render = function() {
     _c("div", [
       _c("div", {
         staticClass: "px-4 mb-4 w3-hide-small",
-        staticStyle: { "font-size": "26px", cursor: "pointer" },
+        staticStyle: {
+          "font-size": "26px",
+          cursor: "pointer",
+          "font-weight": "bold"
+        },
         domProps: { innerHTML: _vm._s(_vm.shortie.shortie) },
         on: { click: _vm.readShortie }
       }),
@@ -66663,7 +66992,7 @@ var render = function() {
       _c("div", { staticClass: "w3-container shortieImages puppies" }, [
         _c(
           "div",
-          { staticClass: "w3-hide-small" },
+          { staticClass: "w3-hide-small w3-hide-medium" },
           _vm._l(_vm.shortie.shortie_photo, function(photo, i) {
             return _c(
               "div",
@@ -67127,83 +67456,130 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", {}, [
-    _c("div", { staticClass: "d-flex " }, [
-      _c(
-        "div",
-        { staticClass: "hey " },
-        [
-          _c("profile-picture-component", {
-            attrs: {
-              user: JSON.parse(_vm.user),
-              size: "height: 100px; width: 100px;"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "flex-grow-1 pl-3" }, [
-        _c("div", [
-          _c("a", { attrs: { href: "/" + JSON.parse(_vm.user).username } }, [
-            _c("h5", [_vm._v(_vm._s(JSON.parse(_vm.user).name))])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c("a", { attrs: { href: "/" + JSON.parse(_vm.user).username } }, [
-            _c("h5", [_vm._v(_vm._s(JSON.parse(_vm.user).username))])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "title" }, [
-          _vm._v(_vm._s(JSON.parse(_vm.user).profile.bio))
-        ]),
-        _vm._v(" "),
-        _c("div", { staticStyle: { margin: "12px 0" } }, [
-          JSON.parse(_vm.user).profile.twitter
-            ? _c(
-                "a",
-                { attrs: { href: JSON.parse(_vm.user).profile.twitter } },
-                [_c("i", { staticClass: "fa fa-twitter" })]
-              )
-            : _vm._e(),
+    _vm.page === "follow"
+      ? _c("div", { staticClass: "d-flex " }, [
+          _c(
+            "div",
+            { staticClass: "hey " },
+            [
+              _c("profile-picture-component", {
+                attrs: {
+                  user: JSON.parse(_vm.user),
+                  size: "height: 100px; width: 100px;"
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
-          JSON.parse(_vm.user).profile.instagram
-            ? _c(
+          _c("div", { staticClass: "flex-grow-1 pl-3" }, [
+            _c("div", [
+              _c(
                 "a",
-                { attrs: { href: JSON.parse(_vm.user).profile.instagram } },
-                [_c("i", { staticClass: "fa fa-instagram" })]
+                { attrs: { href: "/" + JSON.parse(_vm.user).username } },
+                [_c("h5", [_vm._v(_vm._s(JSON.parse(_vm.user).name))])]
               )
-            : _vm._e(),
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c(
+                "a",
+                { attrs: { href: "/" + JSON.parse(_vm.user).username } },
+                [_c("h5", [_vm._v(_vm._s(JSON.parse(_vm.user).username))])]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "title" }, [
+              _vm._v(_vm._s(JSON.parse(_vm.user).profile.bio))
+            ]),
+            _vm._v(" "),
+            _c("div", { staticStyle: { margin: "12px 0" } })
+          ]),
           _vm._v(" "),
-          JSON.parse(_vm.user).profile.facebook
-            ? _c(
-                "a",
-                { attrs: { href: JSON.parse(_vm.user).profile.facebook } },
-                [_c("i", { staticClass: "fa fa-facebook" })]
-              )
-            : _vm._e()
+          _c("div", { staticClass: "hey" }, [
+            _vm.userId !== _vm.currentUser
+              ? _c(
+                  "div",
+                  [
+                    _c("follow-component", {
+                      attrs: {
+                        user: _vm.userId,
+                        profile: _vm.currentUser,
+                        status: _vm.status
+                      }
+                    })
+                  ],
+                  1
+                )
+              : _vm._e()
+          ])
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "hey" }, [
-        _vm.userId !== _vm.currentUser
-          ? _c(
+      : _vm.page === "profile"
+      ? _c("div", [
+          _c("div", { staticClass: "d-flex " }, [
+            _c(
               "div",
+              { staticClass: "hey " },
               [
-                _c("follow-component", {
+                _c("profile-picture-component", {
                   attrs: {
-                    user: _vm.userId,
-                    profile: _vm.currentUser,
-                    status: _vm.status
+                    user: JSON.parse(_vm.user),
+                    size: "height: 75px; width: 75px;"
                   }
                 })
               ],
               1
-            )
-          : _vm._e()
-      ])
-    ])
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex-grow-1 pl-3" }, [
+              _c("div", [
+                _c(
+                  "a",
+                  { attrs: { href: "/" + JSON.parse(_vm.user).username } },
+                  [_c("h5", [_vm._v(_vm._s(JSON.parse(_vm.user).name))])]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c(
+                  "a",
+                  { attrs: { href: "/" + JSON.parse(_vm.user).username } },
+                  [_c("h5", [_vm._v(_vm._s(JSON.parse(_vm.user).username))])]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "title" }, [
+            _vm._v(_vm._s(JSON.parse(_vm.user).profile.bio))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-flex" }, [
+            _c(
+              "div",
+              { staticClass: "flex-grow-w" },
+              [_c("follows-component", { attrs: { u: JSON.parse(_vm.user) } })],
+              1
+            ),
+            _vm._v(" "),
+            _vm.userId !== _vm.currentUser
+              ? _c(
+                  "div",
+                  [
+                    _c("follow-component", {
+                      attrs: {
+                        user: _vm.userId,
+                        profile: _vm.currentUser,
+                        status: _vm.status
+                      }
+                    })
+                  ],
+                  1
+                )
+              : _vm._e()
+          ])
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -67233,7 +67609,7 @@ var render = function() {
       "button",
       {
         staticClass: "btn btn-default btn-lg w3-text-white",
-        staticStyle: { "background-color": "#7CFC00" },
+        staticStyle: { "background-color": "#04AA6D" },
         on: { click: _vm.goToRoute }
       },
       [_vm._v("\n        Read a random post by this author!\n    ")]
@@ -67271,7 +67647,7 @@ var render = function() {
           width: "100%",
           border: "1px solid white",
           color: "white",
-          "background-color": "#7CFC00"
+          "background-color": "#04AA6D"
         },
         attrs: { route: _vm.route },
         on: { click: _vm.goToRoute }

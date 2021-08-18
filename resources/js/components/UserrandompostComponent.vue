@@ -3,7 +3,7 @@
     
 <button 
         class="btn btn-default btn-lg w3-text-white" @click="goToRoute"
-        style="background-color: #7CFC00;">
+        style="background-color: #04AA6D;">
         Read a random post by this author!
     </button>    
   </div>

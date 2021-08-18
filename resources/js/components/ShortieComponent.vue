@@ -11,8 +11,12 @@
         </div>
 </div>
 
-    <div>
+    <div class="w3-hide-small w3-hide-medium">
       <header-component :user="shortie.user" :date="date" size="width: 35px">
+      </header-component>
+    </div>
+    <div class="w3-hide-large">
+      <header-component :user="shortie.user" :date="date" size="width: 60px; height: 60px;">
       </header-component>
     </div>
 
@@ -34,11 +38,10 @@
     <div>
             
             
-      <div 
-        v-html="shortie.shortie"
+      <div v-html="shortie.shortie"
         class="px-4 mb-4 w3-hide-small"
         @click="readShortie"
-        style="font-size: 26px; cursor: pointer"
+        style="font-size: 26px; cursor: pointer; font-weight: bold;"
       ></div>
       <div 
         v-html="shortie.shortie"
@@ -48,7 +51,7 @@
       ></div>
 
       <div class="w3-container shortieImages puppies">
-        <div class="w3-hide-small">
+        <div class="w3-hide-small w3-hide-medium">
           <div
             :class="
               shortie.shortie_photo.length == 1

@@ -1,6 +1,6 @@
 <div class="w3-container content">
     <div class="w3-row">
-        <div class="w3-col m8">
+        <div class="w3-col l8">
 
 
             <!-- Post search -->
@@ -34,7 +34,7 @@
 
         </div>
 
-        <div class="w3-col m4 w3-hide-small">
+        <div class="w3-col l4 w3-hide-small w3-hide-medium">
 
             <!-- <div class="w3-container ">
                 <div class=" d-flex" style="margin-bottom: 70px; ">

@@ -28,7 +28,7 @@
     
     <div class="w3-container w3-center">
     <div class="w3-margin"> This page is fighting for freedom </div>
-    <a class="btn btn-default btn-lg w3-text-white" style="text-decoration: none; background-color: #7CFC00;" href="{{ route('welcome') }}"> Click to free it  </a>
+    <a class="btn btn-default btn-lg w3-text-white" style="text-decoration: none; background-color: #04AA6D;" href="{{ route('welcome') }}"> Click to free it  </a>
     </div>
     
     @else

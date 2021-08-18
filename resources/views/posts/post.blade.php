@@ -42,7 +42,7 @@
 
                         <input class="py-1" type="email" name="recipient" placeholder="Enter email"
                             style="width: 80%; border: none; ">
-                        <button class="emailPost w3-button">Send</button>
+                        <button style="background-color: #04AA6D; color: white;" class="emailPost btn btn-default">Send</button>
                     </form>
                 </div>
 
@@ -97,7 +97,7 @@
                 @endauth
                 @guest
                 <div class="w3-containerw3-padding w3-center">
-                    <a style="font-size: 23px; background-color: #7CFC00" href="/login" class="btn btn-default btn-large w3-text-white">Sign In to
+                    <a style="font-size: 23px; background-color: #04AA6D; color: white" href="/login" class="btn btn-default btn-large w3-text-white">Sign In to
                         drop
                         a comment</a>
                 </div>
@@ -132,7 +132,7 @@
         <!--  -->
 
 
-        <div class="w3-col l4 w3-hide-small">
+        <div class="w3-col l4 w3-hide-small w3-hide-medium">
             <div class="">
                 <userrandompostexcept-component post-id="{{ $user->id }}" user-id="{{ $user->id }}">
                 </userrandompostexcept-component>

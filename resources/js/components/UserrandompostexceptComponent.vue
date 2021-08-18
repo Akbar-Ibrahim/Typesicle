@@ -3,7 +3,7 @@
     <!-- <div class="w3-padding">Click to read another article by this author</div> -->
 <button :route="route"
         class="btn btn-default btn-lg" @click="goToRoute"
-        style="width: 100%; border: 1px solid white; color: white; background-color: #7CFC00;">
+        style="width: 100%; border: 1px solid white; color: white; background-color: #04AA6D;">
         Read a random post
 
     </button>    

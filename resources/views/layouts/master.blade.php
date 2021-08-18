@@ -36,10 +36,10 @@ h5 {
     <!-- Sidebar/menu -->
     <nav class="w3-sidebar w3-bar-block w3-animate-right w3-top w3-text-white w3-large w3-hide-large"
         style="z-index:3;width:250px;font-weight:bold;display:none;right:0;background-color:#212121;" id="myRightSidebar">
-        <a style="text-decoration: none;" href="javascript:void()" onclick="w3_close_right_menu()" class="w3-bar-item w3-button w3-center w3-padding-32">CLOSE</a>
-        <a style="text-decoration: none;" href="/" class="w3-bar-item w3-button w3-center w3-padding-16">BACK TO TYPESICLE</a>
-        <a style="text-decoration: none;" href="/register" class="w3-bar-item w3-button w3-center w3-padding-16">SIGN UP</a>
-        <a style="text-decoration: none;" href="/login" class="w3-bar-item w3-button w3-center w3-padding-16">SIGN IN</a>
+        <a style="text-decoration: none;" href="javascript:void()" onclick="w3_close_right_menu()" class="w3-bar-item w3-button w3-center w3-padding-32 my-side">CLOSE</a>
+        <a style="text-decoration: none;" href="/" class="w3-bar-item w3-button w3-center w3-padding-16" my-side>BACK TO TYPESICLE</a>
+        <a style="text-decoration: none;" href="/register" class="w3-bar-item w3-button w3-center w3-padding-16 my-side">SIGN UP</a>
+        <a style="text-decoration: none;" href="/login" class="w3-bar-item w3-button w3-center w3-padding-16 my-side">SIGN IN</a>
         
     </nav>
 
@@ -49,12 +49,12 @@ h5 {
         <!-- <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a> -->
 
         @guest
-        <a style="text-decoration: none;" class="w3-right w3-button w3-text-white w3-hide-small" href="{{ route('login') }}">{{ __('Login') }}</a>
+        <a style="text-decoration: none;" class="w3-right w3-button w3-text-white w3-hide-small auth-links" href="{{ route('login') }}">{{ __('SIGN IN') }}</a>
         @if (Route::has('register'))
-        <a style="text-decoration: none;" class="w3-right w3-button w3-text-white w3-hide-small" href="{{ route('register') }}">{{ __('Register') }}</a>
+        <a style="text-decoration: none;" class="w3-right w3-button w3-text-white w3-hide-small auth-links" href="{{ route('register') }}">{{ __('SIGN UP') }}</a>
         @endif
         @endguest
-        <a href="javascript:void(0)" class="w3-right w3-button w3-text-white w3-hide-large" onclick="w3_open_right_menu()">☰</a>
+        <a style="background-color: #212121;" href="javascript:void(0)" class="w3-right w3-button w3-text-white w3-hide-large" onclick="w3_open_right_menu()">☰</a>
     </header>
 
     <!-- Overlay effect when opening sidebar on small screens -->
@@ -74,36 +74,6 @@ h5 {
             </div>
 
         </div>
-
-        <!-- Pagination -->
-        <div class="w3-center w3-padding-32">
-            <div class="w3-bar">
-
-            </div>
-        </div>
-
-        <!-- Modal for full size images on click-->
-        <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
-
-        </div>
-
-        <!-- About section -->
-        <div class="w3-container w3-dark-grey w3-center w3-text-light-grey w3-padding-32" id="about">
-
-
-        </div>
-
-        <!-- Contact section -->
-        <div class="w3-container w3-light-grey w3-padding-32 w3-padding-large" id="contact">
-
-
-        </div>
-
-        <!-- Footer -->
-        <footer class="w3-container w3-padding-32 w3-grey">
-
-
-        </footer>
 
 
 
@@ -141,6 +111,32 @@ h5 {
         document.getElementById("myRightOverlay").style.display = "none";
     }
     
+    $(document).ready(function() {
+        $(".my-side").click(function() {
+        $(this).css("background-color", "#363636")
+    });
+
+    $(".my-side").mouseover(function() {
+        $(this).css("background-color", "#363636")
+    });
+
+    $(".my-side").mouseout(function() {
+        $(this).css("background-color", "#212121")
+    });
+
+    $(".auth-links").click(function() {
+        $(this).css("background-color", "#363636")
+    });
+
+    $(".auth-links").mouseover(function() {
+        $(this).css("background-color", "#363636")
+    });
+
+    $(".auth-links").mouseout(function() {
+        $(this).css("background-color", "#212121")
+    });
+});
+
     $(document).ready(function() {
     $(document).keydown(function(event) {
     if (event.keyCode == 27) {

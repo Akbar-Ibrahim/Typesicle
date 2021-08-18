@@ -27,9 +27,7 @@
         </div>
       </div>
       <div style="margin: 12px 0">
-        <a v-if="JSON.parse(user).profile.twitter !== null" :href="JSON.parse(user).profile.twitter"><i class="fas fa fa-twitter"></i></a>
-        <a v-if="JSON.parse(user).profile.instagram !== null" :href="JSON.parse(user).profile.instagram"><i class="fas fa fa-instagram"></i></a>
-        <a v-if="JSON.parse(user).profile.facebook" :href="JSON.parse(user).profile.facebook"><i class="fas fa fa-facebook"></i></a>
+        <!-- social media links -->
       </div>
     </div>
   </div>

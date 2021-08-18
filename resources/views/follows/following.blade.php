@@ -27,7 +27,7 @@
             <div class="w3-margin w3-padding w3-border">
                 <user-component current-user="{{ $follow->profile->id }}" user-id="{{ Auth::user()->id }}"
                     usertype="auth" user="{{ json_encode($follow->profile->user) }}"
-                    status="{{Auth::user()->isFollowing($follow->profile->id) ? 1 : 0}}">
+                    status="{{Auth::user()->isFollowing($follow->profile->id) ? 1 : 0}}" page="follow">
                 </user-component>
             </div>
             @endforeach

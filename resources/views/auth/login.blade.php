@@ -157,10 +157,10 @@ span.psw {
 @endsection
 
 @section('content')
-<div class="w3-container content">
+<div class="content">
 
     <div class="w3-row">
-        <div class="w3-container">
+        <div class="">
             <div class="">
 
 
@@ -171,8 +171,8 @@ span.psw {
                             <h1>Sign In</h1>
                             <hr>
 
-                            <label for="email" class="">{{ __('E-Mail Address') }}</label>
-                            <input id="email" type="email" class="@error('email') is-invalid @enderror" name="email"
+                            <label for="email" class=""><b>{{ __('E-Mail Address') }}</b></label>
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
                                 value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                             @error('email')
@@ -181,8 +181,8 @@ span.psw {
                             </span>
                             @enderror
 
-                            <label for="password" class="">{{ __('Password') }}</label>
-                            <input id="password" type="password" class="@error('password') is-invalid @enderror"
+                            <label for="password" class=""><b>{{ __('Password') }}</b></label>
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
                                 name="password" required autocomplete="current-password">
 
                             @error('password')

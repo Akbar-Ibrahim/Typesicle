@@ -91,11 +91,11 @@ button:hover {
 @endsection
 
 @section('content')
-<div class="w3-container content">
+<div class="content">
 
     <div class="w3-row">
     
-        <div class="w3-container">
+        <div class="">
             <div class="">
 
                 <div class="container w3-border">
@@ -107,8 +107,8 @@ button:hover {
                             <p>Please fill in this form to create an account.</p>
                             <hr>
 
-                            <label for="name">{{ __('Name') }}</label>
-                            <input id="name" type="text" class="@error('name') is-invalid @enderror" name="name"
+                            <label for="name"> <b> {{ __('Name') }} </b></label>
+                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                                 value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                             @error('name')
@@ -117,8 +117,8 @@ button:hover {
                             </span>
                             @enderror
 
-                            <label for="username">{{ __('Username') }}</label>
-                            <input id="username" type="text" class="@error('username') is-invalid @enderror"
+                            <label for="username"> <b> {{ __('Username') }} </b> </label>
+                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
                                 name="username" value="{{ old('username') }}" required autocomplete="username"
                                 autofocus>
 
@@ -128,8 +128,8 @@ button:hover {
                             </span>
                             @enderror
 
-                            <label for="email">{{ __('E-Mail Address') }}</label>
-                            <input id="email" type="email" class="@error('email') is-invalid @enderror" name="email"
+                            <label for="email"><b>{{ __('E-Mail Address') }} </b> </label>
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
                                 value="{{ old('email') }}" required autocomplete="email">
 
                             @error('email')
@@ -138,8 +138,9 @@ button:hover {
                             </span>
                             @enderror
                             <br><br>
-                            <label for="password">{{ __('Password') }}</label>
-                            <input id="password" type="password" class="@error('password') is-invalid @enderror"
+
+                            <label for="password"><b>{{ __('Password') }}</b></label>
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
                                 name="password" required autocomplete="new-password">
 
                             @error('password')
@@ -149,15 +150,15 @@ button:hover {
                             @enderror
 
 
-                            <label for="password-confirm">{{ __('Confirm Password') }}</label>
-                            <input id="password-confirm" type="password" class="" name="password_confirmation" required
+                            <label for="password-confirm"><b>{{ __('Confirm Password') }}</b></label>
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required
                                 autocomplete="new-password">
 
 
 
 
-                            <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
-                                    Privacy</a>.</p>
+                            <!-- <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
+                                    Privacy</a>.</p> -->
 
                             <div class="clearfix">
                                 <button onclick="location.href='/register'" type="button"

@@ -29,7 +29,7 @@
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
             onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i> Close Menu</a>
         <div class="w3-container w3-center">
-            <a style="width: 100%; border: 1px solid #212121;" href="{{ route('home') }}"
+            <a style="width: 100%; border: 1px solid #212121; background-color: #212121;" href="{{ route('home') }}"
                 class="w3-bar-item btn btn-default btn-lg w3-text-white menu-links ">
                 Home</a>
         </div>
@@ -39,46 +39,46 @@
 
 
         <div class="w3-container w3-center">
-            <a style="width: 100%; border: 1px solid #212121;" href="{{ route('write.index') }}"
+            <a style="width: 100%; border: 1px solid #212121; background-color: #212121;" href="{{ route('write.index') }}"
                 class="w3-bar-item btn btn-default btn-lg w3-text-white menu-links ">
                 Write</a>
         </div>
 
         <div class="w3-container w3-center">
-            <a style="width: 100%; border: 1px solid #212121;" href="{{ route('draft.index') }}"
+            <a style="width: 100%; border: 1px solid #212121; background-color: #212121;" href="{{ route('draft.index') }}"
                 class="w3-bar-item btn btn-default btn-lg w3-text-white menu-links ">
                 Drafts</a>
         </div>
         <div class="w3-container w3-center">
-            <a style="width: 100%; border: 1px solid #212121;"
+            <a style="width: 100%; border: 1px solid #212121; background-color: #212121;"
                 href="{{ route('photos.index', Auth::user()->username) }}"
                 class="w3-bar-item btn btn-default btn-lg w3-text-white menu-links ">
                 Photos</a>
         </div>
         <div class="w3-container w3-center">
-            <a style="width: 100%; border: 1px solid #212121;" href="{{ route('popular') }}"
+            <a style="width: 100%; border: 1px solid #212121; background-color: #212121;" href="{{ route('popular') }}"
                 class="w3-bar-item btn btn-default btn-lg w3-text-white menu-links "> Popular on
                 Typesicle</a>
         </div>
         
         <div class="w3-container w3-center">
-            <a style="width: 100%; border: 1px solid #212121;"
+            <a style="width: 100%; border: 1px solid #212121; background-color: #212121;"
                 href="{{ route('history.index', Auth::user()->username) }}"
                 class="w3-bar-item btn btn-default btn-lg w3-text-white menu-links ">History</a>
         </div>
         <div class="w3-container w3-center">
-            <a style="width: 100%; border: 1px solid #212121;" href="{{ route('queue.index') }}"
+            <a style="width: 100%; border: 1px solid #212121; background-color: #212121;" href="{{ route('queue.index') }}"
                 class="w3-bar-item btn btn-default btn-lg w3-text-white menu-links ">
                 Queued Posts</a>
         </div>
         <div class="w3-container w3-center">
-            <a style="width: 100%; border: 1px solid #212121;" href="{{ route('category.index') }}"
+            <a style="width: 100%; border: 1px solid #212121; background-color: #212121;" href="{{ route('category.index') }}"
                 class="w3-bar-item btn btn-default btn-lg w3-text-white menu-links "> Categories</a>
         </div>
         <!-- <a href="{{ route('quizzes', $user->username) }}" class="w3-bar-item w3-button w3-padding"><i
                 class="fa fa-list fa-fw"></i> My Quizzes</a> -->
         <div class="w3-container w3-center">
-            <a style="width: 100%; border: 1px solid #212121;"
+            <a style="width: 100%; border: 1px solid #212121; background-color: #212121;"
                 href="{{ route('profile.show', Auth::user()->username) }}"
                 class="w3-bar-item btn btn-default btn-lg w3-text-white menu-links ">
                 Profile</a>

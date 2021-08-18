@@ -13,13 +13,22 @@
           v-html="feed.repost_message.substring(0, 250)"
         ></div>
       </div>
+      <div class="w3-hide-small w3-hide-medium">
     <header-component
       :user="feed.post.user"
       :date="date"
       size="width: 35px; height: 35px;"
     >
     </header-component>
-
+</div>
+<div class="w3-hide-large">
+    <header-component
+      :user="feed.post.user"
+      :date="date"
+      size="width: 60px; height: 60px;"
+    >
+    </header-component>
+</div>
     <div class="w3-row">
       
 
@@ -40,13 +49,22 @@
     <div class="w3-row">
       <div class="w3-col s9 pl-2">
         <div class="w3-container">
-          <h4 class="pl-3" >
-            <a
+          <h4 class="pl-3 w3-hide-small w3-hide-medium"  style="font-size: 30px">
+            <a style="text-decoration: none;"
               :href="`/post/${feed.user.username}/${feed.post.url}/${feed.id}`"
             >
-              {{ feed.post.title }}
+              <b>{{ feed.post.title }}</b>
             </a>
           </h4>
+
+<h1 class="pl-3 w3-hide-large"  style="font-size: 30px">
+            <a style="text-decoration: none;"
+              :href="`/post/${feed.user.username}/${feed.post.url}/${feed.id}`"
+            >
+              <b>{{ feed.post.title }}</b>
+            </a>
+          </h1>
+
 
           <div v-if="feed.post.category_id !== null" class="w3-container">
             Category:

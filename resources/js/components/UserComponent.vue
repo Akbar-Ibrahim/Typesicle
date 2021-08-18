@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <div class="d-flex ">
+        <div class="d-flex " v-if="page === 'follow'">
             <div class="hey ">
                 <profile-picture-component
                     :user="JSON.parse(user)"
@@ -20,26 +20,11 @@
                 </div>
                 <div class="title">{{ JSON.parse(user).profile.bio }}</div>
                 <div style="margin: 12px 0">
-                    <a
-                        v-if="JSON.parse(user).profile.twitter"
-                        :href="JSON.parse(user).profile.twitter"
-                        ><i class="fa fa-twitter"> </i
-                    ></a>
-                    <a
-                        v-if="JSON.parse(user).profile.instagram"
-                        :href="JSON.parse(user).profile.instagram"
-                        ><i class="fa fa-instagram"></i
-                    ></a>
-                    <a
-                        v-if="JSON.parse(user).profile.facebook"
-                        :href="JSON.parse(user).profile.facebook"
-                        ><i class="fa fa-facebook"></i
-                    ></a>
+                    <!-- social media links -->
                 </div>
             </div>
 
             <div class="hey">
-
                 <div v-if="userId !== currentUser">
                     <follow-component
                         :user="userId"
@@ -49,12 +34,52 @@
                 </div>
             </div>
         </div>
+
+        <!-- profile on small screens -->
+<div v-else-if="page === 'profile'">
+        <div class="d-flex ">
+            <div class="hey ">
+                <profile-picture-component
+                    :user="JSON.parse(user)"
+                    size="height: 75px; width: 75px;"
+                ></profile-picture-component>
+            </div>
+            <div class="flex-grow-1 pl-3">
+                <div>
+                    <a :href="`/${JSON.parse(user).username}`">
+                        <h5>{{ JSON.parse(user).name }}</h5>
+                    </a>
+                </div>
+                <div>
+                    <a :href="`/${JSON.parse(user).username}`">
+                        <h5>{{ JSON.parse(user).username }}</h5>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="title">{{ JSON.parse(user).profile.bio }}</div>
+
+        <div class="d-flex">
+            <div class="flex-grow-w">
+                <follows-component :u="JSON.parse(user)"></follows-component>
+            </div>
+            <div v-if="userId !== currentUser">
+                <follow-component
+                    :user="userId"
+                    :profile="currentUser"
+                    :status="status"
+                ></follow-component>
+            </div>
+        </div>
+        </div>
+
+        <!-- end -->
     </div>
 </template>
 
 <script>
 export default {
-    props: ["userId", "currentUser", "status", "user", "usertype"],
+    props: ["userId", "currentUser", "status", "user", "usertype", "page"],
 
     mounted() {
         this.fetchUser();
