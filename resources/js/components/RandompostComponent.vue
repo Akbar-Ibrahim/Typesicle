@@ -2,7 +2,7 @@
   <div class="">
 <button 
         class="btn btn-default btn-lg w3-text-white" @click="goToRoute"
-        style="background-color: #04AA6D;">
+        style="background-color: #04AA6D; font-size: 30px;">
         Pick a random post for me!
     </button>    
   </div>

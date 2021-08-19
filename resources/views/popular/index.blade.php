@@ -21,7 +21,8 @@
 
         <div class="w3-col m12 ">
             <div class="w3-container w3-center ">
-                <h1>Popular on Typesicle </h1>
+                <h1 class="w3-hide-small w3-hide-medium">Popular on Typesicle </h1>
+                <h1 style="font-size: 75px;" class="w3-hide-large"> <b> Popular on Typesicle </b> </h1>
             </div>
 
             @foreach($posts as $post)
@@ -32,7 +33,7 @@
                         <img src="/images/avatar.png" alt="Avatar" class="w3-center w3-circle w3-border"
                             style="width: 35px;" />
                         @else
-                        <img src="`/images/{{$post->user->id}}/profile_pic/{{$post->user->profile.picture}}`"
+                        <img src="`/images/{{$post->user->id}}/profile_pic/{{$post->user->profile->picture}}`"
                             alt="Avatar" class="w3-center w3-circle w3-border" style="width: 35px;" />
                         @endif
                     </a>
@@ -41,7 +42,8 @@
                 <div class="flex-grow-1">
                     <div>
                     <a style="text-decoration: none;" href="{{ route('post.url', [$post->user->username, $post->url, $post->feed->id]) }}">
-                        <h1>{{ $post->title }} </h1>
+                        <h1 class="w3-hide-small w3-hide-medium">{{ $post->title }} </h1>
+                        <h1 style="font-size: 40px;" class="w3-hide-large"> <b> {{ $post->title }} </b> </h1>
                     </a>
                     </div>
                     <div>

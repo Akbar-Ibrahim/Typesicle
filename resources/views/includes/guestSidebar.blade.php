@@ -1,18 +1,18 @@
 <nav class="w3-sidebar w3-bar-block w3-collapse w3-text-white w3-animate-left w3-card "
     style="z-index:3;width:300px; background-color: #212121" id="mySidebar"><br>
-    <div class="w3-container w3-hide-large w3-text-white">
-        <a href="javascript:void(0)" style="text-decoration: none; background-color: #212121;" 
-            class="w3-right btn btn-default btn-lg w3-margin w3-padding w3-text-white" onclick="w3_close()">X</a>
+    <div class="w3-container w3-hide-large w3-text-white w3-center" style="margin-bottom: 22px;">
+        <a href="javascript:void(0)" style="text-decoration: none; background-color: #212121; color: white;" 
+            class="btn btn-default btn-lg w3-margin w3-padding w3-text-white menu-links" onclick="w3_close()">CLOSE</a>
     </div>
 
     <div class="w3-container" style="margin-bottom: 40px;">
         <div class="w3-container w3-center" style="margin-bottom: 20px;">
-            <a style="width: 100%; background-color: #212121" class="btn btn-default btn-lg w3-border w3-text-white"
+            <a style="width: 100%; background-color: #04AA6D;" class="btn btn-default btn-lg w3-text-white menu-links"
                 href="/register">Get Started</a>
         </div>
 
         <div class="w3-container w3-center">
-            <a style="width: 100%; background-color: #212121" class="btn btn-default btn-lg w3-text-white"
+            <a style="width: 100%; background-color: #04AA6D;" class="btn btn-default btn-lg w3-text-white"
                 href="/login">SIGN IN</a>
         </div>
 
@@ -41,6 +41,11 @@
             <div class="w3-container w3-center">
                 <a style="width: 100%; border: 1px solid #212121; background-color: #212121;" href="{{ route('category.index') }}"
                     class="w3-bar-item btn btn-default btn-lg w3-text-white menu-links"> See Categories</a>
+            </div>
+
+            <div class="w3-container w3-center">
+                <a style="width: 100%; border: 1px solid #212121; background-color: #212121;" href="{{ route('hashtags.index') }}"
+                    class="w3-bar-item btn btn-default btn-lg w3-text-white menu-links"> Trending</a>
             </div>
         </div>
     </div>

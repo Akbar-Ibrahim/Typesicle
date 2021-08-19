@@ -82,7 +82,7 @@
                         <h4> Trending Now </h4>
 
                         @foreach($top_hashtags as $hashtag)
-                        <div class="py-2"> <a href="{{ route('hashtag', str_replace('#', '', $hashtag->hashtag)) }}">
+                        <div class="py-2"> <a href="{{ route('hashtags.hashtag', str_replace('#', '', $hashtag->hashtag)) }}">
                                 {{ $hashtag->hashtag }} </a> </div>
 
                         @endforeach

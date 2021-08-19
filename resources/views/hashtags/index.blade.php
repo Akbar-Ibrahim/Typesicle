@@ -4,73 +4,42 @@
 
 <link href="{{ asset('css/search-dropdown.css') }}" rel="stylesheet">
 <style>
-.one-image img:hover,
-.w3-third img:hover,
-.w3-half img:hover,
-.w3-quarter img:hover {
-    opacity: 0.6;
-    transition: 0.3s
+.content {
+    max-width: 800px;
+    margin: auto;
 }
 </style>
 @endsection
 
 @section('content')
 
-<div class="w3-main" style="margin-top:43px;">
+<div class="w3-container content">
+    <div class="w3-row-padding">
 
-
-    <!-- Header -->
-
-    <div class="w3-row-padding w3-margin-bottom">
-
-    </div>
-
-
-
-    <div class="w3-container mt-4 py-4">
-        <div class="w3-row-padding w3-margin-bottom">
-            <div class="w3-col m8">
-
-                <div class="w3-container">
-                    <h4>
-                        Posts under <a href="{{'/hashtag/'.$hashtag}}"> {{ '#' . $hashtag }} </a> </h4>
-
-                </div>
-
-
-                
-                
-                <f-component posts="{{ json_encode($hashtagPosts[0]->feed) }}" user-id="{{ Auth::user()->id }}" user="{{ json_encode($user) }}" 
-                user-type="auth">
-                    </f-component>
-
-                    
-
-            
-            
-        </div>
-
-        <div class="w3-col m4">
-            <div class="w3-container ">
-
-
-
-                <!-- End right -->
-            </div>
-        </div>
-
-    </div>
-
+<div class="w3-container">
+    <h1 class="w3-hide-small w3-hide-medium">Trending</h1>
+    <h1 style="font-size: 60px;" class="w3-hide-large"> <b> Trending </b> </h1>
 </div>
 
-</div>
+        @if(count($top_hashtags) > 0)
+        <div class="" >
 
-<!-- Modal for full size images on click-->
-<div id="modal01" class="w3-modal w3-black" style="padding-top: 0; z-index: 7;" onclick="this.style.display='none'">
-    <span class="w3-button w3-black w3-xlarge w3-display-topright">×</span>
-    <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
-        <img id="img01" class="w3-image" style="width: 50%">
-        <p id="caption"></p>
+            @foreach($top_hashtags as $hashtag)
+            <div class="w3-hide-small w3-hide-medium w3-padding w3-border"> <a style="text-decoration: none;" href="{{ route('hashtags.hashtag', str_replace('#', '', $hashtag->hashtag)) }}">
+                    {{ $hashtag->hashtag }} </a> </div>
+                    <div class="w3-hide-large w3-padding w3-border"> <a style="text-decoration: none; font-size: 30px;" href="{{ route('hashtags.hashtag', str_replace('#', '', $hashtag->hashtag)) }}">
+                    {{ $hashtag->hashtag }} </a> </div>
+
+            @endforeach
+        </div>
+        @else
+        <div class="w3-container">
+            <h1 class="w3-hide-small w3-hide-medium">Nothing to see here :)</h1>
+            <h1 style="font-size: 60px;" class="w3-hide-large"> <b> Nothing to see here :) </b> </h1>
+        </div>
+        @endif
+
+
 
     </div>
 </div>
@@ -79,28 +48,5 @@
 
 @section('scripts')
 <script src="{{ asset('js/profiles.js') }}" defer></script>
-
-<script>
-$(document).ready(function() {
-
-});
-</script>
-<!--     
-    <script>
-    
-    function openTab(evt, tabName) {
-        var i, x, tablinks;
-        x = document.getElementsByClassName("tabs");
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablink");
-        for (i = 0; i < x.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
-        }
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " w3-red";
-    }
-    </script> -->
 
 @endsection

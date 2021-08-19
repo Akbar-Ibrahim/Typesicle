@@ -48,10 +48,12 @@ class HistoryService
              
         // return History::where('user_id', $user->id)->where('created_at', '>=', $date)->with('feed', 'post')->get();
         $history = History::where(['user_id' => $user->id])->with('feed.user', 'feed.shortie', 'feed.post')->orderBy('created_at', 'desc')->get();
+        
 
         $histories = [];
 
             foreach ($history as $h) {
+                if ($h->feed)
                 if ($h->feed->post) {
                 if (auth()->user()->isLiked($h->feed->post_id)) {
                     $h->feed->post->is_liked = 1;

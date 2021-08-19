@@ -5711,14 +5711,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     queuePost: function queuePost() {
       if (this.type === "auth") {
-        var action = this.$refs.buttonToggle.textContent; // axios
-        //   .post("/queue/post/" + this.myFeed.id + "/" + this.userId + "/action", {
-        //     action: action,
-        //   })
-        //   .then((response) => {
-        //     console.log(response.data);
-        //   });
-
+        var action = this.$refs.buttonToggle.textContent;
+        axios.post("/queue/post/" + this.myFeed.id + "/" + this.userId + "/action", {
+          action: action
+        }).then(function (response) {
+          console.log(response.data);
+        });
         this.toggleQueue(action);
       } else {
         location.href = "/register";
@@ -65839,7 +65837,7 @@ var render = function() {
       "button",
       {
         staticClass: "btn btn-default btn-lg w3-text-white",
-        staticStyle: { "background-color": "#04AA6D" },
+        staticStyle: { "background-color": "#04AA6D", "font-size": "30px" },
         on: { click: _vm.goToRoute }
       },
       [_vm._v("\n        Pick a random post for me!\n    ")]

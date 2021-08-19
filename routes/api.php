@@ -102,8 +102,6 @@ Route::post('comment-reply', 'CommentController@handleCommentReply')->name('comm
 
 Route::post('/add/queue', 'QueueController@saveToQueue');
 Route::get('/all-queues/{user}', 'QueueController@getQueues');
-Route::post('/queue/delete', 'QueueController@deleteFromQueue');
-
 
 
 

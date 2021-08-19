@@ -234,11 +234,23 @@ class PostUtilController extends Controller
             return view("mail.sendArticle", compact("route", "post"));
     }
 
+    public function hashtags (PostUtilService $postUtilService) {
+        $top_hashtags = $postUtilService->getTopHashtags();
+        
+
+        if (auth()->user()) {
+                $user = $postUtilService->getAuthUser();
+                $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
+                return view("hashtags.index", compact('top_hashtags', 'n', 'user'));
+        }
+        return view("hashtags.index", compact('top_hashtags'));
+    }
+
     public function getHashtagPosts($hashtag, PostUtilService $postUtilService){
 
         $hashtagPosts = $postUtilService->getHashtagPosts($hashtag);
         
-        $user = $postUtilService->getAuthUser();
+        
         $top_categories = $postUtilService->getTopCategories();
         $top_authors = $postUtilService->getMostPopularAuthors();
         $random_post = $postUtilService->getRandomPost();
@@ -247,10 +259,12 @@ class PostUtilController extends Controller
         
 
 if(auth()->user()) {
+    $user = $postUtilService->getAuthUser();
     $n = Notification::where(["user_id" => auth()->user()->id, "read" => "no"])->get();
-    return view('hashtags.index', compact('hashtagPosts', 'hashtag', 'user', 'top_authors', 'top_categories', 'random_post', 'top_hashtags', 'n'));
+    return view('hashtags.hashtag', compact('hashtagPosts', 'hashtag', 'user', 'top_authors', 'top_categories', 'random_post', 'top_hashtags', 'n'));
 } else {
-    return view('hashtags.index', compact('hashtagPosts', 'hashtag', 'user', 'top_authors', 'top_categories', 'random_post', 'top_hashtags'));
+    $user = User::where(['role' => 'guest'])->first();
+    return view('hashtags.hashtag', compact('hashtagPosts', 'hashtag', 'user', 'top_authors', 'top_categories', 'random_post', 'top_hashtags'));
 }
         
     }
@@ -312,6 +326,15 @@ if(auth()->user()) {
                 }
 
         return "";
+    }
+
+    public function deleteFromQueue(){
+
+        $user = auth()->user();
+        return "hello";
+        return Queue::where('feed_id', $user->id)->delete();
+
+            
     }
 
     public function getTopHashtags (PostUtilService $postUtilService) {

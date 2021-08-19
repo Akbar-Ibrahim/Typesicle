@@ -95,6 +95,7 @@ class QueueController extends Controller
     {
         //
         $user = auth()->user();
+        return redirect()->back();
         return Queue::where('user_id', $user->id)->delete();
     }
 }

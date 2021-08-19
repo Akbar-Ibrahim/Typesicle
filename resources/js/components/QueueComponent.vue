@@ -26,13 +26,13 @@ export default {
 if (this.type === "auth") {
       var action = this.$refs.buttonToggle.textContent;
 
-      // axios
-      //   .post("/queue/post/" + this.myFeed.id + "/" + this.userId + "/action", {
-      //     action: action,
-      //   })
-      //   .then((response) => {
-      //     console.log(response.data);
-      //   });
+      axios
+        .post("/queue/post/" + this.myFeed.id + "/" + this.userId + "/action", {
+          action: action,
+        })
+        .then((response) => {
+          console.log(response.data);
+        });
 
       this.toggleQueue(action);
 

@@ -176,8 +176,11 @@ class PostUtilService
 
     public function getMostPopularAuthors()
     {
-
+        if (auth()->user()) {
         return User::postGreaterTen()->where('id', '!=', auth()->user()->id)->with('posts')->get();
+        } else {
+            return [];
+        }
     }
 
     public function getTopHashTags()

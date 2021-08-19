@@ -254,7 +254,8 @@ Route::get('/{username}/category/{categoryURL}', 'CategoryUtilController@getCate
 Route::post('/email-user', 'PostUtilController@emailPost')->name('email-post');
 
 // Hashtags
-Route::get('hashtag/{hashtag}', 'PostUtilController@getHashtagPosts')->name('hashtag');
+Route::get('hashtags', 'PostUtilController@hashtags')->name('hashtags.index');
+Route::get('hashtag/{hashtag}', 'PostUtilController@getHashtagPosts')->name('hashtags.hashtag');
 
 // Shorties
 Route::get('shortie/create', 'ShortieController@create')->name('shortie-create')->middleware('auth');
@@ -296,7 +297,7 @@ Route::delete('/history/delete',  'HistoryController@delete')->name('history.del
 Route::resource('queue', 'QueueController')->middleware('auth');
 Route::post('add/queue', 'QueueController@saveToQueue')->name('add.queue')->middleware('auth');
 Route::get('all/queue', 'QueueController@index')->name('get.queue')->middleware('auth');
-Route::delete('queue/delete', 'QueueController@deleteFromQueue')->name('delete.queue')->middleware('auth');
+Route::delete('queue/delete', 'PostUtilController@deleteFromQueue')->name('delete.queue')->middleware('auth');
 
 //Follow
 Route::get('profile-follow', 'FollowController@followProfile')->name('follow:profile')->middleware('auth');

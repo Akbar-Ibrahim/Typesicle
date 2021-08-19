@@ -75,6 +75,13 @@
             <a style="width: 100%; border: 1px solid #212121; background-color: #212121;" href="{{ route('category.index') }}"
                 class="w3-bar-item btn btn-default btn-lg w3-text-white menu-links "> Categories</a>
         </div>
+        <div class="w3-container w3-center">
+            <a style="width: 100%; border: 1px solid #212121; background-color: #212121;"
+                href="{{ route('hashtags.index') }}"
+                class="w3-bar-item btn btn-default btn-lg w3-text-white menu-links ">
+                Trending</a>
+        </div>
+
         <!-- <a href="{{ route('quizzes', $user->username) }}" class="w3-bar-item w3-button w3-padding"><i
                 class="fa fa-list fa-fw"></i> My Quizzes</a> -->
         <div class="w3-container w3-center">

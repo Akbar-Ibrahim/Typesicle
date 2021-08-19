@@ -36,10 +36,10 @@ h5 {
     <!-- Sidebar/menu -->
     <nav class="w3-sidebar w3-bar-block w3-animate-right w3-top w3-text-white w3-large w3-hide-large"
         style="z-index:3;width:250px;font-weight:bold;display:none;right:0;background-color:#212121;" id="myRightSidebar">
-        <a style="text-decoration: none;" href="javascript:void()" onclick="w3_close_right_menu()" class="w3-bar-item w3-button w3-center w3-padding-32 my-side">CLOSE</a>
-        <a style="text-decoration: none;" href="/" class="w3-bar-item w3-button w3-center w3-padding-16" my-side>BACK TO TYPESICLE</a>
-        <a style="text-decoration: none;" href="/register" class="w3-bar-item w3-button w3-center w3-padding-16 my-side">SIGN UP</a>
-        <a style="text-decoration: none;" href="/login" class="w3-bar-item w3-button w3-center w3-padding-16 my-side">SIGN IN</a>
+        <a style="text-decoration: none; background-color: #212121;" href="javascript:void()" onclick="w3_close_right_menu()" class="w3-bar-item w3-button w3-center w3-padding-32 my-side">CLOSE</a>
+        <a style="text-decoration: none; background-color: #212121;" href="/" class="w3-bar-item w3-button w3-center w3-padding-16" my-side>BACK TO TYPESICLE</a>
+        <a style="text-decoration: none; background-color: #212121;" href="/register" class="w3-bar-item w3-button w3-center w3-padding-16 my-side">SIGN UP</a>
+        <a style="text-decoration: none; background-color: #212121;" href="/login" class="w3-bar-item w3-button w3-center w3-padding-16 my-side">SIGN IN</a>
         
     </nav>
 
